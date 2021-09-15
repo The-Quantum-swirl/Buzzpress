@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import 'antd/dist/antd.css'; 
 import './App.css';
 import Routes from './Routes';
 function App() {

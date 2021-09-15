@@ -3,7 +3,7 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import ProtectedRoute from './components/ProtectedRoute';
 import LoginPage from "./screens/loginPage";
 import Logout from "./components/logout";
-
+import Home from './screens/Home';
 export default function Routes() {
     return (
         <BrowserRouter>
@@ -12,6 +12,7 @@ export default function Routes() {
                 <Route path="/logout" component={Logout} />
                 {/* <ProtectedRoute path="/admin" role="admin" component={Admin} /> */}
                 <Redirect from="/" exact to="/login" />
+                <Route path="/home" component={Home} />
             </Switch>
         </BrowserRouter>
     )
