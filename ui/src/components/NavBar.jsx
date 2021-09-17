@@ -1,8 +1,8 @@
-import { Avatar, Image } from 'antd';
+import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { Layout, Menu, Divider } from 'antd';
+import { Layout, Menu } from 'antd';
 import { Dropdown, Button } from 'antd';
-const { Header, Content, Footer } = Layout;
+const { Header} = Layout;
 const menu = (
     <Menu>
       <Menu.Item>

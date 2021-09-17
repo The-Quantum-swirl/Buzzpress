@@ -2,7 +2,8 @@ import 'antd/dist/antd.css';
 import './App.css';
 import Routes from './Routes';
 function App() {
-  return (<Routes />
+  return (
+    <Routes />
     // <div className="App">
     //   <header className="App-header">
     //     <img src={logo} className="App-logo" alt="logo" />
