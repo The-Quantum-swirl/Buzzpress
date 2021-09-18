@@ -1,4 +1,4 @@
-import { Row, Col } from 'antd';
+import { Row, Col, Space } from 'antd';
 import { Typography} from 'antd';
 import Topics from './Topics';
 const { Text, Title } = Typography;
@@ -20,6 +20,7 @@ export default function BuzzCard(props){
     const subHeading = props.data.subHeading;
     const publishDate = sqlDateToMonthYearFormat(props.data.publishDate);
     const readTime = props.data.readTime;
+    const tag = props.data.tag;
     const authorLink = props.data.authorLink;
     const articleLink =props.data.link;
     const imageLink = props.data.imageLink;  
@@ -30,7 +31,7 @@ export default function BuzzCard(props){
         // border:'1px solid rgba(0, 0, 0, 0.06)',
         }}>
         <Row>
-            <Col span={16} style={{padding:'5px'}}>
+            <Col span={17} style={{padding:'5px'}}>
             {/* author name start*/}
             <a href={authorLink} target='_blank'>
             <div style={{height:'26px',overflow:'hidden'}}>
@@ -41,24 +42,35 @@ export default function BuzzCard(props){
 
             {/* heading start */}
             <a href={articleLink} target="_blank">
-            <div style={{height:'68px',overflow:'hidden'}}>
+            <div style={{maxheight:'68px',minHeight:'34px',overflow:'hidden'}}>
             <Title level={3} style={{marginTop:'0', fontWeight:'700',}} ellipsis={{rows:2}}>{heading}</Title>
             </div>
             {/* heading end */}
 
             {/* subheading start (small intro) */}
-            <Text ellipsis={true} >{subHeading}</Text>
+            <div style={{maxheight:'40px',minHeight:'20px',overflow:'hidden'}}>
+            <Title level={5} ellipsis={{rows:2}}>{subHeading}</Title>
+            </div>
             </a>
             {/* subheading end */}
 
             {/* card footer start */}
-            <div style={{height:'20px',overflow:'hidden', position:'absolute', bottom:'3%'}}>
-            <Text ellipsis={true} >{publishDate} {readTime} read </Text> <Topics data="code" />
+            <div style={{height:'22px', marginBottom:'0%', marginTop:'auto'}}>
+            <Space wrap={true} style={{width:'70%'}}>
+            <span style={{backgroundColor:'rgba(0, 0, 0, 0.03)', borderRadius:'200px',
+                padding:'2px 12px 2px', display:'table',}}>
+                <Text style={{ display:'table-cell', verticalAlign:'middle' }}>
+                    {publishDate} 
+                    <Text style={{marginLeft:'10px'}}>{readTime+" read"} </Text> 
+                    <Text strong style={{marginLeft:'10px'}}>{tag}</Text> 
+                </Text>
+            </span>
+            </Space>
             </div>
             {/* card footer end */}
             </Col>
 
-            <Col span={8}>
+            <Col span={7}>
             {/* image start */}
             <div style={{ height:'150px', width:'220px',
             marginRight:'0', marginLeft:'auto', 

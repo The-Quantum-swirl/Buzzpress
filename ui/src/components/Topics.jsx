@@ -6,11 +6,10 @@ export default function Topics(props){
 
 
     return (
-    <span style={{backgroundColor:'rgba(0, 0, 0, 0.06)',
-        borderRadius:'100px', padding:'0px 12px 0px 12px',}}>
-        <Text strong style={{
-        textAlign:'center', 
-        display:'inline-flex',
+    <span style={{backgroundColor:'rgba(0, 0, 0, 0.08)', borderRadius:'200px',
+     padding:'4px 12px', display:'table',}}>
+        <Text style={{
+        display:'table-cell', verticalAlign:'middle'
         }}>
         {tag}</Text>
 
