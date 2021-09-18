@@ -43,7 +43,7 @@ export default function BuzzCard(props){
             {/* heading start */}
             <a href={articleLink} target="_blank">
             <div style={{maxheight:'68px',minHeight:'34px',overflow:'hidden'}}>
-            <Title level={3} style={{marginTop:'0', fontWeight:'700',}} ellipsis={{rows:2}}>{heading}</Title>
+            <Title level={3} style={{marginTop:'0',marginBottom:'5px', fontWeight:'700',}} ellipsis={{rows:2}}>{heading}</Title>
             </div>
             {/* heading end */}
 
@@ -72,7 +72,8 @@ export default function BuzzCard(props){
 
             <Col span={7}>
             {/* image start */}
-            <div style={{ height:'150px', width:'220px',
+            <div style={{ maxHeight:'150px', maxWidth:'220px',
+            height:'100%',width:'100%',
             marginRight:'0', marginLeft:'auto', 
             }}>
             <img style={{height:'100%', width:'100%'}} 

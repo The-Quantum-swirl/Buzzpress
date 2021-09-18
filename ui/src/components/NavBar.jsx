@@ -28,9 +28,10 @@ const menu = (
 export default function NavBar() {
     return (
     <div >
-      <Header>
+      <Header style={{boxShadow: '0 4px 18px 0 rgb(0 0 0 / 10%)',
+      }}>
       <div className="logo" />
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} >
         <Menu.Item key={1} style={{fontSize:'25px', color:'white'}}>BuzzPress</Menu.Item>
         <Dropdown overlay={menu} placement="bottomRight" arrow>
         <Button style={{

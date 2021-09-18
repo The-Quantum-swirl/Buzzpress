@@ -4,7 +4,7 @@ import { Typography, Space, Divider } from 'antd';
 import BuzzCard from "../components/BuzzCard";
 import Topics from "../components/Topics";
 import RadialChart from "../components/RadialChart.js";
-import { InstagramOutlined, TwitterCircleFilled } from "@ant-design/icons";
+import { InstagramOutlined, TwitterOutlined } from "@ant-design/icons";
 const { Text, Link } = Typography;
 const { Footer} = Layout;
 
@@ -105,7 +105,7 @@ export default function Home(){
             <Divider style={{margin:'0', width:'22%', minWidth:'5%'}} />
             {
                 displayData.map((dataObject) => {
-                    console.log(dataObject);
+                    {/* console.log(dataObject); */}
                     return <BuzzCard data={dataObject} />;
                 })
             }
@@ -114,15 +114,17 @@ export default function Home(){
         
         </Col>
 
-        <Col span={1}>
+        <Col span={1} id="fadeshow" >
             <Divider  type="vertical" style={{ height: "100%" }} />
         </Col>
-        <Col span={7} style={{
+        <Col span={7} id="fadeshow" style={{
             paddingTop:'30px',
         }}>
 
             <Space direction="vertical" style={{position:'sticky', top: '5%',}}>
             {/* performance chart start */}
+            <Text type="secondary">Performance</Text>
+            <Divider style={{margin:'0', width:'50%', minWidth:'30%'}} />
             <RadialChart />
             {/* performance chart end */}
 
@@ -130,12 +132,18 @@ export default function Home(){
             <Text type="secondary">Connect Your</Text>
             <Divider style={{margin:'0', width:'40%', minWidth:'30%'}} />
             
-            <Space wrap={true} style={{width:'50%'}}>
-            <Link href="https://www.instagram.com" target="_blank">
-                <InstagramOutlined style={{ fontSize: '30px', color: '#d500f9' }}  />
+            <Space wrap={true} style={{width:'60%'}}>
+            <Link href="https://www.instagram.com" target="_blank"
+            style={{backgroundColor:'rgba(0, 0, 0, 0.08)', borderRadius:'200px',
+            padding:'5px 10px', display:'table'}}>
+                <InstagramOutlined style={{ fontSize: '24px', color: '#e040fb' }}  />
+                <Text style={{paddingLeft:'5px',display:'table-cell', verticalAlign:'middle'}}>Instagram</Text>
             </Link>
-            <Link href="https://www.twitter.com" target="_blank">
-                <TwitterCircleFilled style={{ fontSize: '30px', color: '#08c' }}  />
+            <Link href="https://www.twitter.com" target="_blank"
+            style={{backgroundColor:'rgba(0, 0, 0, 0.08)', borderRadius:'200px',
+            padding:'5px 10px', display:'table'}}>
+                <TwitterOutlined style={{ fontSize: '24px', color: '#08c' }}  />
+                <Text style={{paddingLeft:'5px',display:'table-cell', verticalAlign:'middle'}}>Twitter</Text>
             </Link>
             </Space>
             {/* connect social media end */}
@@ -159,7 +167,7 @@ export default function Home(){
         </Row>
         <br />
             
-        <Footer>Footer</Footer>
+        <Footer>Copyright ©2021 Buzzpress Inc. All rights reserved.</Footer>
 
 
         </>
