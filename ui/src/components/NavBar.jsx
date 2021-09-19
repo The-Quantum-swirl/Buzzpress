@@ -3,29 +3,32 @@ import { UserOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import { Dropdown, Button } from 'antd';
 import { Typography} from 'antd';
+import { useHistory } from "react-router-dom";
+import Logout from './logout';
 const { Header} = Layout;
 const { Text } = Typography;
-const menu = (
-    <Menu>
-      <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-          Write something
-        </a>
-      </Menu.Item>
-      <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-          Settings
-        </a>
-      </Menu.Item>
-      <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
-          Logout
-        </a>
-      </Menu.Item>
-    </Menu>
-  );
 
 export default function NavBar() {
+  let history = useHistory();
+  const menu = (
+  <Menu>
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" onClick={(e) => history.push('/create')}>
+        Write something
+      </a>
+    </Menu.Item>
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" onClick={(e) => history.push('/settings')}>
+        Settings
+      </a>
+    </Menu.Item>
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" onClick={(e) => <Logout />}>
+        Logout
+      </a>
+    </Menu.Item>
+  </Menu>
+  );
     return (
     <div >
       <Header style={{boxShadow: '0 4px 18px 0 rgb(0 0 0 / 10%)',

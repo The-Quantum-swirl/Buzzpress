@@ -5,6 +5,7 @@ import LoginPage from "./screens/loginPage";
 import Logout from "./components/logout";
 import Home from './screens/Home';
 import UserDetails from './screens/UserDetails';
+import Create from './screens/Create';
 export default function Routes() {
     return (
         <BrowserRouter>
@@ -15,6 +16,7 @@ export default function Routes() {
                 <Redirect from="/" exact to="/login" />
                 <Route path="/home" component={Home} />
                 <Route path="/settings" component={UserDetails} />
+                <Route path="/create" component={Create} />
 
             </Switch>
         </BrowserRouter>

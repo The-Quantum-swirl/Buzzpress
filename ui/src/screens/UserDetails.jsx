@@ -1,6 +1,7 @@
 import React from 'react'
 import { PageHeader, Statistic, Row, Col, Card, Divider } from "antd";
 import MessageCard from "../components/MessageCard";
+import NavBar from '../components/NavBar';
 
 
 export default function UserDetails() {
@@ -9,6 +10,7 @@ export default function UserDetails() {
     };
     return (
         <div>
+            <NavBar />
             <PageHeader
                 subTitle={Date().toLocaleString()}
                 backIcon={false}
