@@ -11,17 +11,22 @@ export default function Create() {
   const [subHeading, setSubHeading] = useState("");
   let [para, setPara] = useState([""]);
 
-  function handleChange(event, position) {
-    let oldPara = para;
-    oldPara[position] = event.target.value;
-    setPara(oldPara);
+  const handleChange = (event, position) => {
+    let updatedPara = [...para];
+    updatedPara[position]= event.target.value;
+    setPara(updatedPara)
   }
 
-  function handleFieldChange(event, pos) {
-    console.log(pos);
+  const addField = (event, pos) => {
     let oldPara = [...para];
     oldPara.splice(pos + 1, 0, "");
-    console.log(oldPara);
+    setPara(oldPara);
+  }
+  const deleteField = (event, pos) => {
+    if (para.length === 1 )   return;
+
+    let oldPara = [...para];
+    oldPara.splice(pos, 1);
     setPara(oldPara);
   }
 
@@ -47,9 +52,9 @@ export default function Create() {
             placeholder="Heading"
             multiline
             variant="standard"
-            //   value={draft[0]} 
+            value={heading}
             onChange={(e) => setHeading(e.target.value)}
-            style={{ width: '100%', marginBottom: '28px' }}
+            style={{ width: '95%', margin:'10px', marginBottom: '18px',  }}
           />
 
           <TextField
@@ -58,27 +63,30 @@ export default function Create() {
             placeholder="Subheading"
             multiline
             variant="standard"
-            //   value={draft[1]}
+            value={subHeading}
             onChange={(e) => setSubHeading(e.target.value)}
-            style={{ width: '100%', marginBottom: '28px' }}
+            style={{ width: '95%', margin:'10px', marginBottom: '18px' }}
           />
-
+          {heading}{subHeading}
           {/* {fieldComponent} */}
           {para.map((object, index) => {
             return (
-              <>
+              <div>
                 <TextField
                   id="standard-textarea"
                   placeholder="Write here"
                   multiline
                   variant="standard"
-                  // value={object}
-                  onChange={(e) => { handleChange(e, index) }}
-                  style={{ width: '90%', marginBottom: '28px', marginRight: '15px' }}
+                  value={para[index]}
+                  onChange={(e) => handleChange(e,index)}
+                  style={{ width: '75%', margin:'10px', marginBottom: '18px', marginRight: '15px' }}
                 />
+                <Button shape="circle" size="large" style={{marginRight: '15px' }}
+                  onClick={(e) => addField(e, index)}>+</Button>
+                
                 <Button shape="circle" size="large"
-                  onClick={(e) => handleFieldChange(e, index)}>+</Button>
-              </>
+                  onClick={(e) => deleteField(e, index)}>-</Button>
+              </div>
             );
           })}
 
