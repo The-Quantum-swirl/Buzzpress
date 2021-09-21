@@ -1,10 +1,13 @@
-import React from 'react'
-import { PageHeader, Statistic, Row, Col, Card, Divider } from "antd";
+import React from 'react';
+import { Col, Divider, PageHeader, Row, Tabs, Input, Space, Button, Switch } from "antd";
+
+
 import MessageCard from "../components/MessageCard";
 import NavBar from '../components/NavBar';
 
 
 export default function UserDetails() {
+    const { TabPane } = Tabs;
     const props = {
         rmPersonalData: { firstName: "Hari" }, todaysData: [{ name: "helen", type: "loan", }]
     };
@@ -34,8 +37,27 @@ export default function UserDetails() {
                         ) : null} */}
                     </Col>
                 </Row>
+
+                <Divider />
+                <Tabs defaultActiveKey="1" >
+                    <TabPane tab="Personal Details" key="1">
+                        <Space direction="vertical">
+                            <Input placeholder="Name" />
+                            <Input placeholder="Email" />
+                            <Input.Password placeholder="input password" />
+                            <Button type="primary" >
+                                Update
+                            </Button>
+                        </Space>
+                    </TabPane>
+                    <TabPane tab="Misc" key="2">
+                        Content of Tab Pane 2
+                    </TabPane>
+                    <TabPane tab="Prefrences" key="3">
+                        Toggle Dark Mode <Switch defaultChecked />
+                    </TabPane>
+                </Tabs>
             </PageHeader>
-            <Divider />
         </div>
     )
 }

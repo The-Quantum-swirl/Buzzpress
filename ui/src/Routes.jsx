@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import ProtectedRoute from './components/ProtectedRoute';
+// import ProtectedRoute from './components/ProtectedRoute';
 import LoginPage from "./screens/loginPage";
 import Logout from "./components/logout";
 import Home from './screens/Home';
