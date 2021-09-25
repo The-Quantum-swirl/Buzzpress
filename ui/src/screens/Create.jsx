@@ -4,7 +4,6 @@ import { Steps, Row, Col } from 'antd';
 import { Button, Input, Select, Space, Divider } from 'antd';
 import { TextField, MenuItem } from '@mui/material';
 import { PlusCircleTwoTone, MinusCircleTwoTone, MinusOutlined, PlusOutlined } from "@ant-design/icons";
-import { TextField } from '@mui/material';
 const { TextArea } = Input;
 const { Step } = Steps;
 
