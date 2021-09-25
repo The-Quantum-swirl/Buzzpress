@@ -69,6 +69,7 @@ export default function Create() {
             value={heading}
             onChange={(e) => setHeading(e.target.value)}
             style={{ width: '95%', margin: '10px', marginBottom: '18px', }}
+            color="secondary"
           />
 
           <TextField id="standard-textarea"
@@ -91,7 +92,7 @@ export default function Create() {
                   value={typee[index]}
                   label="Type"
                   onChange={(e) => handleSelectChange(e, index)}
-                  style={{ maxwidth: "10%" }}>
+                  style={{ maxWidth: "10%" }}>
                   <MenuItem value={"Heading"}>Heading</MenuItem>
                   <MenuItem value={"Subheading"}>Subheading</MenuItem>
                   <MenuItem value={"Paragraph"}>Paragraph</MenuItem>
