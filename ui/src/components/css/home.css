@@ -1,0 +1,9 @@
+.imghover {
+  -webkit-filter: brightness(80%);
+  transition-duration: 0.5s;
+}
+
+.imghover:hover {
+  -webkit-filter: brightness(100%);
+  transition-duration: 0.5s;
+}
