@@ -1,24 +1,23 @@
 import React from 'react';
 import { Col, Divider, PageHeader, Row, Tabs, Input, Space, Button, Switch } from "antd";
-
-
-import MessageCard from "../components/MessageCard";
+import MessageCard from "../components/settings/MessageCard";
 import NavBar from '../components/NavBar';
-
+import InfoCard from "../components/settings/InfoCard.jsx";
 
 export default function UserDetails() {
     const { TabPane } = Tabs;
     const props = {
-        rmPersonalData: { firstName: "Hari" }, todaysData: [{ name: "helen", type: "loan", }]
+        PersonalData: { firstName: "Hari" }, todaysData: [{ name: "helen", type: "loan", }]
     };
     return (
         <div>
             <NavBar />
             <PageHeader
-                subTitle={Date().toLocaleString()}
+                subTitle={(new Date()).toUTCString()}
                 backIcon={false}
                 title={
-                    <span style={{ fontWeight: "bold", fontSize: 40 }}>Dashboard</span>
+                    "Settings"
+                    // <span style={{ fontWeight: "bold", fontSize: 40 }}>Dashboard</span>
                 }
             >
                 <Divider orientation="left">Statistics</Divider>
@@ -26,7 +25,7 @@ export default function UserDetails() {
                     {" "}
                     <Col className="gutter-row" span={16}>
                         <MessageCard
-                            rmPersonalData={props.rmPersonalData}
+                            rmPersonalData={props.PersonalData}
                             todaysData={props.todaysData}
                         />
                     </Col>
@@ -39,9 +38,14 @@ export default function UserDetails() {
                 </Row>
 
                 <Divider />
-                <Tabs defaultActiveKey="1" >
+                <Tabs defaultActiveKey="1" style={{marginLeft:'5%'}}>
                     <TabPane tab="Personal Details" key="1">
                         <Space direction="vertical">
+                            <InfoCard title="Name" description="Change your name" />
+                            <InfoCard title="Email" description="Change your email" />
+                            <InfoCard title="Password" description="Change your password" />
+
+
                             <Input placeholder="Name" />
                             <Input placeholder="Email" />
                             <Input.Password placeholder="input password" />

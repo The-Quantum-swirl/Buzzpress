@@ -1,9 +1,9 @@
 import NavBar from "../components/NavBar";
 import { Layout, Row, Col } from 'antd';
 import { Typography, Space, Divider } from 'antd';
-import BuzzCard from "../components/BuzzCard";
-import Topics from "../components/Topics";
-import RadialChart from "../components/RadialChart.js";
+import BuzzCard from "../components/home/BuzzCard";
+import Topics from "../components/home/Topics";
+import RadialChart from "../components/home/RadialChart.js";
 import { InstagramOutlined, TwitterOutlined } from "@ant-design/icons";
 const { Text, Link } = Typography;
 const { Footer} = Layout;
