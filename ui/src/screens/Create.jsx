@@ -2,6 +2,7 @@ import NavBar from "../components/NavBar";
 import { useState } from "react";
 import { Steps, Row, Col } from 'antd';
 import { Button, Input, Select, Space, Divider } from 'antd';
+import { PlusCircleTwoTone, MinusCircleTwoTone, MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { TextField } from '@mui/material';
 const { TextArea } = Input;
 const { Step } = Steps;
@@ -81,11 +82,12 @@ export default function Create() {
                   onChange={(e) => handleChange(e,index)}
                   style={{ width: '75%', margin:'10px', marginBottom: '18px', marginRight: '15px' }}
                 />
+                
                 <Button shape="circle" size="large" style={{marginRight: '15px' }}
-                  onClick={(e) => addField(e, index)}>+</Button>
+                  onClick={(e) => addField(e, index)}><PlusOutlined /></Button>
                 
                 <Button shape="circle" size="large"
-                  onClick={(e) => deleteField(e, index)}>-</Button>
+                  onClick={(e) => deleteField(e, index)}><MinusOutlined /></Button>
               </div>
             );
           })}
