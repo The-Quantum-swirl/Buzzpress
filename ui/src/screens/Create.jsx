@@ -1,15 +1,17 @@
 import NavBar from "../components/NavBar";
 import { useState } from "react";
+import ScreenSize from "../components/ScreenSize";
 import { Steps, Row, Col } from 'antd';
 import { Button, Input, Select, Space, Divider } from 'antd';
 import { TextField, MenuItem } from '@mui/material';
-import { PlusCircleTwoTone, MinusCircleTwoTone, MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import { MinusOutlined, PlusOutlined, LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
 const { TextArea } = Input;
 const { Step } = Steps;
 
 export default function Create() {
   const [heading, setHeading] = useState("");
   const [subHeading, setSubHeading] = useState("");
+  const [currentStep, setCurrentStep] = useState(0);
   let [para, setPara] = useState([""]);
 
   const handleChange = (event, position) => {
@@ -24,6 +26,7 @@ export default function Create() {
     setPara(oldPara);
     typee.push("Paragraph");
     console.log(typee);
+    console.log("Screeen size "+ScreenSize)
   }
   const deleteField = (event, pos) => {
     if (para.length === 1) return;
@@ -36,7 +39,7 @@ export default function Create() {
     settypee(oldTypee)
     console.log(typee);
   }
-  let [typee, settypee] = useState(["Pragraph"])
+  let [typee, settypee] = useState(["Paragraph"])
   function handleSelectChange(e, index) {
     console.log(e);
     // console.log(typee);
@@ -45,21 +48,38 @@ export default function Create() {
     settypee(newtype);
     console.log("type change called");
   }
+  const handleNext = () => {
+    if (currentStep+1 < 3){
+      setCurrentStep(currentStep+1);
+    }
+    // else publish
+  }
+
+  const handlePrevious = () => {
+    if (currentStep-1 > -1){
+      setCurrentStep(currentStep-1);
+    }
+  }
   return (
     <>
       <NavBar />
       <Row>
 
-        <Col offset={4} span={16}>
+        <Col offset={2} span={20}>
           {/* <Space direction="vertical"> */}
 
-          <Steps size="default" current={0} style={{ marginTop: '3%', padding: '2%' }}>
-            <Step title="Create" />
-            <Step title="Preview" />
-            <Step title="Share" />
+          <Steps 
+            size="default" 
+            type="navigation"
+            current={currentStep} 
+            style={{ marginTop: '3%' }}>
+
+            <Step title="Create" description="What's on your mind" />
+            <Step title="Preview" description="See what it will look" />
+            <Step title="Share" description="Share on social media" />
           </Steps>
 
-          <Divider style={{ margin: '1% 0 5% 0', width: '100%', minWidth: '30%' }} />
+          {/* <Divider style={{ margin: '1% 0 5% 0', width: '100%', minWidth: '30%' }} /> */}
 
           <TextField id="standard-textarea"
             //   label=
@@ -68,7 +88,7 @@ export default function Create() {
             variant="standard"
             value={heading}
             onChange={(e) => setHeading(e.target.value)}
-            style={{ width: '95%', margin: '10px', marginBottom: '18px', }}
+            style={{ width: '95%', margin: '18px', }}
             color="secondary"
           />
 
@@ -79,23 +99,26 @@ export default function Create() {
             variant="standard"
             value={subHeading}
             onChange={(e) => setSubHeading(e.target.value)}
-            style={{ width: '95%', margin: '10px', marginBottom: '18px' }}
+            style={{ width: '95%', margin: '18px' }}
           />
           {heading}{subHeading}
           {/* {fieldComponent} */}
           {para.map((object, index) => {
             return (
-              <div>
+              <div style={{ width: '95%', margin: '10px' }} >
                 <Select
                   labelId="type_select"
                   id={"para_" + index}
                   value={typee[index]}
                   label="Type"
                   onChange={(e) => handleSelectChange(e, index)}
-                  style={{ maxWidth: "10%" }}>
-                  <MenuItem value={"Heading"}>Heading</MenuItem>
-                  <MenuItem value={"Subheading"}>Subheading</MenuItem>
-                  <MenuItem value={"Paragraph"}>Paragraph</MenuItem>
+                  style={{ maxWidth: "10%" }}
+                  // size="small"
+                  >
+                  
+                  <MenuItem value={"Heading"}>h1</MenuItem>
+                  <MenuItem value={"Subheading"}>h2</MenuItem>
+                  <MenuItem value={"Paragraph"}>p</MenuItem>
                 </Select>
                 <TextField
                   id="standard-textarea"
@@ -104,17 +127,23 @@ export default function Create() {
                   variant="standard"
                   value={para[index]}
                   onChange={(e) => handleChange(e, index)}
-                  style={{ width: '75%', margin: '10px', marginBottom: '18px', marginRight: '15px' }}
+                  style={{ width: '75%', margin: '10px' }}
                 />
 
-                <Button shape="circle" size="large" style={{ marginRight: '15px' }}
+                <Button shape="circle" size="middle" style={{ marginRight: '1%' }}
                   onClick={(e) => addField(e, index)}><PlusOutlined /></Button>
 
-                <Button shape="circle" size="large"
+                <Button shape="circle" size="middle"
                   onClick={(e) => deleteField(e, index)}><MinusOutlined /></Button>
               </div>
             );
           })}
+          <Button shape="circle" size="large" style={{padding:'0'}} onClick={handlePrevious}>
+          <LeftCircleOutlined style={{fontSize:'39px', color: '#08c'}} />
+          </Button>
+          <Button shape="circle" size="large" style={{padding:'0'}} onClick={handleNext}>
+          <RightCircleOutlined style={{fontSize:'39px', color: '#08c'}} />
+          </Button>
 
           {/* </Space> */}
         </Col>

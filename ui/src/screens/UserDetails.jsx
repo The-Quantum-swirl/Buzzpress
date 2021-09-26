@@ -16,9 +16,10 @@ export default function UserDetails() {
                 subTitle={(new Date()).toUTCString()}
                 backIcon={false}
                 title={
-                    "Settings"
-                    // <span style={{ fontWeight: "bold", fontSize: 40 }}>Dashboard</span>
+                    // "Settings"
+                    <span style={{ fontWeight: "bold", fontSize: 30 }}>Settings</span>
                 }
+                style={{marginLeft:'4%'}}
             >
                 <Divider orientation="left">Statistics</Divider>
                 <Row gutter={12}>
@@ -38,7 +39,7 @@ export default function UserDetails() {
                 </Row>
 
                 <Divider />
-                <Tabs defaultActiveKey="1" style={{marginLeft:'5%'}}>
+                <Tabs defaultActiveKey="1">
                     <TabPane tab="Personal Details" key="1">
                         <Space direction="vertical">
                             <InfoCard title="Name" description="Change your name" />
