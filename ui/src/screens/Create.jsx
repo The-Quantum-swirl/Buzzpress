@@ -2,13 +2,15 @@ import NavBar from "../components/NavBar";
 import { useState } from "react";
 import ScreenSize from "../components/ScreenSize";
 import { Steps, Row, Col } from 'antd';
-import { Button, Input, Select, Space, Divider } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { Button, Input, Select, Space, Divider, Radio } from 'antd';
 import { TextField, MenuItem } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { MinusOutlined, PlusOutlined, LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
-const { TextArea } = Input;
-const { Step } = Steps;
+import UploadButton from "../components/UploadButton";
 
 export default function Create() {
+  const [inputType, setInputType] = useState(["para"]);
   const [heading, setHeading] = useState("");
   const [subHeading, setSubHeading] = useState("");
   const [currentStep, setCurrentStep] = useState(0);
@@ -39,12 +41,17 @@ export default function Create() {
     settypee(oldTypee)
     console.log(typee);
   }
-  let [typee, settypee] = useState(["Paragraph"])
+
+  let [typee, settypee] = useState(["para"])
   function handleSelectChange(e, index) {
     console.log(e);
-    // console.log(typee);
+    let inparr = [...inputType];
+    inparr[index] = e.target.value;
+    setInputType(inparr);
+
+    console.log(typee);
     let newtype = [...typee];
-    newtype[index] = e;
+    newtype[index] = e.target.value;
     settypee(newtype);
     console.log("type change called");
   }
@@ -63,63 +70,52 @@ export default function Create() {
   return (
     <>
       <NavBar />
-      <Row>
+      <Row style={{marginTop:'2%'}}>
 
-        <Col offset={2} span={20}>
-          {/* <Space direction="vertical"> */}
-
-          <Steps 
-            size="default" 
-            type="navigation"
-            current={currentStep} 
-            style={{ marginTop: '3%' }}>
-
-            <Step title="Create" description="What's on your mind" />
-            <Step title="Preview" description="See what it will look" />
-            <Step title="Share" description="Share on social media" />
-          </Steps>
-
-          {/* <Divider style={{ margin: '1% 0 5% 0', width: '100%', minWidth: '30%' }} /> */}
-
+        <Col offset={1} span={22} style={{maxWidth:'700px'}}>
+        
           <TextField id="standard-textarea"
-            //   label=
-            placeholder="Heading"
+            placeholder="Title"
             multiline
             variant="standard"
             value={heading}
             onChange={(e) => setHeading(e.target.value)}
-            style={{ width: '95%', margin: '18px', }}
+            style={{ width: '90%', 
+            margin:'15px' 
+            }}
             color="secondary"
           />
 
           <TextField id="standard-textarea"
-            //   label="Subheading"
-            placeholder="Subheading"
+            placeholder="Recap"
             multiline
             variant="standard"
             value={subHeading}
             onChange={(e) => setSubHeading(e.target.value)}
-            style={{ width: '95%', margin: '18px' }}
+            style={{ width: '90%',
+            margin: '15px' 
+             }}
           />
           {heading}{subHeading}
           {/* {fieldComponent} */}
           {para.map((object, index) => {
             return (
-              <div style={{ width: '95%', margin: '10px' }} >
-                <Select
-                  labelId="type_select"
-                  id={"para_" + index}
-                  value={typee[index]}
-                  label="Type"
-                  onChange={(e) => handleSelectChange(e, index)}
-                  style={{ maxWidth: "10%" }}
-                  // size="small"
-                  >
-                  
-                  <MenuItem value={"Heading"}>h1</MenuItem>
-                  <MenuItem value={"Subheading"}>h2</MenuItem>
-                  <MenuItem value={"Paragraph"}>p</MenuItem>
-                </Select>
+              <div style={{ margin: '15px',}} >
+                <Radio.Group defaultValue="heading" buttonStyle="solid" 
+                size="middle"
+                onChange={(e) => handleSelectChange(e, index)} >
+                  <Radio.Button value="heading">Heading</Radio.Button>
+                  <Radio.Button value="para">Para</Radio.Button>
+                  <Radio.Button value="image">Image</Radio.Button>
+                </Radio.Group>
+                
+                <Row style={{ marginTop:'20px'}}>
+                <Col span={17}>
+                {inputType[index] === "image"? 
+                (
+                <UploadButton />
+
+                ):(
                 <TextField
                   id="standard-textarea"
                   placeholder="Write here"
@@ -127,26 +123,47 @@ export default function Create() {
                   variant="standard"
                   value={para[index]}
                   onChange={(e) => handleChange(e, index)}
-                  style={{ width: '75%', margin: '10px' }}
+                  style={{ width: '100%', marginRight: '1%' }}
                 />
+                )}
+                </Col>
+                <Col offset={1} span={6}>
 
                 <Button shape="circle" size="middle" style={{ marginRight: '1%' }}
                   onClick={(e) => addField(e, index)}><PlusOutlined /></Button>
 
                 <Button shape="circle" size="middle"
                   onClick={(e) => deleteField(e, index)}><MinusOutlined /></Button>
+                </Col>
+                </Row>
+
               </div>
             );
           })}
-          <Button shape="circle" size="large" style={{padding:'0'}} onClick={handlePrevious}>
-          <LeftCircleOutlined style={{fontSize:'39px', color: '#08c'}} />
+
+          <div style={{width:"100%"}}>
+          <Button shape="round" size="large" 
+          // style={{padding:'0'}} 
+          onClick={handlePrevious}
+          // icon={<LeftCircleOutlined style={{fontSize:'39px', color: '#08c'}} />}
+          >Back
           </Button>
-          <Button shape="circle" size="large" style={{padding:'0'}} onClick={handleNext}>
-          <RightCircleOutlined style={{fontSize:'39px', color: '#08c'}} />
+
+          <Button shape="round" size="large" 
+          style={{ float:'right'}} 
+          onClick={handleNext}
+          // icon={<RightCircleOutlined style={{fontSize:'39px', color: '#08c'}} />}
+          >
+            Next
           </Button>
+          </div>
 
           {/* </Space> */}
         </Col>
+
+        <div id="fadeshow">
+          #preview here
+        </div>
       </Row>
     </>
   );
