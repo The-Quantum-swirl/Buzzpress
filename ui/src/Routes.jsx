@@ -5,7 +5,7 @@ import LoginPage from "./screens/loginPage";
 import Logout from "./components/logout";
 import Home from './screens/Home';
 import UserDetails from './screens/UserDetails';
-import Create from './screens/Create';
+import Write from './screens/Write/Write';
 export default function Routes() {
     return (
         <BrowserRouter>
@@ -13,10 +13,10 @@ export default function Routes() {
                 <Route path="/login" component={LoginPage} />
                 <Route path="/logout" component={Logout} />
                 {/* <ProtectedRoute path="/admin" role="admin" component={Admin} /> */}
-                <Redirect from="/" exact to="/login" />
+                <Redirect from="/" exact to="/home" />
                 <Route path="/home" component={Home} />
                 <Route path="/settings" component={UserDetails} />
-                <Route path="/create" component={Create} />
+                <Route path="/create" component={Write} />
 
             </Switch>
         </BrowserRouter>

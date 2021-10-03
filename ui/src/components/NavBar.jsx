@@ -44,10 +44,10 @@ export default function NavBar() {
           <Button style={{
           backgroundColor:'inherit',
           width:'40px',height:'40px',
-          border: '2px solid white',
+          border: '2px solid cyan',
           padding:'0', borderRadius:'50%',
           }}>
-            <Avatar  style={{ width:'36px',height:'36px',backgroundColor: '#87d068', }} icon={<UserOutlined />} />
+            <Avatar  style={{ width:'36px',height:'36px',backgroundColor: '#FFAE42', }} icon={<UserOutlined />} />
           </Button>
           </Dropdown>
         </Menu.Item>

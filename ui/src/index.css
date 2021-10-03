@@ -16,3 +16,16 @@ code {
     display: none;
   }
 }
+@media all and (max-width: 2000px) and (min-width: 701px) {
+  .desktop {
+   margin-left:20%;
+   margin-right: 20%;
+  }
+}
+@media all and (max-width: 700px) and (min-width: 100px) {
+  .mobile {
+    margin: 2%;
+   margin-left:5%;
+   margin-right: 5%;
+  }
+}
