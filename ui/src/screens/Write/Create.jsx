@@ -14,7 +14,7 @@ export default function Create() {
   const [heading, setHeading]       = useState("");
   const [subHeading, setSubHeading] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
-  const [inputType, setInputType]   = useState(["para"]);
+  const [inputType, setInputType]   = useState(["heading"]);
   const [para, setPara]             = useState([""]);
 
   const handleChange = (event, position) => {
@@ -29,7 +29,7 @@ export default function Create() {
     setPara(oldPara);
 	
     let oldType = [...inputType];
-    oldType.push("para");
+    oldType.push("heading");
     setInputType(oldType);
 
     console.log("Var para = "+para+ "; Var inputType : "+inputType);
@@ -71,6 +71,7 @@ export default function Create() {
 	  head:heading,
 	  subHead: subHeading,
 	  paragraph: para,
+    paraType : inputType,
 	  readTime: "5 min",
     authorLink: "https://drckangelo.medium.com/?source=post_page-----8f2258f81899--------------------------------",
     tag: selectedTags,
@@ -130,10 +131,11 @@ export default function Create() {
                   buttonStyle="solid"
                   size="middle"
                   onChange={(e) => handleSelectChange(e, index)}
+                  
                 >
-                  <Radio.Button value="heading">Heading</Radio.Button>
-                  <Radio.Button value="para">Para</Radio.Button>
-                  <Radio.Button value="image">Image</Radio.Button>
+                  <Radio.Button style={{borderRadius:'100px'}} value="heading">Heading</Radio.Button>
+                  <Radio.Button style={{borderRadius:'100px'}} value="para">Para</Radio.Button>
+                  <Radio.Button style={{borderRadius:'100px'}} value="image">Image</Radio.Button>
                 </Radio.Group>
 
                 <Row style={{ marginTop: "20px" }}>

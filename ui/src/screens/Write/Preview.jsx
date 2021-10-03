@@ -33,6 +33,9 @@ export default function Preview(props) {
   const heading = props.data.head || "Empty Title";
   const subHeading = props.data.subHead || "Empty Recap";
   const para = props.data.paragraph;
+  const paraType = props.data.paraType;
+
+  const paraMap = { heading: 3, para: 5};
 
   return (
     <>
@@ -81,7 +84,7 @@ export default function Preview(props) {
             {subHeading}
           </Title>
 
-          {para.map((point) => {
+          {para.map((point, i) => {
             return checkURL(point) ? (
               <img
                 src={point}
@@ -89,7 +92,7 @@ export default function Preview(props) {
                 style={{ width: "100%", height: "auto", marginBottom:'15px' }}
               />
             ) : (
-              <Title level={5}>{point}</Title>
+              <Title level={paraMap[ paraType[i] ]}>{point}</Title>
             );
           })}
 
