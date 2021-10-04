@@ -33,35 +33,20 @@ export default function BuzzCard(props) {
 
   return (
     <>
-      <div
-        style={{
-          width: "100%",
-          height: "150px",
-          marginTop: "30px",
-          // border:'1px solid rgba(0, 0, 0, 0.06)',
-        }}
-      >
         <Row>
           <Col span={17} style={{ padding: "5px" }}>
             {/* author name start*/}
             <a href={authorLink} target="_blank" rel="noreferrer">
-              <div style={{ height: "26px", overflow: "hidden" }}>
+              {/* <div style={{ height: "26px", overflow: "hidden" }}> */}
                 <Title level={5} ellipsis={true}>
                   {authorname}
                 </Title>
-              </div>
             </a>
             {/* author name end */}
 
             {/* heading start */}
             <a href={articleLink} target="_blank" rel="noreferrer">
-              <div
-                style={{
-                  maxheight: "68px",
-                  minHeight: "34px",
-                  overflow: "hidden",
-                }}
-              >
+              
                 <Title
                   level={3}
                   style={{
@@ -73,28 +58,16 @@ export default function BuzzCard(props) {
                 >
                   {heading}
                 </Title>
-              </div>
               {/* heading end */}
 
               {/* subheading start (small intro) */}
-              <div
-                style={{
-                  maxheight: "40px",
-                  minHeight: "20px",
-                  overflow: "hidden",
-                }}
-              >
                 <Title level={5} ellipsis={{ rows: 2 }}>
                   {subHeading}
                 </Title>
-              </div>
             </a>
             {/* subheading end */}
 
             {/* card footer start */}
-            <div
-              style={{ height: "22px", marginBottom: "0%", marginTop: "auto" }}
-            >
               <Space wrap={true} style={{ width: "70%" }}>
                 <span
                   style={{
@@ -117,11 +90,10 @@ export default function BuzzCard(props) {
                   </Text>
                 </span>
               </Space>
-            </div>
             {/* card footer end */}
           </Col>
 
-          <Col span={7}>
+          <Col span={7} style={{position:'relative'}}>
             {/* image start */}
             <div
               style={{
@@ -131,6 +103,8 @@ export default function BuzzCard(props) {
                 width: "100%",
                 marginRight: "0",
                 marginLeft: "auto",
+                position:'absolute',
+                bottom:'10%',
               }}
             >
               <img alt="unable to upload"
@@ -142,8 +116,6 @@ export default function BuzzCard(props) {
             {/* image end */}
           </Col>
         </Row>
-      </div>
-      {/* </Card> */}
     </>
   );
 }

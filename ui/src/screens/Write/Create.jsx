@@ -131,11 +131,10 @@ export default function Create() {
                   buttonStyle="solid"
                   size="middle"
                   onChange={(e) => handleSelectChange(e, index)}
-                  
                 >
-                  <Radio.Button style={{borderRadius:'100px'}} value="heading">Heading</Radio.Button>
-                  <Radio.Button style={{borderRadius:'100px'}} value="para">Para</Radio.Button>
-                  <Radio.Button style={{borderRadius:'100px'}} value="image">Image</Radio.Button>
+                  <Radio.Button  value="heading">Head</Radio.Button>
+                  <Radio.Button  value="para">Para</Radio.Button>
+                  <Radio.Button  value="image">Image</Radio.Button>
                 </Radio.Group>
 
                 <Row style={{ marginTop: "20px" }}>

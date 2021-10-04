@@ -97,7 +97,7 @@ export default function Home(){
         <NavBar / >
 
         <Row >
-        <Col span={16} style={{padding:'2% 2% 2% 6%',}}>
+        <Col span={23} style={{maxWidth:'800px' , padding:'2% 2% 2% 6%',}}>
             
             <Space direction="vertical" > 
             
