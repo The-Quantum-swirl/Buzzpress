@@ -1,10 +1,22 @@
+import { useState } from "react";
 import Topics from "../../components/home/Topics";
 import { Row, Col, Typography } from "antd";
-import { Avatar, Space } from "antd";
-import { UserOutlined } from "@ant-design/icons";
-const { Text, Title } = Typography;
+import { Avatar, Space, Button } from "antd";
+import { UserOutlined, FireFilled, FireOutlined } from "@ant-design/icons";
+const { Title, Paragraph, Text } = Typography;
+
+const DateToMonthYearFormat = (date) => {
+  let todaysDate = date.toDateString();
+  let dateArr = todaysDate.split(" ");
+  return dateArr[1] + " " + Number(dateArr[2]).toString() + ", " + dateArr[3];
+};
+
+function checkURL(url) {
+  return url.match(/\.(jpeg|jpg|gif|png|svg)$/) != null;
+}
 
 export default function Preview(props) {
+  const [onFire, setOnFire] = useState(false);
   if (
     props.data === undefined ||
     props.data.head === undefined ||
@@ -12,16 +24,6 @@ export default function Preview(props) {
     props.data.paragraph === undefined
   ) {
     return <> Err occured in Preview !!! </>;
-  }
-
-  const DateToMonthYearFormat = (date) => {
-    let todaysDate = date.toDateString();
-    let dateArr = todaysDate.split(" ");
-    return dateArr[1] + " " + Number(dateArr[2]).toString() + ", " + dateArr[3];
-  };
-
-  function checkURL(url) {
-    return url.match(/\.(jpeg|jpg|gif|png|svg)$/) != null;
   }
 
   const authorName = "Derick David";
@@ -34,45 +36,51 @@ export default function Preview(props) {
   const subHeading = props.data.subHead || "Empty Recap";
   const para = props.data.paragraph;
   const paraType = props.data.paraType;
+  const fireCount = props.data.fireCount || 0;
 
-  const paraMap = { heading: 3, para: 5};
+  function handleFire(){
+    setOnFire(!onFire) ;
+  }
 
+  const paraMap = { heading: 3, para: 4};
+  const mapData = (type, val) => {
+    if (type === 'heading') return <Title level={2}> {val}</Title>;
+    else if (type === 'para') return <Text> {val}</Text>;
+
+  }
   return (
     <>
       <Row justify="center" style={{ marginTop: "5%" }}>
         <Col className="desktop mobile">
-            
         <a href={authorLink} target="_blank" rel="noreferrer">
-          <div style={{ display: "table" }}>
-            <Avatar
+            <div
               style={{
-                width: "40px",
-                height: "40px",
-                backgroundColor: "blue",
-                display: "table-cell",
-              }}
-              icon={<UserOutlined />}
-            />
-            <span
-              style={{
-                backgroundColor: "rgba(0, 0, 0, 0.03)",
-                borderRadius: "20px 200px 200px 20px",
-                padding: "2px 12px 2px",
-                display: "table-cell",
-                verticalAlign:'middle',
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: 'center',
+                height: "34px",
+                width: "100%",
               }}
             >
-              <Text style={{ display: "table-cell", verticalAlign: "middle" }}>
-                <Text strong>{authorName}</Text>
-                <Text style={{ marginLeft: "10px" }}>{publishDate}</Text>
-                <Text style={{ marginLeft: "10px" }}>
-                  {readTime + " read"}
-                </Text>
-              </Text>
-            </span>
-            
-          </div>
-        </a>
+              <Avatar
+                style={{
+                  width: "34px",
+                  height: "34px",
+                  backgroundColor: "blue",
+                }}
+                icon={<UserOutlined />}
+              />
+              <span
+                id="author"
+                style={{
+                  backgroundColor: "rgba(0, 0, 0, 0.03)",
+                  padding: "0px 22px 0px 0",
+                }}
+              >
+                <Text>{authorName}</Text>
+              </span>
+            </div>
+          </a>
 
           <Title
             level={1} ellipsis={{ rows: 2 }}
@@ -80,7 +88,7 @@ export default function Preview(props) {
           >
             {heading}
           </Title>
-          <Title level={3} ellipsis={{ rows: 2 }} style={{ textAlign:'center'}}>
+          <Title level={5} ellipsis={{ rows: 2 }} style={{ textAlign:'center'}}>
             {subHeading}
           </Title>
 
@@ -92,15 +100,46 @@ export default function Preview(props) {
                 style={{ width: "100%", height: "auto", marginBottom:'15px' }}
               />
             ) : (
-              <Title level={paraMap[ paraType[i] ]}>{point}</Title>
+              mapData(paraType[i], point)
             );
           })}
+          
+          {/* <Title level={paraMap[ paraType[i] ]}>{point}</Title> */}
+          <div
+            style={{
+              margin:'auto',
+              marginTop:'50px',
+              backgroundColor: "rgba(0, 0, 0, 0.03)",
+              borderRadius: "200px",
+              padding: "2px 12px 2px",
+              display: "table",
+            }}
+          >
+            <Text style={{ display: "table-cell", verticalAlign: "middle" }}>
+              {publishDate}
+              <Text style={{ marginLeft: "10px" }}>
+                {readTime + " read"}
+              </Text>
+              
+              <Button shape="round" icon={onFire ? <FireFilled style={{color:'#f50057'}} /> : 
+              <FireOutlined style={{color:'#f50057'}} />} 
+              onClick={handleFire}
+              style={{backgroundColor:'inherit', border:'0'}} >
+              {fireCount+ (onFire? 1:0)}
+              </Button>
+            </Text>
+          </div>
 
-          <Space wrap={true} style={{margin:'5%'}}>
+          <div style={{margin:'auto', padding: "20px 12px 10px 12px",}}>
+          <Space wrap={true}>
             {tag.map((topic) => <Topics data={topic} />)}
-            </Space>
+          </Space>
+          </div>
+
         </Col>
       </Row>
+      
+      
     </>
   );
 }
