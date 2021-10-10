@@ -104,7 +104,7 @@ export default function BuzzCard(props) {
               {/* heading end */}
 
               {/* subheading start (small intro) */}
-              <Title level={5} ellipsis={{ rows: 2 }} style={{marginTop:0}}>
+              <Title level={5} ellipsis={{ rows: 2 }} style={{marginTop:0, fontWeight:'450'}}>
                 {subHeading}
               </Title>
             </div>
