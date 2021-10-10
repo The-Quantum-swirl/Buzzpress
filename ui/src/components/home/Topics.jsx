@@ -1,5 +1,5 @@
 import { Typography} from 'antd';
-const { Text } = Typography;
+const { Text, Title } = Typography;
 
 export default function Topics(props){
     const tag = props.data || '';
@@ -8,10 +8,10 @@ export default function Topics(props){
     return (
     <span style={{backgroundColor:'rgba(0, 0, 0, 0.08)', borderRadius:'200px',
      padding:'4px 12px', display:'table',}}>
-        <Text style={{
-        display:'table-cell', verticalAlign:'middle'
+        <Title level={5} style={{
+        display:'table-cell', verticalAlign:'middle', fontWeight:'400'
         }}>
-        {tag}</Text>
+        {tag}</Title>
 
     </span>
     );

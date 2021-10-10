@@ -11,7 +11,7 @@ const DateToMonthYearFormat = (date) => {
   return dateArr[1] + " " + Number(dateArr[2]).toString() + ", " + dateArr[3];
 };
 
-function checkURL(url) {
+const checkURL = (url) => {
   return url.match(/\.(jpeg|jpg|gif|png|svg)$/) != null;
 }
 
@@ -44,8 +44,8 @@ export default function Preview(props) {
 
   const paraMap = { heading: 3, para: 4};
   const mapData = (type, val) => {
-    if (type === 'heading') return <Title level={2}> {val}</Title>;
-    else if (type === 'para') return <Text> {val}</Text>;
+    if (type === 'heading') return <Title level={2} style={{fontWeight:'500'}}> {val}</Title>;
+    else if (type === 'para') return  <Title level={4} style={{fontWeight:'450'}}> {val}</Title>;
 
   }
   return (
@@ -77,7 +77,7 @@ export default function Preview(props) {
                   padding: "0px 22px 0px 0",
                 }}
               >
-                <Text>{authorName}</Text>
+                <Text style={{fontWeight:'500'}}>{authorName}</Text>
               </span>
             </div>
           </a>
@@ -88,7 +88,7 @@ export default function Preview(props) {
           >
             {heading}
           </Title>
-          <Title level={5} ellipsis={{ rows: 2 }} style={{ textAlign:'center'}}>
+          <Title level={3} ellipsis={{ rows: 2 }} style={{ textAlign:'center', fontWeight:'450'}}>
             {subHeading}
           </Title>
 
