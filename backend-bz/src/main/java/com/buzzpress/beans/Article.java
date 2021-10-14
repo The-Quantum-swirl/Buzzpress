@@ -22,10 +22,10 @@ public class Article {
 	@Id
 	@SequenceGenerator(name = "ArticleId_sequence", sequenceName = "ArticleId_sequence", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ArticleId_sequence")
-	private Long ArticleId;
-	private Long AuthorId;
-	private String Heading;
-	private String Subheading;
+	private Long articleId;
+	private Long authorId;
+	private String heading;
+	private String subHeading;
 	@Lob
-	private String Description;
+	private String description;
 }
