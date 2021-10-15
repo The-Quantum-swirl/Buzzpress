@@ -28,4 +28,5 @@ public class Article {
 	private String subHeading;
 	@Lob
 	private String description;
+	private String textType;
 }

@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class ArticleMeta {
     @Id
-    private Long ArticleId;
+    private Long articleId;
     private Long views;
     private Float rating;
     private String topic;
@@ -26,4 +26,5 @@ public class ArticleMeta {
     private Article article;
     private String createdOn;
     private String author;
+
 }
