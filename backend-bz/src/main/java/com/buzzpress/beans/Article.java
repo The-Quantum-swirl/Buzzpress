@@ -1,5 +1,6 @@
 package com.buzzpress.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +27,8 @@ public class Article {
 	private Long authorId;
 	private String heading;
 	private String subHeading;
-	@Lob
+//	@Lob
+	@Column(columnDefinition="TEXT")
 	private String description;
 	private String textType;
 }

@@ -17,7 +17,7 @@ public class IArticleServiceImpl implements IArticleService {
 
     @Override
     public void saveArticle(Article art) {
-        articleDataRepository.save(art);
+        articleDataRepository.saveAndFlush(art);
 
     }
 
