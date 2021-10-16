@@ -2,6 +2,8 @@ package com.buzzpress.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 import com.buzzpress.beans.Article;
 import com.buzzpress.beans.Users_;
 import com.buzzpress.model.ResponseMessage;
@@ -11,6 +13,7 @@ import com.buzzpress.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -40,5 +43,11 @@ public class DummyController {
 
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
 
+    }
+
+    @GetMapping(value = "/article")
+    public List<Article> getAllArticles() {
+
+        return iArticleService.displayAllArticles();
     }
 }
