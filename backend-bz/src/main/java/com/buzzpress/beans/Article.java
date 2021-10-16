@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 
 import lombok.AllArgsConstructor;
@@ -27,8 +26,9 @@ public class Article {
 	private Long authorId;
 	private String heading;
 	private String subHeading;
-//	@Lob
-	@Column(columnDefinition="TEXT")
+	// @Lob
+	@Column(columnDefinition = "TEXT")
 	private String description;
 	private String textType;
+	private String topic;
 }

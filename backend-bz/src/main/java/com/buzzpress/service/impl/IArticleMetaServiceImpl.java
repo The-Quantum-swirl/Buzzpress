@@ -21,9 +21,27 @@ public class IArticleMetaServiceImpl implements IArticleMetaSevice {
     }
 
     @Override
-    public ArticleMeta fetchArticleMetadata(long articleId) {
+    public List<ArticleMeta> fetchArticleMetaByArticleId(Long articleId) {
         List<ArticleMeta> articleMeta = articleMetaDataRepository.findAllByArticleId(articleId);
-        return articleMeta.get(0);
+        return articleMeta;
+    }
+
+    @Override
+    public List<ArticleMeta> fetchArticleMetaByAuthorId(Long authorId) {
+        List<ArticleMeta> articleMeta = articleMetaDataRepository.findByAuthorId(authorId);
+        return articleMeta;
+    }
+
+    @Override
+    public List<ArticleMeta> fetchArticleMetaByTopic(String topic) {
+        List<ArticleMeta> articleMeta = articleMetaDataRepository.findByTopic(topic);
+        return articleMeta;
+    }
+
+    @Override
+    public void saveMetaData(Long articleId, String author, Long authorId, String topic) {
+        ArticleMeta metaData = new ArticleMeta(articleId, author, authorId, topic);
+        articleMetaDataRepository.save(metaData);
     }
 
 }
