@@ -8,5 +8,11 @@ public interface IArticleMetaSevice {
 
     public List<ArticleMeta> fetchAllArticleMetadata();
 
-    public ArticleMeta fetchArticleMetadata(long articleId);
+    public List<ArticleMeta> fetchArticleMetaByArticleId(Long articleId);
+
+    public List<ArticleMeta> fetchArticleMetaByAuthorId(Long authorId);
+
+    public List<ArticleMeta> fetchArticleMetaByTopic(String topic);
+
+    public void saveMetaData(Long articleId, String author, Long authorId, String topic);
 }

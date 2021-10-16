@@ -9,6 +9,8 @@ import com.buzzpress.service.IArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javassist.NotFoundException;
+
 @Service
 public class IArticleServiceImpl implements IArticleService {
 
@@ -24,6 +26,23 @@ public class IArticleServiceImpl implements IArticleService {
     @Override
     public List<Article> displayAllArticles() {
         List<Article> allArticles = articleDataRepository.findAll();
+        return allArticles;
+    }
+
+    @Override
+    public List<Article> fetchArticleByArticleId(Long articleId) {
+        List<Article> allArticles = articleDataRepository.findByArticleId(articleId);
+        return allArticles;
+    }
+
+    @Override
+    public List<Article> fetchArticleByAuthorId(long authorId) throws NotFoundException {
+        List<Article> allArticles = null;
+        try {
+            allArticles = articleDataRepository.findByAuthorId(authorId);
+        } catch (Exception e) {
+            throw e;
+        }
         return allArticles;
     }
 
