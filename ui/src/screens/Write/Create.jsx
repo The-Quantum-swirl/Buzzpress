@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Preview from "./Preview";
 import { Row, Col, Divider } from "antd";
 import { Button, Radio } from "antd";
@@ -21,6 +21,25 @@ export default function Create() {
     let updatedPara = [...para];
     updatedPara[position] = event.target.value;
     setPara(updatedPara);
+  };
+
+  function handleImage (imageData, position) {
+    if (imageData !== undefined){
+      function CallImage () {
+  
+        if (imageData.thumbUrl !== undefined) {
+          // Do something with el
+          console.log(imageData.thumbUrl);
+        } else {
+          setTimeout(CallImage, 5000); // try again in 300 milliseconds
+        }
+      }
+      CallImage();
+
+      let updatedPara = [...para];
+      updatedPara[position] = imageData.thumbUrl;
+      setPara(updatedPara);
+    }
   };
 
   const addField = (event, pos) => {
@@ -141,7 +160,7 @@ export default function Create() {
                   <Col span={17}>
                     {/* Changeable field upload/ textfield starts */}
                     {inputType[index] === "image" ? (
-                      <UploadButton />
+                      <UploadButton imageData={(e) => handleImage(e, index)} />
                     ) : (
                       <TextField
                         id="standard-textarea"

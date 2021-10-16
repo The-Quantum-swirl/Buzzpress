@@ -22,8 +22,7 @@ export default function Home() {
     {
       authorname: "Bhargav Bachina",
       heading: "React — How To Proxy To Backend Server",
-      subHeading:
-        "Explaining how to configure a proxy for backend API calls with an example.",
+      subHeading: "Explaining how to configure a proxy for backend API calls with an example.",
       publishDate: "2020-06-14 10:29:08",
       readTime: "6 min",
       fireCount: 15,
@@ -35,16 +34,14 @@ export default function Home() {
     {
       authorname: "Sean Kernan",
       heading: "You Aren’t Lazy. You Are Overstimulated.",
-      subHeading:
-        "Slowing your life down is the secret to getting things done.",
+      subHeading: "Slowing your life down is the secret to getting things done.",
       publishDate: "2021-06-02 10:29:08",
       readTime: "5 min",
       fireCount: 5336,
       tag: "Life",
       authorLink: "",
       link: "",
-      imageLink:
-        "https://miro.medium.com/fit/c/300/201/1*__4RC4kaUgXdNFbFTzatcQ.jpeg",
+      imageLink: "https://miro.medium.com/fit/c/300/201/1*__4RC4kaUgXdNFbFTzatcQ.jpeg",
     },
     {
       authorname: "Nivedha Duraisamy",
@@ -56,13 +53,11 @@ export default function Home() {
       tag: "React",
       authorLink: "",
       link: "",
-      imageLink:
-        "https://miro.medium.com/fit/c/300/201/1*iLt_otrbPJceYlzyIQcjJg.jpeg",
+      imageLink: "https://miro.medium.com/fit/c/300/201/1*iLt_otrbPJceYlzyIQcjJg.jpeg",
     },
     {
       authorname: "Sam Mikaelson",
-      heading:
-        "Five After Hours Habits to Help You Build a Tiny Empire, Quietly",
+      heading: "Five After Hours Habits to Help You Build a Tiny Empire, Quietly",
       subHeading: "Build from your bedroom",
       publishDate: "2015-04-29 10:29:08",
       readTime: "5 min",
@@ -86,8 +81,7 @@ export default function Home() {
     },
     {
       authorname: "Sam Mikaelson",
-      heading:
-        "Five After Hours Habits to Help You Build a Tiny Empire, Quietly",
+      heading: "Five After Hours Habits to Help You Build a Tiny Empire, Quietly",
       subHeading: "Build from your bedroom",
       publishDate: "2015-04-29 10:29:08",
       readTime: "5 min",
@@ -100,16 +94,14 @@ export default function Home() {
     {
       authorname: "Abhijit Roy",
       heading: "Build JS, and MongoDB",
-      subHeading:
-        "Currently, most of the websites operate on an API-based backend structure, where we just send a request from the front end of the website",
+      subHeading: "Currently, most of the websites operate on an API-based backend structure, where we just send a request from the front end of the website",
       publishDate: "2021-04-08 10:29:08",
       readTime: "11 min",
       fireCount: 542,
       tag: "JavaScript",
       authorLink: "",
       link: "",
-      imageLink:
-        "https://miro.medium.com/fit/c/300/201/1*RG2GDRY3uUbNYvESrHw9qA.jpeg",
+      imageLink: "https://miro.medium.com/fit/c/300/201/1*RG2GDRY3uUbNYvESrHw9qA.jpeg",
     },
   ];
 
@@ -137,7 +129,9 @@ export default function Home() {
         <Col span={1} id="fadeshow">
           <Divider type="vertical" style={{ height: "100%" }} />
         </Col>
-        <Col span={7} id="fadeshow"
+        <Col
+          span={7}
+          id="fadeshow"
           style={{
             paddingTop: "2%",
           }}

@@ -10,7 +10,14 @@ const DateToMonthYearFormat = (date) => {
   let dateArr = todaysDate.split(" ");
   return dateArr[1] + " " + Number(dateArr[2]).toString() + ", " + dateArr[3];
 };
-
+function isBase64(str) {
+  if (str ==='' || str.trim() ===''){ return false; }
+  try {
+      return btoa(atob(str)) === str;
+  } catch (err) {
+      return false;
+  }
+}
 const checkURL = (url) => {
   return url.match(/\.(jpeg|jpg|gif|png|svg)$/) != null;
 }
@@ -93,7 +100,7 @@ export default function Preview(props) {
           </Title>
 
           {para.map((point, i) => {
-            return checkURL(point) ? (
+            return isBase64(point) ? (
               <img
                 src={point}
                 alt="unable to load"
