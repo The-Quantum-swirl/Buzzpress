@@ -104,11 +104,11 @@ export default function Preview(props) {
             typeof point === 'object' ? temp = URL.createObjectURL(point) : temp=point
 
             return isImage(temp) ? (
-              <div style={{width:'100%', height:'auto'}}>
+              <div style={{maxHeight:'400px', maxWidth:'100%'}}>
               <img
                 src={temp}
                 alt="unable to load"
-                style={{ width: '100%', height:'100%', marginBottom:'15px' }}
+                style={{height:'100%',maxHeight:'400px', width:'auto',display:'block', margin:'auto' }}
               />
               </div>
             ) : (
