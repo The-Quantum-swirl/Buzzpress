@@ -10,18 +10,19 @@ const DateToMonthYearFormat = (date) => {
   let dateArr = todaysDate.split(" ");
   return dateArr[1] + " " + Number(dateArr[2]).toString() + ", " + dateArr[3];
 };
-function isBase64(str) {
-  if (str ==='' || str.trim() ===''){ return false; }
-  try {
-      return btoa(atob(str)) === str;
-  } catch (err) {
-      return false;
-  }
+const isBase64 = (str) => {
+  return str.includes("data:image") || str.includes("http://");
 }
 const checkURL = (url) => {
   return url.match(/\.(jpeg|jpg|gif|png|svg)$/) != null;
 }
 
+const isImage =(data) =>{
+  if (isBase64(data)) return true;
+  else if (checkURL(data)) return true;
+
+  return false;
+}
 export default function Preview(props) {
   const [onFire, setOnFire] = useState(false);
   if (
@@ -32,7 +33,7 @@ export default function Preview(props) {
   ) {
     return <> Err occured in Preview !!! </>;
   }
-
+  
   const authorName = "Derick David";
   const publishDate = DateToMonthYearFormat(new Date());
   const readTime = props.data.readTime;
@@ -44,7 +45,7 @@ export default function Preview(props) {
   const para = props.data.paragraph;
   const paraType = props.data.paraType;
   const fireCount = props.data.fireCount || 0;
-
+  var temp="";
   function handleFire(){
     setOnFire(!onFire) ;
   }
@@ -100,14 +101,18 @@ export default function Preview(props) {
           </Title>
 
           {para.map((point, i) => {
-            return isBase64(point) ? (
+            typeof point === 'object' ? temp = URL.createObjectURL(point) : temp=point
+
+            return isImage(temp) ? (
+              <div style={{width:'100%', height:'auto'}}>
               <img
-                src={point}
+                src={temp}
                 alt="unable to load"
-                style={{ width: "100%", height: "auto", marginBottom:'15px' }}
+                style={{ width: '100%', height:'100%', marginBottom:'15px' }}
               />
+              </div>
             ) : (
-              mapData(paraType[i], point)
+              mapData(paraType[i], temp)
             );
           })}
           

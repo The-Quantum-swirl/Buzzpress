@@ -24,34 +24,37 @@ export default function Create() {
   };
 
   function handleImage (imageData, position) {
-    if (imageData !== undefined){
-      function CallImage () {
-  
-        if (imageData.thumbUrl !== undefined) {
-          // Do something with el
-          console.log(imageData.thumbUrl);
-        } else {
-          setTimeout(CallImage, 5000); // try again in 300 milliseconds
-        }
-      }
-      CallImage();
 
-      let updatedPara = [...para];
-      updatedPara[position] = imageData.thumbUrl;
-      setPara(updatedPara);
-    }
+    // if (imageData !== undefined){
+    //   // call back function to wait till image is loaded in array
+    //   // function CallImage () {
+    //   //   if (imageData.thumbUrl !== undefined){
+    //   //     console.log("image not undefined");
+    //   //     console.log(URL.createObjectURL(imageData.thumbUrl));
+    //   //     console.log(imageData.thumbUrl);          
+    //   //   }
+    //   //   else {
+    //   //     setTimeout(CallImage, 5000)
+    //   //   };
+    //   // }
+    //   // CallImage();
+      
+    // }
+    let updatedPara = [...para];
+    updatedPara[position] = imageData;
+    setPara(updatedPara);
   };
 
   const addField = (event, pos) => {
     let oldPara = [...para];
-	  oldPara.push("");
+    oldPara.splice(pos+1, 0, "");
     setPara(oldPara);
 	
     let oldType = [...inputType];
-    oldType.push("heading");
+    oldType.splice(pos+1, 0, "heading");
     setInputType(oldType);
 
-    console.log("Var para = "+para+ "; Var inputType : "+inputType);
+    console.log("Var para = "+para+ "|| Var inputType = "+inputType);
   };
 
   const deleteField = (event, pos) => {
@@ -72,8 +75,8 @@ export default function Create() {
     inparr[index] = e.target.value;
     setInputType(inparr);
 
-    console.log("type change called");
-    console.log("Var para = "+para+ "; Var inputType : "+inputType);
+    console.log("change is called");
+    console.log("Var para = "+para+ "|| Var inputType = "+inputType);
 
   }
 
@@ -149,6 +152,7 @@ export default function Create() {
                   defaultValue="heading"
                   buttonStyle="solid"
                   size="middle"
+                  value={inputType[index]}
                   onChange={(e) => handleSelectChange(e, index)}
                 >
                   <Radio.Button  value="heading">Head</Radio.Button>
