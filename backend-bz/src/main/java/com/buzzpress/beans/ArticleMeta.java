@@ -1,10 +1,7 @@
 package com.buzzpress.beans;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,22 +13,19 @@ import lombok.NoArgsConstructor;
 @Data
 public class ArticleMeta {
     @Id
-	private Long articleId;
+    private Long articleId;
+    private String authorName;
+    private Long authorId;
     private Long views;
     private Integer likes;
-    private String topic;
     private String tags;
-    // @OneToOne(fetch = FetchType.LAZY)
-    // @MapsId
-    // private Article article;
-    private String createdOn;
-    private String author;
-    private Long authorId;
+    private String publishDate;
+    private String ThumbnailUrl;
 
     public ArticleMeta(Long articleId, String author, Long authorId, String topic) {
         setArticleId(articleId);
-        setAuthor(author);
+        setAuthorName(author);
         setAuthorId(authorId);
-        setTopic(topic);
+        setTags(topic);
     }
 }

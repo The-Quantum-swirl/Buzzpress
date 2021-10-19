@@ -40,7 +40,7 @@ public class ArticleController {
         rm.setStatusCode(200);
         iArticleService.saveArticle(entity);
         iArticleMetaSevice.saveMetaData(entity.getArticleId(), iUserService.getUsernameFromUserId(authorId), authorId,
-                entity.getTopic());
+                entity.getTag());
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
 
     }
@@ -57,6 +57,12 @@ public class ArticleController {
     public List<Article> getAllArticles() {
 
         return iArticleService.displayAllArticles();
+    }
+
+    @GetMapping(value = "/customArticle")
+    public Object getCustomArticle() {
+        Object hi = new Object();
+        return hi;
     }
 
     @GetMapping(value = "/article/{id}")
