@@ -41,7 +41,7 @@ export default function BuzzCard(props) {
   }
   return (
     <>
-      <Row>
+      <Row style={{width:'100%'}}>
         <Col span={17} style={{ padding: "5px" }}>
           {/* author name start*/}
           <a href={authorLink} target="_blank" rel="noreferrer">

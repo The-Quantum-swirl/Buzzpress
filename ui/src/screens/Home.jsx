@@ -27,9 +27,9 @@ export default function Home() {
       readTime: "6 min",
       fireCount: 15,
       tag: "React",
-      authorLink: "",
-      link: "",
-      imageLink: "https://miro.medium.com/fit/c/300/201/0*J8_v8vmIyMZgQFhK",
+      authorLink: "", // {localhost:3000}/profile/{userId}
+      link: "", // {localhost:3000}/article/{articleId}
+      imageLink: "https://miro.medium.com/fit/c/300/201/0*J8_v8vmIyMZgQFhK", // first image file object
     },
     {
       authorname: "Sean Kernan",
@@ -116,7 +116,7 @@ export default function Home() {
       <Row>
         {/* Feed/ Article starts */}
         <Col span={23} style={{ maxWidth: "800px", padding: "2% 2% 2% 6%" }}>
-          <Space direction="vertical">
+          <Space direction="vertical" style={{width:'100%'}}>
             <Text type="secondary">Recommended For you</Text>
             <Divider style={{ margin: "0", width: "22%", minWidth: "5%" }} />
             {displayData.map((dataObject) => {

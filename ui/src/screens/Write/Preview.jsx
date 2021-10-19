@@ -86,6 +86,19 @@ export default function Preview(props) {
                 }}
               >
                 <Text style={{fontWeight:'500'}}>{authorName}</Text>
+                <Text style={{ marginLeft: "10px"}}>
+                {publishDate}
+                <Text style={{ marginLeft: "10px" }}>
+                  {readTime + " read"}
+                </Text>
+                
+                {/* <Button shape="round" icon={onFire ? <FireFilled style={{color:'#f50057'}} /> : 
+                <FireOutlined style={{color:'#f50057'}} />} 
+                onClick={handleFire}
+                style={{backgroundColor:'inherit', border:'0'}} >
+                {fireCount+ (onFire? 1:0)}
+                </Button> */}
+              </Text>
               </span>
             </div>
           </a>
@@ -108,7 +121,7 @@ export default function Preview(props) {
               <img
                 src={temp}
                 alt="unable to load"
-                style={{height:'100%',maxHeight:'400px', width:'auto',display:'block', margin:'auto' }}
+                style={{height:'100%',maxHeight:'400px', width:'auto',display:'block', margin:'auto', maxWidth:'100%' }}
               />
               </div>
             ) : (
@@ -127,23 +140,11 @@ export default function Preview(props) {
               display: "table",
             }}
           >
-            <Text style={{ display: "table-cell", verticalAlign: "middle" }}>
-              {publishDate}
-              <Text style={{ marginLeft: "10px" }}>
-                {readTime + " read"}
-              </Text>
-              
-              <Button shape="round" icon={onFire ? <FireFilled style={{color:'#f50057'}} /> : 
-              <FireOutlined style={{color:'#f50057'}} />} 
-              onClick={handleFire}
-              style={{backgroundColor:'inherit', border:'0'}} >
-              {fireCount+ (onFire? 1:0)}
-              </Button>
-            </Text>
+            
           </div>
 
           <div style={{margin:'auto', padding: "20px 12px 10px 12px",}}>
-          <Space wrap={true}>
+          <Space wrap={true} style={{justifyContent:'center',display:'flex'}}>
             {tag.map((topic) => <Topics data={topic} />)}
           </Space>
           </div>

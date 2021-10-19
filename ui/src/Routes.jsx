@@ -6,6 +6,9 @@ import Logout from "./components/logout";
 import Home from './screens/Home';
 import UserDetails from './screens/UserDetails';
 import Write from './screens/Write/Write';
+import Profile from './screens/Profile';
+import Article from './screens/Article';
+
 export default function Routes() {
     return (
         <BrowserRouter>
@@ -17,6 +20,8 @@ export default function Routes() {
                 <Route path="/home" component={Home} />
                 <Route path="/settings" component={UserDetails} />
                 <Route path="/create" component={Write} />
+                <Route path="/article/:articleId" component={Article} />
+                <Route path="/profile/:userId" component={Profile} />
 
             </Switch>
         </BrowserRouter>

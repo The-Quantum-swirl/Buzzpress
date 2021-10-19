@@ -10,7 +10,7 @@ import { Select } from 'antd';
 
 const { Option } = Select;
 
-export default function Create() {
+export default function Create(props) {
   const [heading, setHeading]       = useState("");
   const [subHeading, setSubHeading] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
@@ -24,22 +24,6 @@ export default function Create() {
   };
 
   function handleImage (imageData, position) {
-
-    // if (imageData !== undefined){
-    //   // call back function to wait till image is loaded in array
-    //   // function CallImage () {
-    //   //   if (imageData.thumbUrl !== undefined){
-    //   //     console.log("image not undefined");
-    //   //     console.log(URL.createObjectURL(imageData.thumbUrl));
-    //   //     console.log(imageData.thumbUrl);          
-    //   //   }
-    //   //   else {
-    //   //     setTimeout(CallImage, 5000)
-    //   //   };
-    //   // }
-    //   // CallImage();
-      
-    // }
     let updatedPara = [...para];
     updatedPara[position] = imageData;
     setPara(updatedPara);
@@ -70,7 +54,6 @@ export default function Create() {
   };
 
   function handleSelectChange(e, index) {
-    // console.log(e);
     let inparr = [...inputType];
     inparr[index] = e.target.value;
     setInputType(inparr);
@@ -88,7 +71,7 @@ export default function Create() {
   const tags = ["Technology", "Startup", "Business", "Innovation",
    "Science", "Space", "Medicine", "React", "JavaScript", "SpringBoot"
   ];
-  
+
   const data = {
 	  head:heading,
 	  subHead: subHeading,
@@ -98,6 +81,7 @@ export default function Create() {
     authorLink: "https://drckangelo.medium.com/?source=post_page-----8f2258f81899--------------------------------",
     tag: selectedTags,
   }
+  props.data(data);
   return (
     <>
       <Row style={{ marginTop: "2%" }}>
