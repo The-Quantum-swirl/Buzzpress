@@ -28,4 +28,5 @@ public class ArticleMeta {
         setAuthorId(authorId);
         setTags(topic);
     }
+
 }

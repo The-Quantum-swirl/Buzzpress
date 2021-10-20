@@ -30,7 +30,7 @@ public class Article {
 	private Integer readTime;
 	@Column(columnDefinition = "TEXT")
 	private String description;
-	// @Column(columnDefinition = "TEXT")
+	@Column(columnDefinition = "TEXT")
 	private String textType;
 	private String tag;
 }
