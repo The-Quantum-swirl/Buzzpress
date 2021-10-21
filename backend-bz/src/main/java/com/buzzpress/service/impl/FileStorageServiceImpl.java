@@ -11,16 +11,20 @@ import com.buzzpress.service.IFileStorageService;
 
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+@Service
 public class FileStorageServiceImpl implements IFileStorageService {
     private final Path root = Paths.get("uploads");
 
     @Override
     public void init() {
         try {
-            Files.createDirectory(root);
+            if (!Files.exists(root)) {
+                Files.createDirectory(root);
+            }
         } catch (IOException e) {
             throw new RuntimeException("Could not make upload directory");
         }

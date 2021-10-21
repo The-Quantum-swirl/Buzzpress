@@ -11,11 +11,11 @@ import { Select } from 'antd';
 const { Option } = Select;
 
 export default function Create(props) {
-  const [heading, setHeading]       = useState("");
+  const [heading, setHeading] = useState("");
   const [subHeading, setSubHeading] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
-  const [inputType, setInputType]   = useState(["heading"]);
-  const [para, setPara]             = useState([""]);
+  const [inputType, setInputType] = useState(["heading"]);
+  const [para, setPara] = useState([""]);
 
   const handleChange = (event, position) => {
     let updatedPara = [...para];
@@ -23,22 +23,23 @@ export default function Create(props) {
     setPara(updatedPara);
   };
 
-  function handleImage (imageData, position) {
+  function handleImage(imageData, position) {
     let updatedPara = [...para];
     updatedPara[position] = imageData;
     setPara(updatedPara);
+    console.log(imageData);
   };
 
   const addField = (event, pos) => {
     let oldPara = [...para];
-    oldPara.splice(pos+1, 0, "");
+    oldPara.splice(pos + 1, 0, "");
     setPara(oldPara);
-	
+
     let oldType = [...inputType];
-    oldType.splice(pos+1, 0, "heading");
+    oldType.splice(pos + 1, 0, "heading");
     setInputType(oldType);
 
-    console.log("Var para = "+para+ "|| Var inputType = "+inputType);
+    console.log("Var para = " + para + "|| Var inputType = " + inputType);
   };
 
   const deleteField = (event, pos) => {
@@ -59,25 +60,25 @@ export default function Create(props) {
     setInputType(inparr);
 
     console.log("change is called");
-    console.log("Var para = "+para+ "|| Var inputType = "+inputType);
+    console.log("Var para = " + para + "|| Var inputType = " + inputType);
 
   }
 
   function handleTags(value) {
     setSelectedTags(value);
-    console.log("selected tags : "+ selectedTags);
+    console.log("selected tags : " + selectedTags);
   }
 
   const tags = ["Technology", "Startup", "Business", "Innovation",
-   "Science", "Space", "Medicine", "React", "JavaScript", "SpringBoot"
+    "Science", "Space", "Medicine", "React", "JavaScript", "SpringBoot"
   ];
 
   const data = {
-	  head:heading,
-	  subHead: subHeading,
-	  paragraph: para,
-    paraType : inputType,
-	  readTime: "5 min",
+    head: heading,
+    subHead: subHeading,
+    paragraph: para,
+    paraType: inputType,
+    readTime: "5 min",
     authorLink: "https://drckangelo.medium.com/?source=post_page-----8f2258f81899--------------------------------",
     tag: selectedTags,
   }
@@ -85,7 +86,7 @@ export default function Create(props) {
   return (
     <>
       <Row style={{ marginTop: "2%" }}>
-        <Col className="mobile desktop" style={{width:'100%'}}>
+        <Col className="mobile desktop" style={{ width: '100%' }}>
           {/* Create screen starts */}
           {/* Heading starts */}
           <TextField
@@ -112,19 +113,19 @@ export default function Create(props) {
           {/* Recap ends */}
 
           <Select
-          mode="multiple"
-          placeholder="Select tags"
-          onChange={handleTags}
-          optionLabelProp="label"
-          style={{width:'90%', margin:'15px',}}
+            mode="multiple"
+            placeholder="Select tags"
+            onChange={handleTags}
+            optionLabelProp="label"
+            style={{ width: '90%', margin: '15px', }}
           >
-          {tags.map( (tag) => {
-            return (
-            <Option value={tag} label={tag}>
-            {tag}
-            </Option>
-            );
-          })}
+            {tags.map((tag) => {
+              return (
+                <Option value={tag} label={tag}>
+                  {tag}
+                </Option>
+              );
+            })}
           </Select>
 
           {/* Appendable fields starts */}
@@ -139,9 +140,9 @@ export default function Create(props) {
                   value={inputType[index]}
                   onChange={(e) => handleSelectChange(e, index)}
                 >
-                  <Radio.Button  value="heading">Head</Radio.Button>
-                  <Radio.Button  value="para">Para</Radio.Button>
-                  <Radio.Button  value="image">Image</Radio.Button>
+                  <Radio.Button value="heading">Head</Radio.Button>
+                  <Radio.Button value="para">Para</Radio.Button>
+                  <Radio.Button value="image">Image</Radio.Button>
                 </Radio.Group>
 
                 <Row style={{ marginTop: "20px" }}>
@@ -194,8 +195,8 @@ export default function Create(props) {
           {/* Create screen ends */}
         </Col>
       </Row>
-		<Divider> Preview</Divider>
-		<Preview data={data} />
+      <Divider> Preview</Divider>
+      <Preview data={data} />
     </>
   );
 }
