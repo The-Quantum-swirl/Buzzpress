@@ -3,7 +3,7 @@ import { Typography, Avatar } from "antd";
 import { UserOutlined, FireFilled, FireOutlined } from "@ant-design/icons";
 import "../css/home.css";
 import { useState } from "react";
-
+import { Link } from 'react-router-dom';
 const { Text, Title } = Typography;
 
 const sqlDateToMonthYearFormat = (sqlDate) => {
@@ -44,7 +44,7 @@ export default function BuzzCard(props) {
       <Row style={{width:'100%'}}>
         <Col span={17} style={{ padding: "5px" }}>
           {/* author name start*/}
-          <a href={authorLink} target="_blank" rel="noreferrer">
+          <Link to={authorLink} >
             <div
               // style={{ display: "table" }}
               style={{
@@ -85,11 +85,11 @@ export default function BuzzCard(props) {
             {/* <Title level={5} ellipsis={true}>
               {authorname}
             </Title> */}
-          </a>
+          </Link>
           {/* author name end */}
 
           {/* heading start */}
-          <a href={articleLink} target="_blank" rel="noreferrer">
+          <Link to={articleLink}>
             <div style={{ minHeight: "120px" }}>
               <Title
                 level={4}
@@ -108,7 +108,7 @@ export default function BuzzCard(props) {
                 {subHeading}
               </Title>
             </div>
-          </a>
+          </Link>
           {/* subheading end */}
 
           {/* card footer start */}

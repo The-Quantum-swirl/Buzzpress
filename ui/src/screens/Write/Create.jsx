@@ -1,65 +1,84 @@
 import { useState, useCallback } from "react";
 import Preview from "./Preview";
 import { Row, Col, Divider } from "antd";
-import { Button, Radio } from "antd";
+import { Button, Radio, Select } from "antd";
 import { TextField } from "@mui/material";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import UploadButton from "../../components/UploadButton";
 import Topics from "../../components/home/Topics";
-import { Select } from 'antd';
+import { profileUrl } from "../common/Path.js";
 
 const { Option } = Select;
 
 export default function Create(props) {
-  const [heading, setHeading]       = useState("");
-  const [subHeading, setSubHeading] = useState("");
+  const [title, setTitle]       = useState("");
+  const [summary, setSummary] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
-  const [inputType, setInputType]   = useState(["heading"]);
-  const [para, setPara]             = useState([""]);
 
+  const [contentType, setContentType]   = useState(["head"]);
+  const [content, setContent]             = useState([""]);
+  const [imageList, setImageList]   = useState([]);
+
+  const authorId = 123;
+
+  const reset = () => {
+    setContent([""]);
+    setContentType(["head"]);
+    setImageList([]);
+  }
   const handleChange = (event, position) => {
-    let updatedPara = [...para];
-    updatedPara[position] = event.target.value;
-    setPara(updatedPara);
+    let updatedcontent = [...content];
+    updatedcontent[position] = event.target.value;
+    setContent(updatedcontent);
   };
 
   function handleImage (imageData, position) {
-    let updatedPara = [...para];
-    updatedPara[position] = imageData;
-    setPara(updatedPara);
+    let updatedcontent = [...content], updatedImageList = [...imageList];
+
+    // image position stored in content using image list length
+    updatedcontent[position] = imageList.length;
+    // pusing image in seprate array imagelist 
+    updatedImageList.push(imageData);
+
+    setContent(updatedcontent);
+    setImageList(updatedImageList);
   };
 
   const addField = (event, pos) => {
-    let oldPara = [...para];
-    oldPara.splice(pos+1, 0, "");
-    setPara(oldPara);
-	
-    let oldType = [...inputType];
-    oldType.splice(pos+1, 0, "heading");
-    setInputType(oldType);
+    let oldcontent = [...content], oldType = [...contentType];
 
-    console.log("Var para = "+para+ "|| Var inputType = "+inputType);
+    oldcontent.splice(pos+1, 0, "");
+    oldType.splice(pos+1, 0, "head");
+
+    setContent(oldcontent);
+    setContentType(oldType);
+
+    console.log("Var content = "+content+ "|| Var contentType = "+contentType);
   };
 
   const deleteField = (event, pos) => {
-    if (para.length === 1) return;
+    if (content.length === 1){
+      content.pop();
+      reset();
+      return;
+    }
 
-    let oldPara = [...para];
-    oldPara.splice(pos, 1);
-    setPara(oldPara);
+    let oldcontent = [...content], oldType = [...contentType];
 
-    let oldType = [...inputType];
+    oldcontent.splice(pos, 1);
     oldType.splice(pos, 1);
-    setInputType(oldType);
+
+    setContent(oldcontent);
+    setContentType(oldType);
   };
 
   function handleSelectChange(e, index) {
-    let inparr = [...inputType];
+    let inparr = [...contentType];
     inparr[index] = e.target.value;
-    setInputType(inparr);
+    setContentType(inparr);
 
     console.log("change is called");
-    console.log("Var para = "+para+ "|| Var inputType = "+inputType);
+    console.log("Var content = "+content+ "|| Var contentType = "+contentType);
 
   }
 
@@ -73,12 +92,13 @@ export default function Create(props) {
   ];
 
   const data = {
-	  head:heading,
-	  subHead: subHeading,
-	  paragraph: para,
-    paraType : inputType,
+	  title:title,
+	  summary: summary,
+    imagelist: imageList,
+	  content: content,
+    contentType : contentType,
 	  readTime: "5 min",
-    authorLink: "https://drckangelo.medium.com/?source=post_page-----8f2258f81899--------------------------------",
+    authorLink: profileUrl+authorId,
     tag: selectedTags,
   }
   props.data(data);
@@ -87,26 +107,26 @@ export default function Create(props) {
       <Row style={{ marginTop: "2%" }}>
         <Col className="mobile desktop" style={{width:'100%'}}>
           {/* Create screen starts */}
-          {/* Heading starts */}
+          {/* title starts */}
           <TextField
             id="standard-textarea"
             placeholder="Title"
             multiline
             variant="standard"
-            value={heading}
-            onChange={(e) => setHeading(e.target.value)}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             style={{ width: "90%", margin: "15px" }}
             color="secondary"
           />
-          {/* Heading ends */}
+          {/* title ends */}
           {/* Recap starts */}
           <TextField
             id="standard-textarea"
             placeholder="Recap"
             multiline
             variant="standard"
-            value={subHeading}
-            onChange={(e) => setSubHeading(e.target.value)}
+            value={summary}
+            onChange={(e) => setSummary(e.target.value)}
             style={{ width: "90%", margin: "15px" }}
           />
           {/* Recap ends */}
@@ -128,26 +148,26 @@ export default function Create(props) {
           </Select>
 
           {/* Appendable fields starts */}
-          {para.map((object, index) => {
+          {content.map((object, index) => {
             return (
               <div style={{ margin: "15px" }}>
                 {/* radio buttons for selecting head/ subhead/ image upload */}
                 <Radio.Group
-                  defaultValue="heading"
+                  defaultValue="title"
                   buttonStyle="solid"
                   size="middle"
-                  value={inputType[index]}
+                  value={contentType[index]}
                   onChange={(e) => handleSelectChange(e, index)}
                 >
-                  <Radio.Button  value="heading">Head</Radio.Button>
-                  <Radio.Button  value="para">Para</Radio.Button>
+                  <Radio.Button  value="head">Head</Radio.Button>
+                  <Radio.Button  value="text">Text</Radio.Button>
                   <Radio.Button  value="image">Image</Radio.Button>
                 </Radio.Group>
 
                 <Row style={{ marginTop: "20px" }}>
                   <Col span={17}>
                     {/* Changeable field upload/ textfield starts */}
-                    {inputType[index] === "image" ? (
+                    {contentType[index] === "image" ? (
                       <UploadButton imageData={(e) => handleImage(e, index)} />
                     ) : (
                       <TextField
@@ -155,7 +175,7 @@ export default function Create(props) {
                         placeholder="Write here"
                         multiline
                         variant="standard"
-                        value={para[index]}
+                        value={content[index]}
                         onChange={(e) => handleChange(e, index)}
                         style={{ width: "100%", marginRight: "1%" }}
                       />

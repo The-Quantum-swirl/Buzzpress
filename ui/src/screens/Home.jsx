@@ -5,11 +5,14 @@ import BuzzCard from "../components/home/BuzzCard";
 import Topics from "../components/home/Topics";
 import RadialChart from "../components/home/RadialChart.js";
 import { InstagramOutlined, TwitterOutlined } from "@ant-design/icons";
+import {profileUrl, articleUrl} from './common/Path.js';
+
 const { TabPane } = Tabs;
 const { Text, Link } = Typography;
 const { Footer } = Layout;
 
 export default function Home() {
+  const authorId = 123;
   const suggestedTopics = [
     "AI",
     "BlockChain",
@@ -27,8 +30,8 @@ export default function Home() {
       readTime: "6 min",
       fireCount: 15,
       tag: "React",
-      authorLink: "", // {localhost:3000}/profile/{userId}
-      link: "", // {localhost:3000}/article/{articleId}
+      authorLink: profileUrl+authorId, // {localhost:3000}/profile/{userId}
+      link: articleUrl+12, // {localhost:3000}/article/{articleId}
       imageLink: "https://miro.medium.com/fit/c/300/201/0*J8_v8vmIyMZgQFhK", // first image file object
     },
     {
@@ -39,8 +42,8 @@ export default function Home() {
       readTime: "5 min",
       fireCount: 5336,
       tag: "Life",
-      authorLink: "",
-      link: "",
+      authorLink: profileUrl+authorId,
+      link: articleUrl+12,
       imageLink: "https://miro.medium.com/fit/c/300/201/1*__4RC4kaUgXdNFbFTzatcQ.jpeg",
     },
     {
@@ -51,8 +54,8 @@ export default function Home() {
       readTime: "5 min",
       fireCount: 23,
       tag: "React",
-      authorLink: "",
-      link: "",
+      authorLink: profileUrl+authorId,
+      link: articleUrl+12,
       imageLink: "https://miro.medium.com/fit/c/300/201/1*iLt_otrbPJceYlzyIQcjJg.jpeg",
     },
     {
@@ -63,8 +66,8 @@ export default function Home() {
       readTime: "5 min",
       fireCount: 55,
       tag: "Science",
-      authorLink: "",
-      link: "",
+      authorLink: profileUrl+authorId,
+      link: articleUrl+12,
       imageLink: "https://miro.medium.com/fit/c/300/201/0*9msmJSwtcwm_NxFz",
     },
     {
@@ -75,8 +78,8 @@ export default function Home() {
       readTime: "3 min",
       fireCount: 189,
       tag: "JavaScript",
-      authorLink: "",
-      link: "",
+      authorLink: profileUrl+authorId,
+      link: articleUrl+12,
       imageLink: "https://miro.medium.com/fit/c/300/201/0*VdoVFyMENPePCXbT.png",
     },
     {
@@ -87,8 +90,8 @@ export default function Home() {
       readTime: "5 min",
       fireCount: 38,
       tag: "Science",
-      authorLink: "",
-      link: "",
+      authorLink: profileUrl+authorId,
+      link: articleUrl+12,
       imageLink: "https://miro.medium.com/fit/c/300/201/0*9msmJSwtcwm_NxFz",
     },
     {
@@ -99,8 +102,8 @@ export default function Home() {
       readTime: "11 min",
       fireCount: 542,
       tag: "JavaScript",
-      authorLink: "",
-      link: "",
+      authorLink: profileUrl+authorId,
+      link: articleUrl+12,
       imageLink: "https://miro.medium.com/fit/c/300/201/1*RG2GDRY3uUbNYvESrHw9qA.jpeg",
     },
   ];

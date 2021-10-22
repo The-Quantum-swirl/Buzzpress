@@ -3,7 +3,7 @@ import Topics from "../../components/home/Topics";
 import { Row, Col, Typography } from "antd";
 import { Avatar, Space, Button } from "antd";
 import { UserOutlined, FireFilled, FireOutlined } from "@ant-design/icons";
-const { Title, Paragraph, Text } = Typography;
+const { Title, contentgraph, Text } = Typography;
 
 const DateToMonthYearFormat = (date) => {
   let todaysDate = date.toDateString();
@@ -25,11 +25,14 @@ const isImage =(data) =>{
 }
 export default function Preview(props) {
   const [onFire, setOnFire] = useState(false);
+  console.log(props.data);
   if (
     props.data === undefined ||
-    props.data.head === undefined ||
-    props.data.subHead === undefined ||
-    props.data.paragraph === undefined
+    props.data.title === undefined ||
+    props.data.summary === undefined 
+    // props.data.content === undefined ||
+    // props.data.contentType === undefined ||
+    // props.data.imageList === undefined
   ) {
     return <> Err occured in Preview !!! </>;
   }
@@ -40,20 +43,22 @@ export default function Preview(props) {
   const tag = props.data.tag;
   const authorLink = props.data.authorLink;
 
-  const heading = props.data.head || "Empty Title";
-  const subHeading = props.data.subHead || "Empty Recap";
-  const para = props.data.paragraph;
-  const paraType = props.data.paraType;
+  const title = props.data.title || "Empty Title";
+  const summary = props.data.summary || "Empty Recap";
+  const content = props.data.content;
+  const contentType = props.data.contentType;
   const fireCount = props.data.fireCount || 0;
+  const imageList = props.data.imagelist || [];
+
   var temp="";
   function handleFire(){
     setOnFire(!onFire) ;
   }
 
-  const paraMap = { heading: 3, para: 4};
+  const contentMap = { title: 3, content: 4};
   const mapData = (type, val) => {
-    if (type === 'heading') return <Title level={2} style={{fontWeight:'500'}}> {val}</Title>;
-    else if (type === 'para') return  <Title level={4} style={{fontWeight:'450'}}> {val}</Title>;
+    if (type === 'head') return <Title level={2} style={{fontWeight:'500'}}> {val}</Title>;
+    else if (type === 'text') return  <Title level={4} style={{fontWeight:'450'}}> {val}</Title>;
 
   }
   return (
@@ -107,14 +112,14 @@ export default function Preview(props) {
             level={1} ellipsis={{ rows: 2 }}
             style={{ marginTop: "15px", marginBottom: "5px", fontWeight: "700", textAlign:'center' }}
           >
-            {heading}
+            {title}
           </Title>
           <Title level={3} ellipsis={{ rows: 2 }} style={{ textAlign:'center', fontWeight:'450'}}>
-            {subHeading}
+            {summary}
           </Title>
 
-          {para.map((point, i) => {
-            typeof point === 'object' ? temp = URL.createObjectURL(point) : temp=point
+          {content.map((point, i) => {
+            typeof point === 'number' && point < imageList.length ? temp = URL.createObjectURL(imageList[point]) : temp=point
 
             return isImage(temp) ? (
               <div style={{maxHeight:'400px', maxWidth:'100%'}}>
@@ -125,11 +130,11 @@ export default function Preview(props) {
               />
               </div>
             ) : (
-              mapData(paraType[i], temp)
+              mapData(contentType[i], temp)
             );
           })}
           
-          {/* <Title level={paraMap[ paraType[i] ]}>{point}</Title> */}
+          {/* <Title level={contentMap[ contentType[i] ]}>{point}</Title> */}
           <div
             style={{
               margin:'auto',
