@@ -1,10 +1,9 @@
+import { BookOutlined, TeamOutlined } from "@ant-design/icons";
+import { ArticleOutlined, DesignServicesOutlined, LibraryBooksOutlined, PendingOutlined, ReadMoreOutlined } from "@mui/icons-material";
+import { Button, Card, Col, Divider, Form, Input, PageHeader, Row, Space, Statistic, Switch, Tabs, Typography } from "antd";
 import { useState } from "react";
-import { Col, Row, Divider, PageHeader, Tabs, Form, Checkbox } from "antd";
-import { Input, Space, Button, Switch, Typography } from "antd";
-import MessageCard from "../components/settings/MessageCard";
 import NavBar from "../components/NavBar";
-import InfoCard from "../components/settings/InfoCard.jsx";
-import { AntDesignOutlined } from "@ant-design/icons";
+import MessageCard from "../components/settings/MessageCard";
 
 const { TabPane } = Tabs;
 const { Paragraph } = Typography;
@@ -17,16 +16,20 @@ const DateToMonthYearFormat = (date) => {
 
 export default function UserDetails() {
   const props = {
-    PersonalData: { firstName: "Hari" },
-    todaysData: [{ name: "helen", type: "loan" }],
+    PersonalData: { firstName: "Suarez" },
+    ArticlePublished: 2
   };
+  const Stats = {
+    ArticlePublished: 21,
+    ArticlesRead: 50
+  }
   const onFinish = (values) => {
-      if (values.password === values.confirmPassword){
-        
-        console.log("Success:", values);
-        return true;
-      }
-    
+    if (values.password === values.confirmPassword) {
+
+      console.log("Success:", values);
+      return true;
+    }
+
     console.log("Success:", values);
   };
 
@@ -37,9 +40,12 @@ export default function UserDetails() {
   const [editableName, setEditableName] = useState("Hari Ohm");
   const [editableEmail, setEditableEmail] = useState("hari@gmail.com");
 
-//   old password get from db
+  //   old password get from db
   const oldPasswordFromDB = "";
-
+  const stylecard = {
+    boxShadow: "0 1px 10px 0 rgb(30, 79, 131, 0.5)",
+    border: "rgb(122, 168, 218) 1x solid"
+  }
   return (
     <div>
       <NavBar />
@@ -57,15 +63,42 @@ export default function UserDetails() {
           <Col className="gutter-row" span={16}>
             <MessageCard
               rmPersonalData={props.PersonalData}
-              todaysData={props.todaysData}
+              ArticlePublished={props.ArticlePublished}
             />
           </Col>
-          <Col className="gutter-row" span={8}>
-            To display the type of articles publishsed
-            {/* {props.monthlyDues !== undefined ? (
-                            <PieChart data={props.monthlyDues} />
-                        ) : null} */}
+          <Col className="gutter-row" span={4}>
+            <Card style={stylecard}
+              title={<DesignServicesOutlined style={{ fontSize: "30px", color: "#fa5500" }} />}
+              //  bordered={true}
+              headStyle={{ textAlign: "center", padding: "0px" }}
+              bodyStyle={{ textAlign: "center", padding: "13px" }}
+              hoverable={true}
+            >
+              <Statistic title="Articles Published" value={Stats.ArticlePublished} />
+            </Card>
           </Col>
+          <Col className="gutter-row" span={4}>
+            <Card style={stylecard}
+              title={<LibraryBooksOutlined style={{ fontSize: "30px", color: "#fa5500" }} />}
+              //  bordered={true}
+              headStyle={{ textAlign: "center", padding: "0px" }}
+              bodyStyle={{ textAlign: "center", padding: "13px" }}
+              hoverable={true}
+            >
+              <Statistic title="Articles Read" value={Stats.ArticlesRead} />
+            </Card>
+          </Col>
+          {/* <Col className="gutter-row" span={4}>
+            <Card style={stylecard}
+              title={<BookOutlined style={{ fontSize: "30px", color: "#10239e" }} />}
+              //  bordered={true}
+              headStyle={{ textAlign: "center", padding: "0px" }}
+              bodyStyle={{ textAlign: "center", padding: "13px" }}
+              hoverable={true}
+            >
+              <Statistic title="Published" value={Stats.ArticlePublished} />
+            </Card>
+          </Col> */}
         </Row>
 
         <Divider />
@@ -85,7 +118,7 @@ export default function UserDetails() {
             </Space>
           </TabPane>
 
-          <TabPane tab="Misc" key="2">
+          <TabPane tab="Password" key="2">
             Update Password
             {/* update password starts */}
             <Form
@@ -96,7 +129,7 @@ export default function UserDetails() {
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
               autoComplete="off"
-              style={{maxWidth:'500px'}}
+              style={{ maxWidth: '500px' }}
             >
               <Form.Item label="Old Password" name="oldPassword"
                 rules={[
