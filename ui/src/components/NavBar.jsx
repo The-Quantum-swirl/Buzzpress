@@ -12,32 +12,17 @@ export default function NavBar() {
   let history = useHistory();
   const menu = (
     <Menu>
-      <Menu.Item>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => history.push("/create")}
-        >
-          Write something
-        </a>
+      <Menu.Item onClick={(e) => history.push("/profile/123")}>
+        Your Profile
       </Menu.Item>
-      <Menu.Item>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => history.push("/settings")}
-        >
-          Settings
-        </a>
+      <Menu.Item onClick={(e) => history.push("/create")}>
+        Write Your Story
       </Menu.Item>
-      <Menu.Item>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => <Logout />}
-        >
-          Logout
-        </a>
+      <Menu.Item onClick={(e) => history.push("/settings")}>
+        Settings
+      </Menu.Item>
+      <Menu.Item onClick={(e) => <Logout />}>
+        Logout
       </Menu.Item>
     </Menu>
   );

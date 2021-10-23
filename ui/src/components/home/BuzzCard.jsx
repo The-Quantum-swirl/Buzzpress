@@ -26,8 +26,8 @@ export default function BuzzCard(props) {
   }
   
   const authorname = props.data.authorname;
-  const heading = props.data.heading;
-  const subHeading = props.data.subHeading;
+  const title = props.data.title;
+  const summary = props.data.summary;
   const publishDate = sqlDateToMonthYearFormat(props.data.publishDate);
   const readTime = props.data.readTime;
   const tag = props.data.tag;
@@ -41,7 +41,7 @@ export default function BuzzCard(props) {
   }
   return (
     <>
-      <Row style={{width:'100%'}}>
+      <Row style={{padding:'5px'}}>
         <Col span={17} style={{ padding: "5px" }}>
           {/* author name start*/}
           <Link to={authorLink} >
@@ -99,20 +99,20 @@ export default function BuzzCard(props) {
                 }}
                 ellipsis={{ rows: 2 }}
               >
-                {heading}
+                {title}
               </Title>
               {/* heading end */}
 
               {/* subheading start (small intro) */}
               <Title level={5} ellipsis={{ rows: 2 }} style={{marginTop:0, fontWeight:'450'}}>
-                {subHeading}
+                {summary}
               </Title>
             </div>
           </Link>
           {/* subheading end */}
 
           {/* card footer start */}
-          <Space direction="vertical" wrap={true}>
+          {/* <Space direction="vertical" wrap={true}> */}
             <div
               style={{
                 backgroundColor: "rgba(0, 0, 0, 0.03)",
@@ -122,20 +122,18 @@ export default function BuzzCard(props) {
               }}
             >
               <Text style={{ display: "table-cell", verticalAlign: "middle" }}>
-                {publishDate}
-                <Text style={{ marginLeft: "10px" }}>
-                  {readTime + " read"}{" "}
-                </Text>
+                {publishDate +" "+ readTime + " read "}
                 
                 <Button shape="round" icon={onFire ? <FireFilled style={{color:'#f50057'}} /> : 
                 <FireOutlined style={{color:'#f50057'}} />} 
                 onClick={handleFire}
-                style={{backgroundColor:'inherit', border:'0'}} >
+                style={{backgroundColor:'inherit', border:'0', padding:'4px'}} >
                 {fireCount+ (onFire? 1:0)}
                 </Button>
+
               </Text>
             </div>
-          </Space>
+          {/* </Space> */}
           {/* card footer end */}
         </Col>
 
