@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-BackendBzApplication<backend-bz>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.buzzpress.BackendBzApplication",
+            "projectName": "backend-bz",
+            "args": ""
+        }
+    ]
+}

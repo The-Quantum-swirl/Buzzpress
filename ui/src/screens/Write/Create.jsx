@@ -84,11 +84,11 @@ export default function Create(props) {
 
   function handleTags(value) {
     setSelectedTags(value);
-    console.log("selected tags : "+ selectedTags);
+    console.log("selected tags : " + selectedTags);
   }
 
   const tags = ["Technology", "Startup", "Business", "Innovation",
-   "Science", "Space", "Medicine", "React", "JavaScript", "SpringBoot"
+    "Science", "Space", "Medicine", "React", "JavaScript", "SpringBoot"
   ];
 
   const data = {
@@ -105,7 +105,7 @@ export default function Create(props) {
   return (
     <>
       <Row style={{ marginTop: "2%" }}>
-        <Col className="mobile desktop" style={{width:'100%'}}>
+        <Col className="mobile desktop" style={{ width: '100%' }}>
           {/* Create screen starts */}
           {/* title starts */}
           <TextField
@@ -132,19 +132,19 @@ export default function Create(props) {
           {/* Recap ends */}
 
           <Select
-          mode="multiple"
-          placeholder="Select tags"
-          onChange={handleTags}
-          optionLabelProp="label"
-          style={{width:'90%', margin:'15px',}}
+            mode="multiple"
+            placeholder="Select tags"
+            onChange={handleTags}
+            optionLabelProp="label"
+            style={{ width: '90%', margin: '15px', }}
           >
-          {tags.map( (tag) => {
-            return (
-            <Option value={tag} label={tag}>
-            {tag}
-            </Option>
-            );
-          })}
+            {tags.map((tag) => {
+              return (
+                <Option value={tag} label={tag}>
+                  {tag}
+                </Option>
+              );
+            })}
           </Select>
 
           {/* Appendable fields starts */}
@@ -214,8 +214,8 @@ export default function Create(props) {
           {/* Create screen ends */}
         </Col>
       </Row>
-		<Divider> Preview</Divider>
-		<Preview data={data} />
+      <Divider> Preview</Divider>
+      <Preview data={data} />
     </>
   );
 }

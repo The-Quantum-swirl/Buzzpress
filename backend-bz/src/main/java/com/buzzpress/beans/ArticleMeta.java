@@ -22,11 +22,11 @@ public class ArticleMeta {
     private String publishDate;
     private String ThumbnailUrl;
 
-    public ArticleMeta(Long articleId, String author, Long authorId, String topic) {
+    public ArticleMeta(Long articleId, String author, Long authorId, String tag) {
         setArticleId(articleId);
         setAuthorName(author);
         setAuthorId(authorId);
-        setTags(topic);
+        setTags(tag);
     }
 
 }

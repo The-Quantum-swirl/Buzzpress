@@ -12,7 +12,5 @@ public interface ArticleMetaDataRepository extends JpaRepository<ArticleMeta, Lo
 
     public List<ArticleMeta> findAllByArticleId(Long ArticleId);
 
-    List<ArticleMeta> findByTopic(String topic);
-
     List<ArticleMeta> findByAuthorId(Long authorId);
 }

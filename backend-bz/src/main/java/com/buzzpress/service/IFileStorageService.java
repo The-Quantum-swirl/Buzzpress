@@ -14,6 +14,8 @@ public interface IFileStorageService {
 
     public Resource loadImage(String filename);
 
+    // public Resource serveImage(String filename) throws NotFoundException;
+
     public void DeleteAll();
 
     public Stream<Path> loadAllImages();
