@@ -4,6 +4,8 @@ import { Row, Col, Divider } from "antd";
 import { Button, Radio, Select } from "antd";
 import { TextField } from "@mui/material";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import UploadButton from "../../components/UploadButton";
 import Topics from "../../components/home/Topics";
 import { profileUrl } from "../common/Path.js";
@@ -161,6 +163,7 @@ export default function Create(props) {
                 >
                   <Radio.Button  value="head">Head</Radio.Button>
                   <Radio.Button  value="text">Text</Radio.Button>
+                  <Radio.Button  value="code">Code</Radio.Button>
                   <Radio.Button  value="image">Image</Radio.Button>
                 </Radio.Group>
 
@@ -186,23 +189,21 @@ export default function Create(props) {
                   <Col offset={1} span={6}>
                     {/* plus ( + ) starts */}
                     <Button
+                      icon={<PlaylistAddIcon style={{color: '#0D4F8B'}} />}
                       shape="circle"
                       size="middle"
                       style={{ marginRight: "1%" }}
                       onClick={(e) => addField(e, index)}
-                    >
-                      <PlusOutlined />
-                    </Button>
+                    />
                     {/* plus ends */}
 
                     {/* minus ( - ) starts */}
                     <Button
+                      icon={<DeleteOutlineIcon style={{color:'f70d1a'}} />}
                       shape="circle"
                       size="middle"
                       onClick={(e) => deleteField(e, index)}
-                    >
-                      <MinusOutlined />
-                    </Button>
+                    />
                     {/* minus ends */}
                   </Col>
                   {/* action ends */}

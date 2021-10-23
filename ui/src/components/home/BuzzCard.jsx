@@ -41,12 +41,11 @@ export default function BuzzCard(props) {
   }
   return (
     <>
-      <Row style={{padding:'5px'}}>
-        <Col span={17} style={{ padding: "5px" }}>
+      <Row style={{marginTop:'10px'}}>
+        <Col offset={1} span={16}>
           {/* author name start*/}
           <Link to={authorLink} >
             <div
-              // style={{ display: "table" }}
               style={{
                 display: "flex",
                 justifyContent: "flex-start",
@@ -60,7 +59,6 @@ export default function BuzzCard(props) {
                   width: "34px",
                   height: "34px",
                   backgroundColor: "blue",
-                  // display: "table-cell",
                 }}
                 icon={<UserOutlined />}
               />
@@ -69,22 +67,11 @@ export default function BuzzCard(props) {
                 style={{
                   backgroundColor: "rgba(0, 0, 0, 0.03)",
                   padding: "0px 22px 0px 0",
-                  // display: "table-cell",
-                  // verticalAlign:'middle',
-                  // textAlign:'center'
                 }}
               >
-                <Text
-                // style={{ display: "table-cell", verticalAlign: "middle" }}
-                >
-                  {authorname}
-                </Text>
+                <Text>{authorname}</Text>
               </span>
             </div>
-            {/* <div style={{ height: "26px", overflow: "hidden" }}> */}
-            {/* <Title level={5} ellipsis={true}>
-              {authorname}
-            </Title> */}
           </Link>
           {/* author name end */}
 
@@ -94,7 +81,7 @@ export default function BuzzCard(props) {
               <Title
                 level={4}
                 style={{
-                  fontWeight: "700",
+                  fontWeight: "500",
                   marginBottom:'5px'
                 }}
                 ellipsis={{ rows: 2 }}
@@ -104,7 +91,8 @@ export default function BuzzCard(props) {
               {/* heading end */}
 
               {/* subheading start (small intro) */}
-              <Title level={5} ellipsis={{ rows: 2 }} style={{marginTop:0, fontWeight:'450'}}>
+              <Title level={5} ellipsis={{ rows: 2 }} 
+                style={{marginTop:0, fontWeight:'400', color:'grey'}}>
                 {summary}
               </Title>
             </div>
@@ -137,14 +125,14 @@ export default function BuzzCard(props) {
           {/* card footer end */}
         </Col>
 
-        <Col span={7} style={{ position: "relative" }}>
+        <Col span={6} style={{ position: "relative" }}>
           {/* image start */}
           <div
             style={{
               maxHeight: "130px",
               maxWidth: "200px",
               height: "100%",
-              width: "100%",
+              width: "95%",
               marginRight: "0",
               marginLeft: "auto",
               position: "absolute",
@@ -160,6 +148,8 @@ export default function BuzzCard(props) {
             />
           </div>
           {/* image end */}
+        </Col>
+        <Col span={1}>
         </Col>
       </Row>
 

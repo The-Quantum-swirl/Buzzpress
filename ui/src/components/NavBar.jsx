@@ -42,8 +42,9 @@ export default function NavBar() {
           >
             BuzzPress
           </Menu.Item>
-
+            
           <Menu.Item
+            className='ant-dropdown-link'
             key={2}
             style={{
               marginRight: "0%",
@@ -52,27 +53,28 @@ export default function NavBar() {
               backgroundColor: "inherit",
             }}
           >
-            <Dropdown overlay={menu} placement="bottomRight" arrow>
+          <Dropdown overlay={menu} placement="bottomRight" arrow>
               <Button
                 style={{
                   backgroundColor: "inherit",
+                  border:0,
                   width: "40px",
                   height: "40px",
-                  border: "2px solid green",
                   padding: "0",
                   borderRadius: "50%",
                 }}
               >
                 <Avatar
                   style={{
-                    width: "36px",
-                    height: "36px",
-                    backgroundColor: "red",
+                    width: "40px",
+                    height: "40px",
+                    backgroundColor: "#ADD8E6",
                   }}
                   icon={<UserOutlined />}
                 />
               </Button>
-            </Dropdown>
+          </Dropdown>
+            
           </Menu.Item>
         </Menu>
       </Header>

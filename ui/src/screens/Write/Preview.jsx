@@ -59,7 +59,8 @@ export default function Preview(props) {
   const mapData = (type, val) => {
     if (type === 'head') return <Title level={2} style={{fontWeight:'500'}}> {val}</Title>;
     else if (type === 'text') return  <Title level={4} style={{fontWeight:'450'}}> {val}</Title>;
-
+    else if (type === 'code') return  <Text code> {val}</Text>;
+    else return <Text>{val}</Text>;
   }
   return (
     <>

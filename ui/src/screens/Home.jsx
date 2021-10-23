@@ -117,37 +117,42 @@ export default function Home() {
       {/* <Layout> */}
       <NavBar />
       <Row>
+        <Col xs={0} sm={2} md={1} lg={4} xl={4}>
+          <Space direction="vertical" id="profile-left-hide">
+            {/* <Text>left</Text> */}
+
+          </Space>
+        </Col>
         {/* Feed/ Article starts */}
-        <Col span={23} style={{ maxWidth: "800px", padding: "2% 2% 2% 6%" }}>
-          <Space direction="vertical" style={{width:'100%'}}>
-            <Text type="secondary">Recommended For you</Text>
-            <Divider style={{ margin: "0", width: "22%", minWidth: "5%" }} />
+        <Col xs={24} sm={18} md={15} lg={14} xl={13}>
+          <Space direction="vertical" size={8} style={{width:'100%', paddingTop:'25px'}}>
+            <Text type="secondary" style={{padding:'25px'}}>Recommended For You</Text>
+            <Divider style={{ margin: "0 0 0 20px",width: "180px", minWidth: "30%"}} />
             {displayData.map((dataObject) => {
-              return <BuzzCard data={dataObject} />;
+            return <BuzzCard data={dataObject} />;
             })}
           </Space>
         </Col>
         {/* Feed/ Article ends */}
 
-        <Col span={1} id="fadeshow">
+        {/* <Col span={1} id="fadeshow">
           <Divider type="vertical" style={{ height: "100%" }} />
-        </Col>
-        <Col
-          span={7}
-          id="fadeshow"
-          style={{
-            paddingTop: "2%",
-          }}
-        >
-          <Space direction="vertical" style={{ position: "sticky", top: "5%" }}>
+        </Col> */}
+        
+        <Col xs={0} sm={4} md={8} lg={6} xl={7}>
+          <Space direction="vertical" id="profile-right-hide" 
+            style={{ 
+              position: "sticky", top: "10px",
+              padding:'25px'
+            }}>
             {/* performance chart start */}
-            <Text type="secondary">Performance Evaluation</Text>
-            <Divider style={{ margin: "0", width: "50%", minWidth: "30%" }} />
+            <Text type="secondary">Your Performance</Text>
+            <Divider style={{ margin: "0", width: "40%", minWidth: "30%" }} />
             <RadialChart />
             {/* performance chart end */}
 
             {/* connect social media start */}
-            <Text type="secondary">Connect Your Social Media</Text>
+            <Text type="secondary">Connect With Us</Text>
             <Divider style={{ margin: "0", width: "40%", minWidth: "30%" }} />
 
             <Space wrap={true} style={{ width: "60%" }}>

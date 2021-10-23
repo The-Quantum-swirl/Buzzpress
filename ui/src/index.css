@@ -29,3 +29,14 @@ code {
    margin-right: 5%;
   }
 }
+/* profile page */
+@media all and (max-width: 767px) {
+  #profile-right-hide{
+    display: none;
+  }
+}
+@media all and (max-width: 991px) {
+  #profile-left-hide{
+    display: none;
+  }
+}
