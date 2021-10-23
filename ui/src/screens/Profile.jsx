@@ -55,7 +55,7 @@ export default function Profile(){
               </div>
                 {/* <PageHeader
                 title={name}
-                subTitle={"Joined "+joinedDate}
+                summary={"Joined "+joinedDate}
                 /> */}
             {/* </Space> */}
 

@@ -24,8 +24,8 @@ export default function Home() {
   const displayData = [
     {
       authorname: "Bhargav Bachina",
-      heading: "React — How To Proxy To Backend Server",
-      subHeading: "Explaining how to configure a proxy for backend API calls with an example.",
+      title: "React — How To Proxy To Backend Server",
+      summary: "Explaining how to configure a proxy for backend API calls with an example.",
       publishDate: "2020-06-14 10:29:08",
       readTime: "6 min",
       fireCount: 15,
@@ -36,8 +36,8 @@ export default function Home() {
     },
     {
       authorname: "Sean Kernan",
-      heading: "You Aren’t Lazy. You Are Overstimulated.",
-      subHeading: "Slowing your life down is the secret to getting things done.",
+      title: "You Aren’t Lazy. You Are Overstimulated.",
+      summary: "Slowing your life down is the secret to getting things done.",
       publishDate: "2021-06-02 10:29:08",
       readTime: "5 min",
       fireCount: 5336,
@@ -48,8 +48,8 @@ export default function Home() {
     },
     {
       authorname: "Nivedha Duraisamy",
-      heading: "4 Ways to Add External JavaScript Files in React",
-      subHeading: "React Hooks and other methods",
+      title: "4 Ways to Add External JavaScript Files in React",
+      summary: "React Hooks and other methods",
       publishDate: "2020-04-06 10:29:08",
       readTime: "5 min",
       fireCount: 23,
@@ -60,8 +60,8 @@ export default function Home() {
     },
     {
       authorname: "Sam Mikaelson",
-      heading: "Five After Hours Habits to Help You Build a Tiny Empire, Quietly",
-      subHeading: "Build from your bedroom",
+      title: "Five After Hours Habits to Help You Build a Tiny Empire, Quietly",
+      summary: "Build from your bedroom",
       publishDate: "2015-04-29 10:29:08",
       readTime: "5 min",
       fireCount: 55,
@@ -72,8 +72,8 @@ export default function Home() {
     },
     {
       authorname: "Harsha Vardhan",
-      heading: "useAxios: A React Hook for using Axios",
-      subHeading: "How to Create a Custom Hook for using Axios",
+      title: "useAxios: A React Hook for using Axios",
+      summary: "How to Create a Custom Hook for using Axios",
       publishDate: "2021-06-05 10:29:08",
       readTime: "3 min",
       fireCount: 189,
@@ -84,8 +84,8 @@ export default function Home() {
     },
     {
       authorname: "Sam Mikaelson",
-      heading: "Five After Hours Habits to Help You Build a Tiny Empire, Quietly",
-      subHeading: "Build from your bedroom",
+      title: "Five After Hours Habits to Help You Build a Tiny Empire, Quietly",
+      summary: "Build from your bedroom",
       publishDate: "2015-04-29 10:29:08",
       readTime: "5 min",
       fireCount: 38,
@@ -96,8 +96,8 @@ export default function Home() {
     },
     {
       authorname: "Abhijit Roy",
-      heading: "Build JS, and MongoDB",
-      subHeading: "Currently, most of the websites operate on an API-based backend structure, where we just send a request from the front end of the website",
+      title: "Build JS, and MongoDB",
+      summary: "Currently, most of the websites operate on an API-based backend structure, where we just send a request from the front end of the website",
       publishDate: "2021-04-08 10:29:08",
       readTime: "11 min",
       fireCount: 542,
