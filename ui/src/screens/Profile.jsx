@@ -34,7 +34,7 @@ export default function Profile(){
         <Row style={{ marginTop: "2%" }}>
           <Col xs={0} sm={2} md={1} lg={4} xl={4}>
             <Space direction="vertical" id="profile-left-hide">
-              <Text>left</Text>
+              {/* <Text>left</Text> */}
 
             </Space>
           </Col>
@@ -73,7 +73,7 @@ export default function Profile(){
           </Col>
           <Col xs={0} sm={4} md={8} lg={6} xl={7}>
             <Space direction="vertical" id="profile-right-hide">
-              <Text>right</Text>
+              {/* <Text>right</Text> */}
 
             </Space>
           </Col>

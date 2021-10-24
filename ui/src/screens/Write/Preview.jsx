@@ -11,7 +11,7 @@ const DateToMonthYearFormat = (date) => {
   return dateArr[1] + " " + Number(dateArr[2]).toString() + ", " + dateArr[3];
 };
 const isBase64 = (str) => {
-  return str.includes("data:image") || str.includes("http://");
+  return (str.indexOf("data:image")!== -1) || (str.indexOf("http://")!== -1)|| (str.indexOf("https://")!== -1);
 }
 const checkURL = (url) => {
   return url.match(/\.(jpeg|jpg|gif|png|svg)$/) != null;
@@ -55,7 +55,6 @@ export default function Preview(props) {
     setOnFire(!onFire) ;
   }
 
-  const contentMap = { title: 3, content: 4};
   const mapData = (type, val) => {
     if (type === 'head') return <Title level={2} style={{fontWeight:'500'}}> {val}</Title>;
     else if (type === 'text') return  <Title level={4} style={{fontWeight:'450'}}> {val}</Title>;
@@ -120,7 +119,10 @@ export default function Preview(props) {
           </Title>
 
           {content.map((point, i) => {
-            typeof point === 'number' && point < imageList.length ? temp = URL.createObjectURL(imageList[point]) : temp=point
+            typeof point === 'number' && point < imageList.length ? 
+            temp =  (checkURL(imageList[point]) ? imageList[point]: URL.createObjectURL(imageList[point]) ) 
+            : 
+            temp = point
 
             return isImage(temp) ? (
               <div style={{maxHeight:'400px', maxWidth:'100%'}}>
