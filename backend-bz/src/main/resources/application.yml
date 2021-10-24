@@ -4,7 +4,7 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/buzzpressdb
-    password: postgres
+    password: quicuxeo
     username: postgres
   jpa:
     hibernate:
