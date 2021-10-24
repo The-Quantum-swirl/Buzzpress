@@ -1,11 +1,11 @@
 import React from "react";
 import { Card } from "antd";
-
+import penIcon from "../../assets/orange pen.svg"
 const MessageCard = (props) => {
     const style1 = {
         padding: "0px",
         borderRadius: "10px",
-        backgroundColor: "#1e4f83",
+        backgroundColor: "#001529",
         display: "flex",
         justifyContent: "space-between",
         color: "white !important",
@@ -55,25 +55,21 @@ const MessageCard = (props) => {
                                     fontSize: "18px",
                                 }}
                             >
-                                {props.todaysData.length}
+                                {props.ArticlePublished}
                             </span>
                         }{" "}
                         published articles this month.
                     </p>
-                    <ul style={{ marginBottom: "0", marginLeft: "20px" }}>
-                        {props.todaysData.map((e) => {
-                            return (
-                                <li style={{ fontSize: "14px" }}>{`${e.name} - ${e.type.charAt(0).toUpperCase() + e.type.slice(1).toLowerCase()
-                                    }`}</li>
-                            );
-                        })}
-                    </ul>
                 </div>
             </div>
             <div>
+
                 <img
-                    src="https://axess.sc.com/static/1-hackathons-0e6834e15c9f7f658230c6a7d2b30b9a.svg"
-                    alt="Img"
+                    src={penIcon}
+                    alt="Pen Img"
+                    width="100px"
+                    color="#fa5500"
+
                 />
             </div>
         </Card>
