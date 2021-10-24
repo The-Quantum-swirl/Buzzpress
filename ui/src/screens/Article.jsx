@@ -11,12 +11,12 @@ import Preview from './Write/Preview';
 const loadedData = {
     readTime: "5 min",
     authorLink: "https://drckangelo.medium.com/?source=post_page-----8f2258f81899--------------------------------",
-    head: "What Happened To Clubhouse?",
-    subHead: "Easy come easy go.",
-    paraType : [
+    title: "What Happened To Clubhouse?",
+    summary: "Easy come easy go.",
+    contentType : [
     "image", "para", "para", "para", "para", "para", "para", "para", "para", "heading", "image",
     ],
-    paragraph: [
+    content: [
     "https://miro.medium.com/max/1500/1*LUhwsbqn7FXfHVWhekLy0g.png",
     "It was April of 2020, amidst the COVID-19 pandemic where everybody was at home, quarantining. Suddenly, there was noise around a new social networking platform called ‘Clubhouse’.",
     "A lot of people were talking about it on Twitter which includes a lot of hype around this so-called “the new normal social app”. This is what brings Clubhouse to my attention.",
