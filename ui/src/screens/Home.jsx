@@ -5,7 +5,9 @@ import BuzzCard from "../components/home/BuzzCard";
 import Topics from "../components/home/Topics";
 import RadialChart from "../components/home/RadialChart.js";
 import { InstagramOutlined, TwitterOutlined } from "@ant-design/icons";
-import {profileUrl, articleUrl} from './common/Path.js';
+import {profileUrl, articleUrl, backendUrl} from './common/Path.js';
+import { useEffect, useState } from "react";
+import axios from 'axios';
 
 const { TabPane } = Tabs;
 const { Text, Link } = Typography;
@@ -21,7 +23,31 @@ export default function Home() {
     "Ethereum",
     "Nano",
   ];
-  const displayData = [
+  useEffect(() => {
+    axios.get( backendUrl+'/article' )
+    .then((res) => {
+      console.log(res.data);
+      var arr = res.data.map((data) => {
+        var dt = data;
+        return(
+          {
+            authorname: "Bhargav Bachina",
+            title:dt.heading,
+            summary:dt.subHeading,
+            publishDate: dt.publishDate || "2020-06-14 10:29:08",
+            readTime: dt.readTime + " min",
+            fireCount: 15,
+            tag: dt.tag || "React",
+            authorLink: profileUrl+dt.authorId,
+            link:  articleUrl+dt.articleId,
+            imageLink: dt.imageLink || "https://miro.medium.com/fit/c/300/201/0*J8_v8vmIyMZgQFhK",
+          }
+        );
+      })
+    setDisplayData(arr);
+    })
+  },[])
+  const [displayData, setDisplayData] =  useState([
     {
       authorname: "Bhargav Bachina",
       title: "React — How To Proxy To Backend Server",
@@ -106,11 +132,7 @@ export default function Home() {
       link: articleUrl+12,
       imageLink: "https://miro.medium.com/fit/c/300/201/1*RG2GDRY3uUbNYvESrHw9qA.jpeg",
     },
-  ];
-
-  function callback(key) {
-    console.log(key);
-  }
+  ]);
 
   return (
     <>
