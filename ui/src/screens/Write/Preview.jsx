@@ -14,7 +14,9 @@ const isBase64 = (str) => {
   return (str.indexOf("data:image")!== -1) || (str.indexOf("http://")!== -1)|| (str.indexOf("https://")!== -1);
 }
 const checkURL = (url) => {
-  return url.match(/\.(jpeg|jpg|gif|png|svg)$/) != null;
+  if (typeof url === 'string')
+    return url.match(/\.(jpeg|jpg|gif|png|svg)$/) != null;
+  return false;
 }
 
 const isImage =(data) =>{
@@ -97,12 +99,6 @@ export default function Preview(props) {
                   {readTime + " read"}
                 </Text>
                 
-                {/* <Button shape="round" icon={onFire ? <FireFilled style={{color:'#f50057'}} /> : 
-                <FireOutlined style={{color:'#f50057'}} />} 
-                onClick={handleFire}
-                style={{backgroundColor:'inherit', border:'0'}} >
-                {fireCount+ (onFire? 1:0)}
-                </Button> */}
               </Text>
               </span>
             </div>

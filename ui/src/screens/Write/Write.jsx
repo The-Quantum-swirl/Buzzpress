@@ -3,15 +3,16 @@ import { useState } from "react";
 import { Result, Button } from "antd";
 import Create from "./Create";
 import Preview from "./Preview";
-import { profileUrl } from "../common/Path";
+import { backendUrl, profileUrl } from "../common/Path";
+import axios from "axios";
 
 export default function Write() {
   const [currentStep, setCurrentStep] = useState(0);
   const [data, setData] = useState({
     readTime: "5 min",
     authorLink: profileUrl+1,
-    title: "What Happened To Clubhouse?",
-    summary: "Easy come easy go.",
+    title: "",
+    summary: "",
   });
   
   var previewData={};
@@ -19,6 +20,28 @@ export default function Write() {
     // publish stage step 1 clicked on next
     if (currentStep === 1){
       // publish data
+      console.log("publish data");
+      console.log(data);
+
+      axios.post(backendUrl+'/saveArticle/'+2,{
+        articleId:4,
+        authorId:2,
+        heading:data.title,
+        subHeading:data.summary,
+        publishDate: data.publishDate,
+        readTime: data.readTime,
+        description: data.content.join("\n"),
+        textType: data.contentType.join("\n"),
+        tag:data.tag.join("\n"),
+      }).then((res) => console.log(res));
+
+      let formData = new FormData();
+      formData.append("file", data.imagelist[0])
+      axios.post(backendUrl+'/upload-image', formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        }
+      }).then((res) => console.log(res));
     }
 
     setCurrentStep( Math.min(currentStep + 1, 2) );
@@ -31,10 +54,10 @@ export default function Write() {
     setData(previewData);
   };
   const handleData = (temp) =>{
-    console.log(temp);
+    // console.log(temp);
     previewData = temp;
-    console.log("<---- data ---->")
-    console.log(previewData);
+    // console.log("<---- data ---->")
+    // console.log(previewData);
   }
   const screen = [
     <Create data={(e) => handleData(e)} />,
