@@ -1,5 +1,7 @@
 package com.buzzpress.controller;
 
+import java.util.List;
+
 import com.buzzpress.beans.Users_;
 import com.buzzpress.model.ResponseMessage;
 import com.buzzpress.service.IUserService;
@@ -36,5 +38,11 @@ public class Controller {
         rm.setStatusCode(200);
         iUserService.saveUserDetails(entity);
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/allUsers")
+    public List<Users_> getAllUserDetails() {
+
+        return iUserService.showAllUsers();
     }
 }

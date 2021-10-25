@@ -24,8 +24,8 @@ public class Article {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ArticleId_sequence")
 	private Long articleId;
 	private Long authorId;
-	private String heading;
-	private String subHeading;
+	private String title;
+	private String summary;
 	private String publishDate;
 	private Integer readTime;
 	@Column(columnDefinition = "TEXT")
@@ -33,4 +33,5 @@ public class Article {
 	@Column(columnDefinition = "TEXT")
 	private String textType;
 	private String tag;
+	private String imageLink;
 }
