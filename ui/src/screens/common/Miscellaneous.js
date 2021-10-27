@@ -1,10 +1,10 @@
 
 export const DateToMonthYearFormat = (date) => {
-  let todaysDate = date.toDateString();
-  let dateArr = todaysDate.split(" ");
-  return dateArr[1] + " " + Number(dateArr[2]).toString() + ", " + dateArr[3];
+  const month =["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  let dateArr = date.split("-");
+  return month[Number(dateArr[1])-1] + " " + Number(dateArr[2]).toString() + ", " + dateArr[0];
 };
 
 export const convertDate = (date) => {
-  return date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
+  return date.getFullYear()+"-"+Number(date.getMonth()+1)+"-"+date.getDate();
 }

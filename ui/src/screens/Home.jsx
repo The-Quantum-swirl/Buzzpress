@@ -34,7 +34,7 @@ export default function Home() {
             authorname: "Bhargav Bachina",
             title:dt.heading,
             summary:dt.subHeading,
-            publishDate: dt.publishDate || "2020-06-14 10:29:08",
+            publishDate: dt.publishDate || "2020-06-14",
             readTime: dt.readTime + " min",
             fireCount: 15,
             tag: dt.tag || "React",
@@ -52,7 +52,7 @@ export default function Home() {
       authorname: "Bhargav Bachina",
       title: "React — How To Proxy To Backend Server",
       summary: "Explaining how to configure a proxy for backend API calls with an example.",
-      publishDate: "2020-06-14 10:29:08",
+      publishDate: "2020-06-14",
       readTime: "6 min",
       fireCount: 15,
       tag: "React",
@@ -64,7 +64,7 @@ export default function Home() {
       authorname: "Sean Kernan",
       title: "You Aren’t Lazy. You Are Overstimulated.",
       summary: "Slowing your life down is the secret to getting things done.",
-      publishDate: "2021-06-02 10:29:08",
+      publishDate: "2021-06-02",
       readTime: "5 min",
       fireCount: 5336,
       tag: "Life",
@@ -76,7 +76,7 @@ export default function Home() {
       authorname: "Nivedha Duraisamy",
       title: "4 Ways to Add External JavaScript Files in React",
       summary: "React Hooks and other methods",
-      publishDate: "2020-04-06 10:29:08",
+      publishDate: "2020-04-06",
       readTime: "5 min",
       fireCount: 23,
       tag: "React",
@@ -88,7 +88,7 @@ export default function Home() {
       authorname: "Sam Mikaelson",
       title: "Five After Hours Habits to Help You Build a Tiny Empire, Quietly",
       summary: "Build from your bedroom",
-      publishDate: "2015-04-29 10:29:08",
+      publishDate: "2015-04-29",
       readTime: "5 min",
       fireCount: 55,
       tag: "Science",
@@ -100,7 +100,7 @@ export default function Home() {
       authorname: "Harsha Vardhan",
       title: "useAxios: A React Hook for using Axios",
       summary: "How to Create a Custom Hook for using Axios",
-      publishDate: "2021-06-05 10:29:08",
+      publishDate: "2021-06-05",
       readTime: "3 min",
       fireCount: 189,
       tag: "JavaScript",
@@ -112,7 +112,7 @@ export default function Home() {
       authorname: "Sam Mikaelson",
       title: "Five After Hours Habits to Help You Build a Tiny Empire, Quietly",
       summary: "Build from your bedroom",
-      publishDate: "2015-04-29 10:29:08",
+      publishDate: "2015-04-29",
       readTime: "5 min",
       fireCount: 38,
       tag: "Science",
@@ -124,7 +124,7 @@ export default function Home() {
       authorname: "Abhijit Roy",
       title: "Build JS, and MongoDB",
       summary: "Currently, most of the websites operate on an API-based backend structure, where we just send a request from the front end of the website",
-      publishDate: "2021-04-08 10:29:08",
+      publishDate: "2021-04-08",
       readTime: "11 min",
       fireCount: 542,
       tag: "JavaScript",
@@ -156,10 +156,6 @@ export default function Home() {
           </Space>
         </Col>
         {/* Feed/ Article ends */}
-
-        {/* <Col span={1} id="fadeshow">
-          <Divider type="vertical" style={{ height: "100%" }} />
-        </Col> */}
         
         <Col xs={0} sm={4} md={8} lg={6} xl={7}>
           <Space direction="vertical" id="profile-right-hide" 

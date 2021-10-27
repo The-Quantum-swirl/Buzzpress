@@ -16,7 +16,7 @@ export default function Article(){
         "image", "text", "text", "text", "text", "text", "text", "text", "text", "head", "image",
         ],
         content: [
-        0,
+        "1*LUhwsbqn7FXfHVWhekLy0g.png",
         "It was April of 2020, amidst the COVID-19 pandemic where everybody was at home, quarantining. Suddenly, there was noise around a new social networking platform called ‘Clubhouse’.",
         "A lot of people were talking about it on Twitter which includes a lot of hype around this so-called “the new normal social app”. This is what brings Clubhouse to my attention.",
         "I turned on my Twitter and stumbled upon some tweets that were talking about it. It was a great discovery. Its exclusivity is what makes the platform more desired by people.",
@@ -26,7 +26,7 @@ export default function Article(){
         "If no one files a complaint, Clubhouse says it deletes the recording as soon as the host closes the discussion.",
         "Clubhouse kept its exclusivity vibe even long after they updated their platform to be available without an invite.",
         "The cool fact? It was only available for iPhones.",
-        1,
+        "0*LY6MXofFTTOizARf.jpg",
         ],
         imagelist:[
         "https://miro.medium.com/max/1500/1*LUhwsbqn7FXfHVWhekLy0g.png",

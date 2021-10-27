@@ -4,6 +4,7 @@ import { UserOutlined, FireFilled, FireOutlined } from "@ant-design/icons";
 import "../css/home.css";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
+import { convertDate, DateToMonthYearFormat } from "../../screens/common/Miscellaneous";
 const { Text, Title } = Typography;
 
 const sqlDateToMonthYearFormat = (sqlDate) => {
@@ -28,7 +29,7 @@ export default function BuzzCard(props) {
   const authorname = props.data.authorname;
   const title = props.data.title;
   const summary = props.data.summary;
-  const publishDate = sqlDateToMonthYearFormat(props.data.publishDate);
+  const publishDate = DateToMonthYearFormat(props.data.publishDate);
   const readTime = props.data.readTime;
   const tag = props.data.tag;
   const authorLink = props.data.authorLink;

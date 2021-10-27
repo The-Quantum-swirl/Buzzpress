@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Topics from "../../components/home/Topics";
-import { DateToMonthYearFormat } from "../common/Miscellaneous";
+import { convertDate, DateToMonthYearFormat } from "../common/Miscellaneous";
 import { Row, Col, Typography } from "antd";
 import { Avatar, Space, Button } from "antd";
 import { UserOutlined, FireFilled, FireOutlined } from "@ant-design/icons";
@@ -27,7 +27,7 @@ export default function Preview(props) {
   }
 
   const authorName = "Derick David";
-  const publishDate = DateToMonthYearFormat(new Date());
+  const publishDate = DateToMonthYearFormat(convertDate(new Date()));
   const readTime = props.data.readTime;
   const tag = props.data.tag;
   const authorLink = props.data.authorLink;
@@ -59,7 +59,7 @@ export default function Preview(props) {
       );
     else if (type === "code") return <Text code> {val}</Text>;
     else if (type === "image") {
-      const foundImage = imageList.find((img) => img.name === val);
+      const foundImage = imageList.find((img) => (img.name === val || img.indexOf(val) !== -1 ) );
       temp = foundImage;
       console.log(val);
       if (typeof foundImage === "object") {
