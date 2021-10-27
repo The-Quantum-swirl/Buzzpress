@@ -5,6 +5,7 @@ import Create from "./Create";
 import Preview from "./Preview";
 import { backendUrl, profileUrl } from "../common/Path";
 import axios from "axios";
+import { convertDate } from "../common/Miscellaneous";
 
 export default function Write() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -22,13 +23,13 @@ export default function Write() {
       // publish data
       console.log("publish data");
       console.log(data);
-
+      const today = new Date()
       axios.post(backendUrl+'/saveArticle/'+2,{
         articleId:4,
         authorId:2,
         title:data.title,
         summary:data.summary,
-        publishDate: data.publishDate,
+        publishDate: convertDate(today),
         readTime: data.readTime,
         description: data.content.join("\n"),
         textType: data.contentType.join("\n"),

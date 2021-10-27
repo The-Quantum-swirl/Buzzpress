@@ -99,7 +99,6 @@ export default function Create(props) {
     imagelist: imageList,
 	  content: content,
     contentType : contentType,
-    publishDate: new Date(),
 	  readTime: 5,
     authorLink: profileUrl+authorId,
     tag: selectedTags,
