@@ -26,8 +26,8 @@ export default function Write() {
       axios.post(backendUrl+'/saveArticle/'+2,{
         articleId:4,
         authorId:2,
-        heading:data.title,
-        subHeading:data.summary,
+        title:data.title,
+        summary:data.summary,
         publishDate: data.publishDate,
         readTime: data.readTime,
         description: data.content.join("\n"),
@@ -35,13 +35,20 @@ export default function Write() {
         tag:data.tag.join("\n"),
       }).then((res) => console.log(res));
 
+      // uploading image in batch start
+      let imgArr = data.imagelist;
       let formData = new FormData();
-      formData.append("file", data.imagelist[0])
-      axios.post(backendUrl+'/upload-image', formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        }
-      }).then((res) => console.log(res));
+      imgArr.forEach(element => {
+        
+        formData.append("file", element)
+        axios.post(backendUrl+'/upload-image', formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          }
+        }).then((res) => console.log(res));
+        formData.delete("file")
+      });
+      // uploading of image end
     }
 
     setCurrentStep( Math.min(currentStep + 1, 2) );
@@ -53,14 +60,9 @@ export default function Write() {
     setCurrentStep( Math.max(currentStep - 1, 0) );
     setData(previewData);
   };
-  const handleData = (temp) =>{
-    // console.log(temp);
-    previewData = temp;
-    // console.log("<---- data ---->")
-    // console.log(previewData);
-  }
+  
   const screen = [
-    <Create data={(e) => handleData(e)} />,
+    <Create />,
     <Preview data={data} />,
     <Result
       status="success"

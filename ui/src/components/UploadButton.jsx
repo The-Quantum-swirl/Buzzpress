@@ -12,9 +12,7 @@ export default function UploadButton({ imageData }) {
     imageData(newFileList[0]);
   };
   function handleImageUpload(event) {
-    console.log(event);
     setFileList(event.target.files[0]);
-
     imageData(event.target.files[0]);
     // const imgfile=event.target.files[0]; 
     // console.log(imgfile);

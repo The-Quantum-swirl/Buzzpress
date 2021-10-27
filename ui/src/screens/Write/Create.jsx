@@ -38,7 +38,7 @@ export default function Create(props) {
     let updatedcontent = [...content], updatedImageList = [...imageList];
 
     // image position stored in content using image list length
-    updatedcontent[position] = imageList.length;
+    updatedcontent[position] = imageData.name;
     // pusing image in seprate array imagelist 
     updatedImageList.push(imageData);
 
@@ -94,11 +94,12 @@ export default function Create(props) {
   ];
 
   const data = {
-	  title:title,
+	  title: title,
 	  summary: summary,
     imagelist: imageList,
 	  content: content,
     contentType : contentType,
+    publishDate: new Date(),
 	  readTime: 5,
     authorLink: profileUrl+authorId,
     tag: selectedTags,
@@ -215,7 +216,7 @@ export default function Create(props) {
           {/* Create screen ends */}
         </Col>
       </Row>
-      <Divider> Preview</Divider>
+      <Divider>Live Preview</Divider>
       <Preview data={data} />
     </>
   );
