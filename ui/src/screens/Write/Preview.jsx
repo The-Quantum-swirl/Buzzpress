@@ -1,4 +1,5 @@
 import { useState } from "react";
+import LazyLoad from "react-lazyload";
 import Topics from "../../components/home/Topics";
 import { convertDate, DateToMonthYearFormat } from "../common/Miscellaneous";
 import { Row, Col, Typography } from "antd";
@@ -7,8 +8,10 @@ import { UserOutlined, FireFilled, FireOutlined } from "@ant-design/icons";
 const { Title, contentgraph, Text } = Typography;
 
 const checkURL = (url) => {
-  if (typeof url === "string")
-    return url.match(/\.(jpeg|jpg|gif|png|svg)$/) != null;
+  if (typeof url === "string"){
+    url=url.toLowerCase();
+    return url.match(/\.(apng|jpeg|jpg|jfif|pjpeg|pjp|gif|png|svg)$/) != null;
+  }
   return false;
 };
 
@@ -59,7 +62,8 @@ export default function Preview(props) {
       );
     else if (type === "code") return <Text code> {val}</Text>;
     else if (type === "image") {
-      const foundImage = imageList.find((img) => (img.name === val || img.indexOf(val) !== -1 ) );
+      const foundImage = imageList.find((img) => (
+        img.name === val || (checkURL(img) && img.indexOf(val) !== -1) ) );
       temp = foundImage;
       console.log(val);
       if (typeof foundImage === "object") {
@@ -67,6 +71,7 @@ export default function Preview(props) {
       }
       return (
         <div style={{ maxHeight: "400px", maxWidth: "100%" }}>
+        <LazyLoad once>
           <img
             src={temp}
             alt="unable to load"
@@ -80,6 +85,7 @@ export default function Preview(props) {
               maxWidth: "100%",
             }}
           />
+        </LazyLoad>
         </div>
       );
     } else return <Text>{val}</Text>;
@@ -127,7 +133,7 @@ export default function Preview(props) {
 
           <Title
             level={1}
-            ellipsis={{ rows: 2 }}
+            // ellipsis={{ rows: 2 }}
             style={{
               marginTop: "15px",
               marginBottom: "5px",
@@ -139,7 +145,7 @@ export default function Preview(props) {
           </Title>
           <Title
             level={3}
-            ellipsis={{ rows: 2 }}
+            // ellipsis={{ rows: 2 }}
             style={{ textAlign: "center", fontWeight: "450" }}
           >
             {summary}

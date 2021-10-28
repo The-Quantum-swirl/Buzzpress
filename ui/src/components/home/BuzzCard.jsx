@@ -143,7 +143,7 @@ export default function BuzzCard(props) {
           >
             <img
               id="image"
-              alt="unable to upload"
+              alt="unable to load"
               className="imghover"
               style={{ height: "100%", width: "100%" }}
               src={imageLink}

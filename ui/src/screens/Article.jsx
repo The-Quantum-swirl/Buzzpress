@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom';
 import NavBar from '../components/NavBar';
-import Preview from './Write/Preview';
+import FinalPreview from './Write/FinalPreview';
 import {backendUrl, profileUrl} from './common/Path';
 import axios from 'axios';
 
@@ -40,21 +40,22 @@ export default function Article(){
         .then((res) => {
           console.log(res.data);
           var dt = res.data[0]
+          // dt.imagelist.map((imglink) => backendUrl+'/uploads/'+imglink)
           var arr = {
             authorname: "Bhargav Bachina",
-            publishDate: dt.publishDate || "2020-06-14 10:29:08",
-            readTime: dt.readTime + " min",
+            publishDate: dt.publishDate || "2020-06-14",
+            readTime: dt.readTime,
             authorLink: profileUrl+dt.authorId,
 
-            title:dt.heading,
-            summary:dt.subHeading,
+            title:dt.title,
+            summary:dt.summary,
 
-            content:dt.description.split("\\n") || [""],
-            contentType: dt.textType.split("\\n") || ["head"],
+            content:dt.description.split("\n") || [""],
+            contentType: dt.textType.split("\n") || ["head"],
             imagelist: dt.imagelist || [""],
 
             fireCount: dt.fireCount || 15,
-            tag: dt.tag || ["React"],
+            tag: dt.tag.split("\n") || ["React"],
 
             };
             console.log(arr);
@@ -65,7 +66,7 @@ export default function Article(){
     return(
         <>
         <NavBar />
-        <Preview data={loadedData} />
+        <FinalPreview data={loadedData} />
         </>
     );
 }

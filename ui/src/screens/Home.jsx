@@ -6,6 +6,7 @@ import Topics from "../components/home/Topics";
 import RadialChart from "../components/home/RadialChart.js";
 import { InstagramOutlined, TwitterOutlined } from "@ant-design/icons";
 import {profileUrl, articleUrl, backendUrl} from './common/Path.js';
+import { getImageFromContent } from "./common/Miscellaneous";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 
@@ -29,18 +30,20 @@ export default function Home() {
       console.log(res.data);
       var arr = res.data.map((data) => {
         var dt = data;
+        var imgLink = backendUrl+"/uploads/"+"bg.jpeg";
+        
         return(
           {
             authorname: "Bhargav Bachina",
-            title:dt.heading,
-            summary:dt.subHeading,
+            title:dt.title,
+            summary:dt.summary,
             publishDate: dt.publishDate || "2020-06-14",
             readTime: dt.readTime + " min",
             fireCount: 15,
             tag: dt.tag || "React",
             authorLink: profileUrl+dt.authorId,
             link:  articleUrl+dt.articleId,
-            imageLink: dt.imageLink || "https://miro.medium.com/fit/c/300/201/0*J8_v8vmIyMZgQFhK",
+            imageLink: imgLink || "https://miro.medium.com/fit/c/300/201/0*J8_v8vmIyMZgQFhK",
           }
         );
       })
@@ -173,7 +176,7 @@ export default function Home() {
             <Text type="secondary">Connect With Us</Text>
             <Divider style={{ margin: "0", width: "40%", minWidth: "30%" }} />
 
-            <Space wrap={true} style={{ width: "60%" }}>
+            <Space wrap={true}>
               <Link
                 href="https://www.instagram.com"
                 target="_blank"

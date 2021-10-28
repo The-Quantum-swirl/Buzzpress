@@ -22,6 +22,7 @@ export default function Create(props) {
   const [imageList, setImageList]   = useState([]);
 
   const authorId = 123;
+  const MAX_COUNT = 255;
 
   const reset = () => {
     setContent([""]);
@@ -36,7 +37,6 @@ export default function Create(props) {
 
   function handleImage (imageData, position) {
     let updatedcontent = [...content], updatedImageList = [...imageList];
-
     // image position stored in content using image list length
     updatedcontent[position] = imageData.name;
     // pusing image in seprate array imagelist 
@@ -81,7 +81,6 @@ export default function Create(props) {
 
     console.log("change is called");
     console.log("Var content = "+content+ "|| Var contentType = "+contentType);
-
   }
 
   function handleTags(value) {
@@ -112,24 +111,30 @@ export default function Create(props) {
           {/* title starts */}
           <TextField
             id="standard-textarea"
+            margin="dense"
+            inputProps={{maxlength: MAX_COUNT}}
+            helperText={`${title.length}/${MAX_COUNT}`}
             placeholder="Title"
             multiline
             variant="standard"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            style={{ width: "90%", margin: "15px" }}
+            style={{ width: "90%", marginLeft: "15px" }}
             color="secondary"
           />
           {/* title ends */}
           {/* Recap starts */}
           <TextField
             id="standard-textarea"
+            margin="dense"
+            inputProps={{maxlength: MAX_COUNT}}
+            helperText={`${summary.length}/${MAX_COUNT}`}
             placeholder="Recap"
             multiline
             variant="standard"
             value={summary}
             onChange={(e) => setSummary(e.target.value)}
-            style={{ width: "90%", margin: "15px" }}
+            style={{ width: "90%", marginLeft: "15px" }}
           />
           {/* Recap ends */}
 
