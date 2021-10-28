@@ -68,6 +68,7 @@ export default function BuzzCard(props) {
                 style={{
                   backgroundColor: "rgba(0, 0, 0, 0.03)",
                   padding: "0px 22px 0px 0",
+                  display:'inline-flex' , alignItems:'center'
                 }}
               >
                 <Text>{authorname}</Text>

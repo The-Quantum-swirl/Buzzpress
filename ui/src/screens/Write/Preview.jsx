@@ -111,13 +111,14 @@ export default function Preview(props) {
                 style={{
                   backgroundColor: "rgba(0, 0, 0, 0.03)",
                   padding: "0px 22px 0px 0",
+                  display:'inline-flex' , alignItems:'center'
                 }}
               >
                 <Text style={{ fontWeight: "500" }}>{authorName}</Text>
                 <Text style={{ marginLeft: "10px" }}>
                   {publishDate}
                   <Text style={{ marginLeft: "10px" }}>
-                    {readTime + " read"}
+                    {readTime + " min read"}
                   </Text>
                 </Text>
               </span>

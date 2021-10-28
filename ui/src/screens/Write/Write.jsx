@@ -51,19 +51,19 @@ export default function Write() {
       });
       // uploading of image end
     }
-
     setCurrentStep( Math.min(currentStep + 1, 2) );
     setData(previewData);
   };
 
   const handlePrevious = () => {
-
     setCurrentStep( Math.max(currentStep - 1, 0) );
     setData(previewData);
   };
-  
+  const handleData = (temp) =>{
+    previewData = temp;
+  }
   const screen = [
-    <Create />,
+    <Create data={handleData} />,
     <Preview data={data} />,
     <Result
       status="success"

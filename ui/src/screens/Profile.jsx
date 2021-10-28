@@ -3,7 +3,7 @@ import NavBar from '../components/NavBar';
 import BuzzCard from '../components/home/BuzzCard';
 import { Avatar, Col, Row, Space, Typography, Divider, PageHeader } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { profileUrl } from './common/Path';
+import { profileUrl, articleUrl } from './common/Path';
 
 const { Text, Link, Title } = Typography;
 export default function Profile(){
@@ -22,7 +22,7 @@ export default function Profile(){
       fireCount: 5000,
       tag: "React",
       authorLink: profileUrl+userId, // {localhost:3000}/profile/{userId}
-      link: "", // {localhost:3000}/article/{articleId}
+      link: articleUrl+12, // {localhost:3000}/article/{articleId}
       imageLink: "https://miro.medium.com/fit/c/300/201/0*J8_v8vmIyMZgQFhK", // first image file object
     },
   ];
