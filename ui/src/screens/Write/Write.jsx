@@ -1,4 +1,5 @@
 import NavBar from "../../components/NavBar";
+import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { Result, Button } from "antd";
 import Create from "./Create";
@@ -9,6 +10,7 @@ import { convertDate } from "../common/Miscellaneous";
 
 export default function Write() {
   const [currentStep, setCurrentStep] = useState(0);
+  let history = useHistory(); 
   const [data, setData] = useState({
     readTime: "5 min",
     authorLink: profileUrl+1,
@@ -33,6 +35,7 @@ export default function Write() {
         readTime: data.readTime,
         description: data.content.join("\n"),
         textType: data.contentType.join("\n"),
+        imageLink: data.firstImage,
         tag:data.tag.join("\n"),
       }).then((res) => console.log(res));
 
@@ -70,8 +73,8 @@ export default function Write() {
       title="Article Successfully Published!"
       subTitle="Server configuration takes 1-5 minutes, please wait."
       extra={[
-        <Button type="primary" key="console">
-          Share with your friends
+        <Button type="primary" key="console" onClick={(e) => history.push("/home")}>
+          Back to Home
         </Button>,
       ]}
     />

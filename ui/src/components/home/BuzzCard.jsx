@@ -5,25 +5,13 @@ import "../css/home.css";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
 import { convertDate, DateToMonthYearFormat } from "../../screens/common/Miscellaneous";
+import { Error } from "../../screens/common/Error";
 const { Text, Title } = Typography;
-
-const sqlDateToMonthYearFormat = (sqlDate) => {
-  let dateArr = sqlDate.split("-");
-  let articleDate = new Date(
-    dateArr[0],
-    (Number(dateArr[1]) - 1).toString(),
-    dateArr[2].substr(0, 2)
-  );
-  let convertedDate = articleDate.toDateString();
-  dateArr = convertedDate.split(" ");
-  return dateArr[1] + " " + Number(dateArr[2]).toString() + ", " + dateArr[3];
-};
 
 export default function BuzzCard(props) {
   const [onFire, setOnFire] = useState(false);
   if (props === undefined || props.data === undefined) {
-    console.log("data unable to load");
-    return <> </>;
+    return <Error />;
   }
   
   const authorname = props.data.authorname;

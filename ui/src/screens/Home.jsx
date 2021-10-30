@@ -29,9 +29,7 @@ export default function Home() {
     .then((res) => {
       console.log(res.data);
       var arr = res.data.map((data) => {
-        var dt = data;
-        var imgLink = backendUrl+"/uploads/"+"bg.jpeg";
-        
+        var dt = data;        
         return(
           {
             authorname: "Bhargav Bachina",
@@ -43,7 +41,7 @@ export default function Home() {
             tag: dt.tag || "React",
             authorLink: profileUrl+dt.authorId,
             link:  articleUrl+dt.articleId,
-            imageLink: imgLink || "https://miro.medium.com/fit/c/300/201/0*J8_v8vmIyMZgQFhK",
+            imageLink: (dt.imageLink? backendUrl+"/uploads/"+dt.imageLink : "https://miro.medium.com/fit/c/300/201/0*J8_v8vmIyMZgQFhK"),
           }
         );
       })

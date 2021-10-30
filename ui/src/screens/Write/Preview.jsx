@@ -1,6 +1,7 @@
 import { useState } from "react";
 import LazyLoad from "react-lazyload";
 import Topics from "../../components/home/Topics";
+import { Error } from "../common/Error";
 import { convertDate, DateToMonthYearFormat } from "../common/Miscellaneous";
 import { Row, Col, Typography } from "antd";
 import { Avatar, Space, Button } from "antd";
@@ -26,7 +27,7 @@ export default function Preview(props) {
     // props.data.contentType === undefined ||
     // props.data.imageList === undefined
   ) {
-    return <> Err occured in Preview !!! </>;
+    return <Error statusCode={404} /> ;
   }
 
   const authorName = "Derick David";
@@ -65,7 +66,6 @@ export default function Preview(props) {
       const foundImage = imageList.find((img) => (
         img.name === val || (checkURL(img) && img.indexOf(val) !== -1) ) );
       temp = foundImage;
-      console.log(val);
       if (typeof foundImage === "object") {
         temp = URL.createObjectURL(foundImage);
       }

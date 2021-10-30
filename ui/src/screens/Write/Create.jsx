@@ -3,7 +3,6 @@ import Preview from "./Preview";
 import { Row, Col, Divider } from "antd";
 import { Button, Radio, Select } from "antd";
 import { TextField } from "@mui/material";
-import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import UploadButton from "../../components/UploadButton";
@@ -20,6 +19,7 @@ export default function Create(props) {
   const [contentType, setContentType]   = useState(["head"]);
   const [content, setContent]             = useState([""]);
   const [imageList, setImageList]   = useState([]);
+  const [firstImage, setFirstImage]   = useState("");
 
   const authorId = 123;
   const MAX_COUNT = 255;
@@ -39,11 +39,13 @@ export default function Create(props) {
     let updatedcontent = [...content], updatedImageList = [...imageList];
     // image position stored in content using image list length
     updatedcontent[position] = imageData.name;
+    if (firstImage === ""){ setFirstImage(imageData.name); } 
     // pusing image in seprate array imagelist 
     updatedImageList.push(imageData);
 
     setContent(updatedcontent);
     setImageList(updatedImageList);
+    
   };
 
   const addField = (event, pos) => {
@@ -96,6 +98,7 @@ export default function Create(props) {
 	  title: title,
 	  summary: summary,
     imagelist: imageList,
+    firstImage: firstImage,
 	  content: content,
     contentType : contentType,
 	  readTime: 5,

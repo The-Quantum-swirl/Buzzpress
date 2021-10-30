@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Button from '@mui/material/Button';
+import UploadIcon from '@mui/icons-material/Upload';
 import { Upload } from 'antd';
 // import ImgCrop from 'antd-img-crop';
 
@@ -7,29 +9,27 @@ export default function UploadButton({ imageData }) {
 
   function onChange({ fileList: newFileList }) {
     setFileList(newFileList);
-    // console.log(newFileList);
     console.log(newFileList[0]);
     imageData(newFileList[0]);
   };
   function handleImageUpload(event) {
     setFileList(event.target.files[0]);
     imageData(event.target.files[0]);
-    // const imgfile=event.target.files[0]; 
-    // console.log(imgfile);
-    // console.log(URL.createObjectURL(imgfile))
   }
   return (
     <>
-      {/* <ImgCrop rotate> */}
-      {/* <Upload
-        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-        listType="picture-card"
-        fileList={fileList}
-        onChange={onChange}
-      >
-        {fileList.length < 1 && '+ Upload'}
-      </Upload> */}
-      {/* </ImgCrop> */}
+      {/* <input
+        accept="image/*"
+        style={{ display: 'none' }}
+        id="raised-button-file"
+        type="file"
+        onChange={handleImageUpload}
+      />
+      <label htmlFor="raised-button-file">
+        <Button variant="outlined" component="span" startIcon={<UploadIcon />}>
+          Upload
+        </Button>
+      </label>  */}
       <input type="file" onChange={handleImageUpload} />
     </>
   );
