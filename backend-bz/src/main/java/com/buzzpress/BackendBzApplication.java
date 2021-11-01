@@ -2,14 +2,10 @@ package com.buzzpress;
 
 import javax.annotation.Resource;
 
-import com.buzzpress.beans.Article;
-import com.buzzpress.beans.ArticleMeta;
-import com.buzzpress.beans.Users_;
 import com.buzzpress.dao.ArticleDataRepository;
 import com.buzzpress.dao.ArticleMetaDataRepository;
 import com.buzzpress.dao.UserDataRepository;
-import com.buzzpress.service.IArticleMetaSevice;
-import com.buzzpress.service.IArticleService;
+import com.buzzpress.dao.UserStatsRepository;
 import com.buzzpress.service.IFileStorageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +23,8 @@ public class BackendBzApplication implements CommandLineRunner {
 	@Autowired
 	UserDataRepository userDataRepository;
 	@Autowired
+	UserStatsRepository userStatsRepository;
+	@Autowired
 	ArticleDataRepository articleDataRepository;
 	@Autowired
 	ArticleMetaDataRepository MetaDataRepository;
@@ -41,13 +39,24 @@ public class BackendBzApplication implements CommandLineRunner {
 		storageService.init();
 		String author = "mukhar";
 		Long authorId = Long.parseLong("1");
-		Users_ user1 = new Users_(Long.parseLong("1"), author, "M@jain.com", "Delhi", "9876767654");
-		userDataRepository.save(user1);
-		userDataRepository.save(new Users_(Long.parseLong("2"), "Himanshu", "Him@mis.com", "Delhi", "1234323431"));
-		Long articleId = Long.parseLong("1");
-		articleDataRepository.save(new Article(articleId, Long.parseLong("1"), "What Happened To Clubhouse?",
-				"Easy come easy go.", "date", 5, "the data", "heading", "tags", "image links"));
-		MetaDataRepository.save(new ArticleMeta(articleId, author, authorId, "[react,joint]"));
+		// UserStats user1Stats = new UserStats();
+		// UserStats user2Stats = new UserStats();
+		// Users_ user1 = new Users_(author, "M@jain.com", "Delhi", "9876767654",
+		// LocalDate.parse("1997-09-25"));
+		// user1.setUserStats(user1Stats);
+		// userDataRepository.save(user1);
+		// Users_ user2 = new Users_("Himanshu", "Him@mis.com", "Delhi", "1234323431",
+		// LocalDate.parse("1997-09-25"));
+		// user2.setUserStats(user2Stats);
+		// userDataRepository.save(user2);
+
+		// Long articleId = Long.parseLong("1");
+		// articleDataRepository.save(new Article(articleId, Long.parseLong("1"), "What
+		// Happened To Clubhouse?",
+		// "Easy come easy go.", "date", 5, "the data", "heading", "tags", "image
+		// links"));
+		// MetaDataRepository.save(new ArticleMeta(articleId, author, authorId,
+		// "[react,joint]"));
 	}
 
 }

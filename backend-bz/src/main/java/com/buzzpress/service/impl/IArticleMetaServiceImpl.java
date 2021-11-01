@@ -2,6 +2,7 @@ package com.buzzpress.service.impl;
 
 import java.util.List;
 
+import com.buzzpress.beans.Article;
 import com.buzzpress.beans.ArticleMeta;
 import com.buzzpress.dao.ArticleMetaDataRepository;
 import com.buzzpress.service.IArticleMetaSevice;
@@ -33,8 +34,9 @@ public class IArticleMetaServiceImpl implements IArticleMetaSevice {
     }
 
     @Override
-    public void saveMetaData(Long articleId, String author, Long authorId, String tag) {
-        ArticleMeta metaData = new ArticleMeta(articleId, author, authorId, tag);
+    public void saveMetaData(Article article, String author) {
+
+        ArticleMeta metaData = new ArticleMeta(article, author);
         articleMetaDataRepository.save(metaData);
     }
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.buzzpress.beans.Users_;
 import com.buzzpress.dao.UserDataRepository;
+import com.buzzpress.exception.DuplicateUserException;
 import com.buzzpress.service.IUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,32 @@ public class IUserServiceImpl implements IUserService {
     @Override
     public Users_ getUserDetails(Long userId) throws NotFoundException {
         Users_ userObj = null;
-        userObj = userDataRepository.findByUserId(userId);
+        try {
+            userObj = userDataRepository.findByUserId(userId);
+            if (userObj == null) {
+                throw new NotFoundException("user not found");
+            }
+        } catch (Exception e) {
+            throw e;
+        }
         return userObj;
     }
 
     @Override
-    public void saveUserDetails(Users_ details) {
-        userDataRepository.save(details);
+    public void saveUserDetails(Users_ details) throws DuplicateUserException {
+        try {
+            if (userDataRepository.findByUserEmail(details.getUserEmail()).size() != 0) {
+                throw new DuplicateUserException("Please use unique Email");
+            }
+            userDataRepository.save(details);
+
+        } catch (DuplicateUserException e) {
+            throw e;
+
+        } catch (Exception e) {
+            throw e;
+        }
+
     }
 
     @Override
