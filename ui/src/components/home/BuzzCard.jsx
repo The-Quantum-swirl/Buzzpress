@@ -30,6 +30,8 @@ export default function BuzzCard(props) {
   }
   return (
     <>
+    
+    
       <Row style={{marginTop:'10px'}}>
         <Col offset={1} span={16}>
           {/* author name start*/}

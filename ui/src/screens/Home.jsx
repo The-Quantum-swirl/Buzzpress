@@ -6,7 +6,6 @@ import Topics from "../components/home/Topics";
 import RadialChart from "../components/home/RadialChart.js";
 import { InstagramOutlined, TwitterOutlined } from "@ant-design/icons";
 import {profileUrl, articleUrl, backendUrl} from './common/Path.js';
-import { getImageFromContent } from "./common/Miscellaneous";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 
