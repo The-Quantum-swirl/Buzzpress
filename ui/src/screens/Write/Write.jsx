@@ -10,6 +10,7 @@ import { convertDate } from "../common/Miscellaneous";
 
 export default function Write() {
   const [currentStep, setCurrentStep] = useState(0);
+  const authorId =3;
   let history = useHistory(); 
   const [data, setData] = useState({
     readTime: "5 min",
@@ -26,9 +27,8 @@ export default function Write() {
       console.log("publish data");
       console.log(data);
       const today = new Date()
-      axios.post(backendUrl+'/saveArticle/'+2,{
-        articleId:4,
-        authorId:2,
+      axios.post(backendUrl+'/saveArticle/'+authorId,{
+        authorId:authorId,
         title:data.title,
         summary:data.summary,
         publishDate: convertDate(today),

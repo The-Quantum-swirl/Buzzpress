@@ -6,7 +6,7 @@ import {backendUrl, profileUrl} from './common/Path';
 import axios from 'axios';
 
 export default function Article(){
-    const {articleId} = useParams();
+    let {articleId} = useParams();
     const [loadedData, setLoadedData] = useState({
         readTime: "5 min",
         authorLink: "https://drckangelo.medium.com/?source=post_page-----8f2258f81899--------------------------------",

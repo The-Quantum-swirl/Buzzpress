@@ -37,8 +37,8 @@ public class BackendBzApplication implements CommandLineRunner {
 	public void run(String... arg) throws Exception {
 
 		storageService.init();
-		String author = "mukhar";
-		Long authorId = Long.parseLong("1");
+		// String author = "mukhar";
+		// Long authorId = Long.parseLong("1");
 		// UserStats user1Stats = new UserStats();
 		// UserStats user2Stats = new UserStats();
 		// Users_ user1 = new Users_(author, "M@jain.com", "Delhi", "9876767654",

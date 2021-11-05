@@ -14,24 +14,26 @@ const { Text, Link } = Typography;
 const { Footer } = Layout;
 
 export default function Home() {
-  const authorId = 123;
+  const authorId = 3;
   const suggestedTopics = [
     "AI",
     "BlockChain",
     "React",
-    "SpringBoot",
-    "Ethereum",
     "Nano",
   ];
+  const graphData ={
+    target:10,
+    read:0,
+  };
   useEffect(() => {
-    axios.get( backendUrl+'/article' )
+    axios.get( backendUrl+'/articleMeta' )
     .then((res) => {
       console.log(res.data);
       var arr = res.data.map((data) => {
         var dt = data;        
         return(
           {
-            authorname: "Bhargav Bachina",
+            authorname: dt.authorName,
             title:dt.title,
             summary:dt.summary,
             publishDate: dt.publishDate || "2020-06-14",
@@ -45,6 +47,13 @@ export default function Home() {
         );
       })
     setDisplayData(arr);
+    })
+
+    axios.get( backendUrl+'/UserStats/'+ authorId)
+    .then((res) => {
+      console.log(res.data);
+      graphData.read = res.data.articleRead;
+      graphData.target = res.data.articleTargetRead;
     })
   },[])
   const [displayData, setDisplayData] =  useState([
@@ -71,67 +80,7 @@ export default function Home() {
       authorLink: profileUrl+authorId,
       link: articleUrl+12,
       imageLink: "https://miro.medium.com/fit/c/300/201/1*__4RC4kaUgXdNFbFTzatcQ.jpeg",
-    },
-    {
-      authorname: "Nivedha Duraisamy",
-      title: "4 Ways to Add External JavaScript Files in React",
-      summary: "React Hooks and other methods",
-      publishDate: "2020-04-06",
-      readTime: "5 min",
-      fireCount: 23,
-      tag: "React",
-      authorLink: profileUrl+authorId,
-      link: articleUrl+12,
-      imageLink: "https://miro.medium.com/fit/c/300/201/1*iLt_otrbPJceYlzyIQcjJg.jpeg",
-    },
-    {
-      authorname: "Sam Mikaelson",
-      title: "Five After Hours Habits to Help You Build a Tiny Empire, Quietly",
-      summary: "Build from your bedroom",
-      publishDate: "2015-04-29",
-      readTime: "5 min",
-      fireCount: 55,
-      tag: "Science",
-      authorLink: profileUrl+authorId,
-      link: articleUrl+12,
-      imageLink: "https://miro.medium.com/fit/c/300/201/0*9msmJSwtcwm_NxFz",
-    },
-    {
-      authorname: "Harsha Vardhan",
-      title: "useAxios: A React Hook for using Axios",
-      summary: "How to Create a Custom Hook for using Axios",
-      publishDate: "2021-06-05",
-      readTime: "3 min",
-      fireCount: 189,
-      tag: "JavaScript",
-      authorLink: profileUrl+authorId,
-      link: articleUrl+12,
-      imageLink: "https://miro.medium.com/fit/c/300/201/0*VdoVFyMENPePCXbT.png",
-    },
-    {
-      authorname: "Sam Mikaelson",
-      title: "Five After Hours Habits to Help You Build a Tiny Empire, Quietly",
-      summary: "Build from your bedroom",
-      publishDate: "2015-04-29",
-      readTime: "5 min",
-      fireCount: 38,
-      tag: "Science",
-      authorLink: profileUrl+authorId,
-      link: articleUrl+12,
-      imageLink: "https://miro.medium.com/fit/c/300/201/0*9msmJSwtcwm_NxFz",
-    },
-    {
-      authorname: "Abhijit Roy",
-      title: "Build JS, and MongoDB",
-      summary: "Currently, most of the websites operate on an API-based backend structure, where we just send a request from the front end of the website",
-      publishDate: "2021-04-08",
-      readTime: "11 min",
-      fireCount: 542,
-      tag: "JavaScript",
-      authorLink: profileUrl+authorId,
-      link: articleUrl+12,
-      imageLink: "https://miro.medium.com/fit/c/300/201/1*RG2GDRY3uUbNYvESrHw9qA.jpeg",
-    },
+    }
   ]);
 
   return (
@@ -166,7 +115,7 @@ export default function Home() {
             {/* performance chart start */}
             <Text type="secondary">Your Performance</Text>
             <Divider style={{ margin: "0", width: "40%", minWidth: "30%" }} />
-            <RadialChart />
+            <RadialChart {...graphData} />
             {/* performance chart end */}
 
             {/* connect social media start */}

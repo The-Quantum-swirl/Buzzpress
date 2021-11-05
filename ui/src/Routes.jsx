@@ -8,7 +8,7 @@ import UserDetails from './screens/UserDetails';
 import Write from './screens/Write/Write';
 import Profile from './screens/Profile';
 import Article from './screens/Article';
-
+import Admin from './screens/Admin/AdminDashboard';
 export default function Routes() {
     return (
         <BrowserRouter>
@@ -22,7 +22,7 @@ export default function Routes() {
                 <Route path="/create" component={Write} />
                 <Route path="/article/:articleId" component={Article} />
                 <Route path="/profile/:userId" component={Profile} />
-
+                {/* <Route path="/admin" component={Admin} /> */}
             </Switch>
         </BrowserRouter>
     )
