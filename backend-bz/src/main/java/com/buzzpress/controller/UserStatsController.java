@@ -3,7 +3,6 @@ package com.buzzpress.controller;
 import java.util.List;
 
 import com.buzzpress.beans.UserStats;
-import com.buzzpress.dao.UserStatsRepository;
 import com.buzzpress.service.impl.UserStatServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
