@@ -39,11 +39,12 @@ public class ArticleController {
         ResponseMessage rm = new ResponseMessage();
         rm.setMessage("Article Added");
         rm.setStatusCode(200);
+        entity.setAuthorId(authorId);
+        String username = iUserService.getUsernameFromUserId(authorId);
+        System.out.println(username);
+        iArticleMetaSevice.saveMetaData(entity, username);
         iArticleService.saveArticle(entity);
-        iArticleMetaSevice.saveMetaData(entity.getArticleId(), iUserService.getUsernameFromUserId(authorId), authorId,
-                entity.getTag());
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
-
     }
 
     @ExceptionHandler(NotFoundException.class)
@@ -60,11 +61,11 @@ public class ArticleController {
         return iArticleService.displayAllArticles();
     }
 
-    @GetMapping(value = "/customArticle")
-    public Object getCustomArticle() {
-        Object hi = new Object();
-        return hi;
-    }
+    // @GetMapping(value = "/customArticle")
+    // public Object getCustomArticle() {
+    // Object hi = new Object();
+    // return hi;
+    // }
 
     @GetMapping(value = "/article/{id}")
     public List<Article> getArticlebyId(@PathVariable Long id) {

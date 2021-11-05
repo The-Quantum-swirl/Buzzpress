@@ -2,6 +2,7 @@ package com.buzzpress.service;
 
 import java.util.List;
 
+import com.buzzpress.beans.Article;
 import com.buzzpress.beans.ArticleMeta;
 
 public interface IArticleMetaSevice {
@@ -12,5 +13,5 @@ public interface IArticleMetaSevice {
 
     public List<ArticleMeta> fetchArticleMetaByAuthorId(Long authorId);
 
-    public void saveMetaData(Long articleId, String author, Long authorId, String tag);
+    public void saveMetaData(Article article, String author);
 }
