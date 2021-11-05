@@ -1,5 +1,7 @@
 package com.buzzpress.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import com.buzzpress.beans.Users_;
@@ -65,5 +67,39 @@ public class IUserServiceImpl implements IUserService {
             throw e;
         }
 
+    }
+
+    @Override
+    public List<Long> getFollowers(long userId) throws NotFoundException {
+        HashSet<Long> followers = userDataRepository.findByUserId(userId).getFollowers();
+        List<Long> followersList = new ArrayList<>(followers);
+        return followersList;
+    }
+
+    @Override
+    public List<Long> getFollowing(long userId) throws NotFoundException {
+        HashSet<Long> following = userDataRepository.findByUserId(userId).getFollowing();
+        List<Long> followingList = new ArrayList<>(following);
+        return followingList;
+    }
+
+    @Override
+    public void FollowUser(Long follower, long toFollow) {
+        Users_ UserFollowing = userDataRepository.findByUserId(follower);
+        Users_ UserBeingFollowed = userDataRepository.findByUserId(toFollow);
+        UserBeingFollowed.getFollowers().add(follower);
+        UserFollowing.getFollowing().add(toFollow);
+        userDataRepository.save(UserBeingFollowed);
+        userDataRepository.save(UserFollowing);
+    }
+
+    @Override
+    public void UnFollowUser(Long follower, long toUnFollow) {
+        Users_ UserFollowing = userDataRepository.findByUserId(follower);
+        Users_ UserBeingUnFollowed = userDataRepository.findByUserId(toUnFollow);
+        UserBeingUnFollowed.getFollowers().remove(follower);
+        UserFollowing.getFollowing().remove(toUnFollow);
+        userDataRepository.save(UserBeingUnFollowed);
+        userDataRepository.save(UserFollowing);
     }
 }

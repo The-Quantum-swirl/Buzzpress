@@ -15,5 +15,13 @@ public interface IUserService {
 
     public void saveUserDetails(Users_ details) throws DuplicateUserException;
 
+    public List<Long> getFollowers(long userId) throws NotFoundException;
+
+    public List<Long> getFollowing(long userId) throws NotFoundException;
+
     public List<Users_> showAllUsers();
+
+    public void FollowUser(Long follower, long toFollow);
+
+    public void UnFollowUser(Long follower, long toUnFollow);
 }

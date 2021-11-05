@@ -2,6 +2,7 @@ package com.buzzpress.beans;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,6 +43,8 @@ public class Users_ implements Serializable {
     private String userPhoneNumber;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
+    private HashSet<Long> followers;
+    private HashSet<Long> following;
 
     public Users_(String userName, String userEmail, String userAddress, String userPhoneNumber,
             LocalDate dateOfBirth) {

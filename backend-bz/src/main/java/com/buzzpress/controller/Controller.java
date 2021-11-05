@@ -8,6 +8,8 @@ import com.buzzpress.dao.UserStatsRepository;
 import com.buzzpress.exception.DuplicateUserException;
 import com.buzzpress.model.ResponseMessage;
 import com.buzzpress.service.IUserService;
+import com.buzzpress.service.impl.UserStatServiceImpl;
+
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -72,6 +75,24 @@ public class Controller {
     public List<Users_> getAllUserDetails() {
 
         return iUserService.showAllUsers();
+    }
+
+    @PutMapping(value = "/follow")
+    public ResponseEntity<ResponseMessage> Followuser(@RequestBody long follower, Long toFollow) {
+        iUserService.FollowUser(follower, toFollow);
+        ResponseMessage rm = new ResponseMessage();
+        rm.setMessage("Success");
+        rm.setStatusCode(200);
+        return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/follow")
+    public ResponseEntity<ResponseMessage> UnFollowuser(@RequestBody long follower, Long toUnFollow) {
+        iUserService.UnFollowUser(follower, toUnFollow);
+        ResponseMessage rm = new ResponseMessage();
+        rm.setMessage("Success");
+        rm.setStatusCode(200);
+        return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
     }
 
     @ExceptionHandler(DuplicateUserException.class)
