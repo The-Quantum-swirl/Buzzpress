@@ -10,6 +10,8 @@ import com.buzzpress.service.IArticleMetaSevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javassist.NotFoundException;
+
 @Service
 public class IArticleMetaServiceImpl implements IArticleMetaSevice {
     @Autowired
@@ -28,8 +30,11 @@ public class IArticleMetaServiceImpl implements IArticleMetaSevice {
     }
 
     @Override
-    public List<ArticleMeta> fetchArticleMetaByAuthorId(Long authorId) {
+    public List<ArticleMeta> fetchArticleMetaByAuthorId(Long authorId) throws NotFoundException {
         List<ArticleMeta> articleMeta = articleMetaDataRepository.findByAuthorId(authorId);
+        if (articleMeta.size() == 0) {
+            throw new NotFoundException("Author not found");
+        }
         return articleMeta;
     }
 

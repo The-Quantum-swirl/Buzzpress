@@ -1,11 +1,10 @@
 package com.buzzpress.beans;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,10 +16,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserStats implements Serializable {
+public class UserStats {
     @Id
-    // @SequenceGenerator(name = "StatId_sequence", sequenceName =
-    // "StatId_sequence", allocationSize = 1)
+    @SequenceGenerator(name = "StatId_sequence", sequenceName = "StatId_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "UserId_sequence")
     private long statId;
     private Long userId;

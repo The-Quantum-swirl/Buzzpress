@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import javassist.NotFoundException;
+
 @CrossOrigin(origins = "*")
 @RestController
 public class MetaController {
@@ -32,5 +34,10 @@ public class MetaController {
     @GetMapping(value = "/articleMeta/{id}")
     public List<ArticleMeta> getArticleMetabyId(@PathVariable Long id) {
         return iArticleMetaSevice.fetchArticleMetaByArticleId(id);
+    }
+
+    @GetMapping(value = "/articleMetaByAuthor/{authorId}")
+    public List<ArticleMeta> getartic(@PathVariable Long authorId) throws NotFoundException {
+        return iArticleMetaSevice.fetchArticleMetaByAuthorId(authorId);
     }
 }

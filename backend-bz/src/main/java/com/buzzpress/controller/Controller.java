@@ -50,6 +50,24 @@ public class Controller {
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/saveusers")
+    public ResponseEntity<ResponseMessage> postMethodName(@RequestBody List<Users_> entity)
+            throws DuplicateUserException {
+        System.out.println(entity);
+        ResponseMessage rm = new ResponseMessage();
+        rm.setMessage("Data Added");
+        rm.setStatusCode(200);
+        // List<UserStats> newUsersStats = null;
+
+        for (Users_ users_ : entity) {
+            UserStats userStats = new UserStats(users_.getUserId());
+            userStatsRepository.save(userStats);
+            iUserService.saveUserDetails(users_);
+        }
+
+        return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/allUsers")
     public List<Users_> getAllUserDetails() {
 
