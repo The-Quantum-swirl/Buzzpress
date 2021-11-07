@@ -3,7 +3,9 @@ import {useParams} from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import FinalPreview from '../Write/FinalPreview';
 import {backendUrl, profileUrl} from '../../components/common/Path';
-import axios from 'axios';
+import { Button } from 'antd';
+import { UserOutlined, FireFilled, FireOutlined } from "@ant-design/icons";
+import api from "../../service/ServiceCall";
 
 export default function Article(){
     let {articleId} = useParams();
@@ -17,37 +19,61 @@ export default function Article(){
         imagelist:[],
         tag: [],
     });
+    const [fireCount, setFireCount] = useState(0);
+    const [onFire, setOnFire] = useState(false);
+    const handleFire = () => {
+      setOnFire(!onFire);
 
+      // api.postArticleLike
+    }
+    const handleScroll =(e) => {
+      console.log(e);
+    }
     useEffect(() => {
-        axios.get( backendUrl+'/article/'+articleId )
-        .then((res) => {
-          console.log(res.data);
-          var dt = res.data[0]
-          // dt.imagelist.map((imglink) => backendUrl+'/uploads/'+imglink)
-          setLoadedData({
-            authorName: dt.authorName || "Anonymous",
-            publishDate: dt.publishDate,
-            readTime: dt.readTime,
-            authorLink: profileUrl+dt.authorId,
+      var temp ="Anonymous"
+      api.getArticleMetaById(articleId).then((res)=>{
+        console.log(res)
+        setFireCount(res.likes);
+        temp = res.authorName;
+      })
 
-            title:dt.title,
-            summary:dt.summary,
+      api.getArticle(articleId).then((res) => {
+        console.log(res);
+        setLoadedData({
+          authorName: res.authorName || temp,
+          publishDate: res.publishDate,
+          readTime: res.readTime,
+          authorLink: profileUrl+res.authorId,
 
-            content:dt.description.split("\n") || [""],
-            contentType: dt.textType.split("\n") || ["head"],
-            imagelist: dt.imagelist || [""],
+          title:res.title,
+          summary:res.summary,
 
-            fireCount: dt.fireCount || 0,
-            tag: dt.tag.split("\n") || [""],
+          content:res.description.split("\n") || [""],
+          contentType: res.textType.split("\n") || ["head"],
+          imagelist: res.imagelist || [""],
 
-          });
-        })
+          fireCount: res.fireCount || 0,
+          tag: res.tag.split("\n") || [""],
+
+        });
+      })
+      
+      // api post for read 1 more article
+
       },[])    
  
     return(
         <>
         <NavBar />
         <FinalPreview data={loadedData} />
+        <div style={{padding:'20px', paddingLeft:'45%'}} onScroll={handleScroll}>
+          <Button icon={onFire ? <FireFilled style={{color:'#f50057'}} /> : 
+            <FireOutlined style={{color:'#f50057'}} />} 
+            onClick={handleFire}
+            style={{backgroundColor:'inherit', padding:'2px', paddingLeft:'20px',paddingRight:'20px'}} >
+            {fireCount + onFire? 1: 0}
+          </Button>
+        </div>
         </>
     );
 }

@@ -7,5 +7,3 @@ export const DateToMonthYearFormat = (date) => {
 export const convertDate = (date) => {
   return date.getFullYear()+"-"+Number(date.getMonth()+1)+"-"+date.getDate();
 }
-
-export const thumbUrl = () => "https://miro.medium.com/fit/c/300/201/0*J8_v8vmIyMZgQFhK";

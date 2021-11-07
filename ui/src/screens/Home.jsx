@@ -6,9 +6,8 @@ import RadialChart from "../components/home/RadialChart.js";
 import { InstagramOutlined, TwitterOutlined } from "@ant-design/icons";
 import { profileUrl, articleUrl, backendUrl } from "../components/common/Path.js";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { thumbUrl } from "../components/common/Miscellaneous";
 import { authorId } from "../cache/UserData";
+import api from "../service/ServiceCall";
 
 const { TabPane } = Tabs;
 const { Text, Link } = Typography;
@@ -20,35 +19,34 @@ export default function Home() {
 
   useEffect(() => {
     // loading data for article meta
-    axios.get(backendUrl + "/articleMeta").then((res) => {
-      console.log(res.data);
-      setDisplayData( res.data.map((dt) => {
+    api.getArticleCards().then((res) => {
+      console.log(res);
+      var arr = res.map((dt) => {
         return {
-          authorname: dt.authorName,
-          title: dt.title,
-          summary: dt.summary,
-          publishDate: dt.publishDate,
-          readTime: dt.readTime + " min",
-          fireCount: dt.likes,
-          tag: dt.tag ,
-          authorLink: profileUrl + dt.authorId,
+          authorname: dt.authorName, authorLink: profileUrl + dt.authorId,
+
+          title: dt.title, summary: dt.summary,
+
+          publishDate: dt.publishDate, readTime: dt.readTime + " min",
+          fireCount: dt.likes, tag: dt.tag ,
+
           link: articleUrl + dt.articleId,
-          imageLink: dt.imageLink
-            ? backendUrl + "/uploads/" + dt.imageLink
-            : thumbUrl(),
-        };
+          imageLink: api.getThumbUrl(dt.thumbUrl),
+        }
       })
-      )
-    });
+      setDisplayData(arr)
+      console.log(displayData)
+    })
+
     // loading data for performance graph
-    axios.get(backendUrl + "/UserStats/" + authorId()).then((res) => {
-      console.log(res.data);
+    api.getUserStats(authorId()).then((res)=> {
+      console.log(res)
       setGraphData({
-        target: res.data.articleTargetRead, 
-        read: res.data.articleRead,
-        authored: res.data.articleAuthored,
+        target: res.articleTargetRead, 
+        read: res.articleRead,
+        authored: res.articleAuthored,
       });
-    });
+    })
 
   }, []);
 
@@ -98,7 +96,7 @@ export default function Home() {
             <RadialChart {...graphData} />
             {/* performance chart end */}
 
-            {/* connect social media start */}
+            {/* connect social media start
             <Text type="secondary">Connect With Us</Text>
             <Divider style={{ margin: "0", width: "40%", minWidth: "30%" }} />
 
@@ -147,7 +145,7 @@ export default function Home() {
                   Twitter
                 </Text>
               </Link>
-            </Space>
+            </Space> */}
             {/* connect social media end */}
             <br />
             {/*             

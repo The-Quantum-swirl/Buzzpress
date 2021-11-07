@@ -1,18 +1,22 @@
 import {useParams} from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import NavBar from '../components/NavBar';
 import BuzzCard from '../components/home/BuzzCard';
-import { Avatar, Col, Row, Space, Typography, Divider, PageHeader } from 'antd';
+import { Avatar, Col, Row, Space, Typography, Divider, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { profileUrl, backendUrl,articleUrl } from '../components/common/Path';
 import { DateToMonthYearFormat, thumbUrl } from '../components/common/Miscellaneous';
+import api from "../service/ServiceCall";
+import { authorId } from '../cache/UserData';
+import { ButtonGroup } from '@mui/material';
 const { Text, Link, Title } = Typography;
 
 export default function Profile(){
 
-  const {userId} = useParams();
-
+  let {userId} = useParams();
+  userId = parseInt(userId)
+  
+  const [displayData, setDisplayData] = useState([]);
   // personal Data 
   const [personalData, setPersonalData] = useState({
     name:'Derek Obrien',
@@ -21,42 +25,51 @@ export default function Profile(){
   });
 
   useEffect(() => {
-    axios.get( backendUrl+'/user/'+userId )
-    .then((res) => {
-      console.log(res.data);
-      var temp = res.data;
+
+    api.getUser(userId).then((res) => {
+      console.log(res)
       setPersonalData({
-        name:temp.userName,
-        joinedDate:DateToMonthYearFormat(temp.dateOfBirth),
-        followers:0
+        name:res.userName,
+        joinedDate:DateToMonthYearFormat(res.dateOfBirth),
+        followers: res.followers.length|| 0,
+        following:res.following.length|| 0,
       })
     })
 
-    axios.get(backendUrl + "/articleMetaByAuthor/" + userId).then((res) => {
-      console.log(res.data);
-      setDisplayData( res.data.map((dt) => {
+    api.getArticleCardsByAuthorId(userId).then((res) => {
+      console.log(res);
+      var arr = res.map((dt) => {
         return {
-          authorname: dt.authorName,
-          title: dt.title,
-          summary: dt.summary,
-          publishDate: dt.publishDate,
-          readTime: dt.readTime + " min",
-          fireCount: dt.likes,
-          tag: dt.tag ,
-          authorLink: profileUrl + dt.authorId,
+          authorname: dt.authorName, authorLink: profileUrl + dt.authorId,
+
+          title: dt.title, summary: dt.summary,
+
+          publishDate: dt.publishDate, readTime: dt.readTime + " min",
+          fireCount: dt.likes, tag: dt.tag ,
+
           link: articleUrl + dt.articleId,
-          imageLink: dt.imageLink
-            ? backendUrl + "/uploads/" + dt.imageLink
-            : thumbUrl(),
-        };
+          imageLink: api.getThumbUrl(dt.thumbUrl),
+        }
       })
-      )
-    });
+      setDisplayData(arr)
+      console.log(displayData)
+    })
 
   },[])    
-
-  const [displayData, setDisplayData] = useState([]);
-    
+  const handleFollow = (e) => {
+    console.log("followed")
+    // if (authorId() !== userId){
+      console.log(authorId(),userId)
+      api.postFollow(authorId(),userId);
+    // }
+  }
+  const handleUnFollow = (e) => {
+    console.log("Unfollowed")
+    // if (authorId() !== userId){
+      console.log(authorId(),userId)
+      api.postUnFollow(authorId(),userId);
+    // }
+  }
     return(
         <>
         <NavBar />
@@ -85,10 +98,14 @@ export default function Profile(){
               marginBottom:'2px', marginTop:'auto'
               }}>
                 {/* user info name, joined, followers count */}
-                <Text type="secondary">{"Followers "+ personalData.followers}</Text>
+                <Text type="secondary">{"Followers "+ personalData.followers + " Following "+ personalData.following}</Text>
                 <Title level={3} style={{fontWeight:'400', color:"#001529",
                  lineHeight:'0.7', marginTop:'0.5rem'}}>{personalData.name} </Title>
                 <Text type="secondary" style={{fontWeight:'400'}}>{"Joined "+personalData.joinedDate} </Text>
+                <ButtonGroup>
+                <Button size="middle" type="primary" onClick={(e) => handleFollow(e)}>Follow</Button>
+                <Button size="middle" type="default" onClick={(e) => handleUnFollow(e)}>UnFollow</Button>
+                </ButtonGroup>
                 {/* user info end */}
               </div>
             </div>
