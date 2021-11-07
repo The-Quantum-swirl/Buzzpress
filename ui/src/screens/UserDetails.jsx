@@ -7,6 +7,7 @@ import NavBar from "../components/NavBar";
 import MessageCard from "../components/settings/MessageCard";
 import { convertDate, DateToMonthYearFormat } from "../components/common/Miscellaneous";
 import { authorId } from "../cache/UserData";
+import UploadButton from "../components/UploadButton";
 
 const { TabPane } = Tabs;
 const { Paragraph } = Typography;
@@ -24,7 +25,7 @@ export default function UserDetails() {
 
   useEffect(() => {
 
-    axios.get(backendUrl + "/UserStats/"+authorId()).then((res) =>{
+    axios.get(backendUrl + "/userStats/"+authorId()).then((res) =>{
       console.log(res.data);
       setStats({
         ArticlePublished: res.data.articleAuthored,
@@ -153,8 +154,15 @@ export default function UserDetails() {
           </TabPane>
 
           <TabPane tab="Prefrences" key="3">
-
+            
             Toggle Dark Mode <Switch defaultChecked />
+
+          </TabPane>
+
+          <TabPane tab="Edit Profile" key="4">
+            <label>Change Profile Photo</label>
+            <br />
+            <UploadButton/>
 
           </TabPane>
 

@@ -21,6 +21,16 @@ const getUserStats = async (id) =>{
     return res.data;
 };
 
+const postArticle = (id, data) => {
+    httpService.post( LRM_API + `saveArticle/${id}`, data )
+    .then((res) => { console.log(res); });
+}
+
+const postImage = (fd, header) => {
+    httpService.post( LRM_API + `upload-image`, fd , header)
+    .then((res) => { console.log(res); });
+}
+
 const postFollow = (followerId, followingId) =>{
     httpService.put( LRM_API + `follow`, {
         "follower": followerId,
@@ -67,6 +77,8 @@ export default {
     getArticle,
 
     saveUsers,
+    postArticle,
+    postImage,
     postFollow,
     postUnFollow,
 }

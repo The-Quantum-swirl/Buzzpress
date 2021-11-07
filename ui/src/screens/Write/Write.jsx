@@ -7,6 +7,7 @@ import Preview from "./Preview";
 import { backendUrl, profileUrl } from "../../components/common/Path";
 import axios from "axios";
 import { convertDate } from "../../components/common/Miscellaneous";
+import api from "../../service/ServiceCall";
 
 export default function Write() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -25,19 +26,32 @@ export default function Write() {
     if (currentStep === 1){
       // publish data
       console.log("publish data");
-      console.log(data);
-      const today = new Date()
-      axios.post(backendUrl+'/saveArticle/'+authorId,{
+      
+      var payload={
         authorId:authorId,
         title:data.title,
         summary:data.summary,
-        publishDate: convertDate(today),
+        publishDate: convertDate(new Date()),
         readTime: data.readTime,
         description: data.content.join("\n"),
         textType: data.contentType.join("\n"),
         imageLink: data.firstImage,
         tag:data.tag.join("\n"),
-      }).then((res) => console.log(res));
+      }
+
+      api.postArticle(authorId, payload)
+
+      // axios.post(backendUrl+'/saveArticle/'+authorId,{
+      //   authorId:authorId,
+      //   title:data.title,
+      //   summary:data.summary,
+      //   publishDate: convertDate(today),
+      //   readTime: data.readTime,
+      //   description: data.content.join("\n"),
+      //   textType: data.contentType.join("\n"),
+      //   imageLink: data.firstImage,
+      //   tag:data.tag.join("\n"),
+      // }).then((res) => console.log(res));
 
       // uploading image in batch start
       let imgArr = data.imagelist;
@@ -45,11 +59,13 @@ export default function Write() {
       imgArr.forEach(element => {
         
         formData.append("file", element)
-        axios.post(backendUrl+'/upload-image', formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          }
-        }).then((res) => console.log(res));
+        api.postImage(formData, { headers: {"Content-Type": "multipart/form-data",}})
+
+        // axios.post(backendUrl+'/upload-image', formData, {
+        //   headers: {
+        //     "Content-Type": "multipart/form-data",
+        //   }
+        // }).then((res) => console.log(res));
         formData.delete("file")
       });
       // uploading of image end
