@@ -18,13 +18,13 @@ public class UserStatsController {
     @Autowired
     UserStatServiceImpl userStatServiceImpl;
 
-    @GetMapping(value = "/AllUserStats")
+    @GetMapping(value = "/allUserStats")
     public List<UserStats> getAllUsersStats() {
 
         return userStatServiceImpl.findAllStats();
     }
 
-    @GetMapping(value = "/UserStats/{id}")
+    @GetMapping(value = "/userStats/{id}")
     public UserStats getUserStats(@PathVariable Long id) {
 
         return userStatServiceImpl.getUserStats(id);

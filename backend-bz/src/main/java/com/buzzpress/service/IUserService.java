@@ -21,7 +21,11 @@ public interface IUserService {
 
     public List<Users_> showAllUsers();
 
-    public void FollowUser(Long follower, long toFollow);
+    public void FollowUser(Long follower, Long toFollow) throws NotFoundException;
 
-    public void UnFollowUser(Long follower, long toUnFollow);
+    public void UnFollowUser(Long follower, Long toUnFollow);
+
+    public void deleteUser(Long id) throws NotFoundException;
+
+    public void deleteAllUsers();
 }
