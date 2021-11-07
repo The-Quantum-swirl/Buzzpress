@@ -4,9 +4,9 @@ import { useState } from "react";
 import { Result, Button } from "antd";
 import Create from "./Create";
 import Preview from "./Preview";
-import { backendUrl, profileUrl } from "../common/Path";
+import { backendUrl, profileUrl } from "../../components/common/Path";
 import axios from "axios";
-import { convertDate } from "../common/Miscellaneous";
+import { convertDate } from "../../components/common/Miscellaneous";
 
 export default function Write() {
   const [currentStep, setCurrentStep] = useState(0);

@@ -17,9 +17,9 @@ public class UserStatServiceImpl implements IUserStatsService {
 
     @Override
     public UserStats getUserStats(long id) {
-//        return userStatsRepository.findByUserId();
+        return userStatsRepository.findByUserId(id);
 
-        return new UserStats();
+//        return new UserStats();
     }
 
     @Override

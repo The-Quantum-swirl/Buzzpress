@@ -1,8 +1,8 @@
 import { useState } from "react";
 import LazyLoad from "react-lazyload";
 import Topics from "../../components/home/Topics";
-import { Error } from "../common/Error";
-import { convertDate, DateToMonthYearFormat } from "../common/Miscellaneous";
+import { Error } from "../../components/common/Error";
+import { convertDate, DateToMonthYearFormat } from "../../components/common/Miscellaneous";
 import { Row, Col, Typography } from "antd";
 import { Avatar, Space, Button } from "antd";
 import { UserOutlined, FireFilled, FireOutlined } from "@ant-design/icons";
@@ -30,8 +30,8 @@ export default function Preview(props) {
     return <Error statusCode={404} /> ;
   }
 
-  const authorName = "Derick David";
-  const publishDate = DateToMonthYearFormat(convertDate(new Date()));
+  const authorName = props.data.authorName;
+  const publishDate = DateToMonthYearFormat(props.data.publishDate ? props.data.publishDate:convertDate(new Date()));
   const readTime = props.data.readTime;
   const tag = props.data.tag;
   const authorLink = props.data.authorLink;

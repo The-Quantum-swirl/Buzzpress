@@ -1,31 +1,61 @@
 import {useParams} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import NavBar from '../components/NavBar';
 import BuzzCard from '../components/home/BuzzCard';
 import { Avatar, Col, Row, Space, Typography, Divider, PageHeader } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { profileUrl, articleUrl } from './common/Path';
-
+import { profileUrl, backendUrl,articleUrl } from '../components/common/Path';
+import { DateToMonthYearFormat, thumbUrl } from '../components/common/Miscellaneous';
 const { Text, Link, Title } = Typography;
-export default function Profile(){
-  const {userId} = useParams();
-  const name = 'Derek Obrien';
-  const joinedDate = 'Jun 14, 2020';
-  const followers = 3000;
 
-  const displayData = [
-    {
-      authorname: "Bhargav Bachina",
-      title: "React — How To Proxy To Backend Server",
-      summary: "Explaining how to configure a proxy for backend API calls with an example.",
-      publishDate: "2020-06-14 10:29:08",
-      readTime: "6 min",
-      fireCount: 5000,
-      tag: "React",
-      authorLink: profileUrl+userId, // {localhost:3000}/profile/{userId}
-      link: articleUrl+12, // {localhost:3000}/article/{articleId}
-      imageLink: "https://miro.medium.com/fit/c/300/201/0*J8_v8vmIyMZgQFhK", // first image file object
-    },
-  ];
+export default function Profile(){
+
+  const {userId} = useParams();
+
+  // personal Data 
+  const [personalData, setPersonalData] = useState({
+    name:'Derek Obrien',
+    joinedDate:DateToMonthYearFormat('2020-06-14'),
+    followers:3000
+  });
+
+  useEffect(() => {
+    axios.get( backendUrl+'/user/'+userId )
+    .then((res) => {
+      console.log(res.data);
+      var temp = res.data;
+      setPersonalData({
+        name:temp.userName,
+        joinedDate:DateToMonthYearFormat(temp.dateOfBirth),
+        followers:0
+      })
+    })
+
+    axios.get(backendUrl + "/articleMetaByAuthor/" + userId).then((res) => {
+      console.log(res.data);
+      setDisplayData( res.data.map((dt) => {
+        return {
+          authorname: dt.authorName,
+          title: dt.title,
+          summary: dt.summary,
+          publishDate: dt.publishDate,
+          readTime: dt.readTime + " min",
+          fireCount: dt.likes,
+          tag: dt.tag ,
+          authorLink: profileUrl + dt.authorId,
+          link: articleUrl + dt.articleId,
+          imageLink: dt.imageLink
+            ? backendUrl + "/uploads/" + dt.imageLink
+            : thumbUrl(),
+        };
+      })
+      )
+    });
+
+  },[])    
+
+  const [displayData, setDisplayData] = useState([]);
     
     return(
         <>
@@ -55,10 +85,10 @@ export default function Profile(){
               marginBottom:'2px', marginTop:'auto'
               }}>
                 {/* user info name, joined, followers count */}
-                <Text type="secondary">{"Followers "+followers}</Text>
+                <Text type="secondary">{"Followers "+ personalData.followers}</Text>
                 <Title level={3} style={{fontWeight:'400', color:"#001529",
-                 lineHeight:'0.7', marginTop:'0.5rem'}}>{name} </Title>
-                <Text type="secondary" style={{fontWeight:'400'}}>{"Joined "+joinedDate} </Text>
+                 lineHeight:'0.7', marginTop:'0.5rem'}}>{personalData.name} </Title>
+                <Text type="secondary" style={{fontWeight:'400'}}>{"Joined "+personalData.joinedDate} </Text>
                 {/* user info end */}
               </div>
             </div>

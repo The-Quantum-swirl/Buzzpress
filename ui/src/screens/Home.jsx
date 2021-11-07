@@ -2,86 +2,55 @@ import NavBar from "../components/NavBar";
 import { Layout, Row, Col, Tabs } from "antd";
 import { Typography, Space, Divider } from "antd";
 import BuzzCard from "../components/home/BuzzCard";
-import Topics from "../components/home/Topics";
 import RadialChart from "../components/home/RadialChart.js";
 import { InstagramOutlined, TwitterOutlined } from "@ant-design/icons";
-import {profileUrl, articleUrl, backendUrl} from './common/Path.js';
+import { profileUrl, articleUrl, backendUrl } from "../components/common/Path.js";
 import { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from "axios";
+import { thumbUrl } from "../components/common/Miscellaneous";
+import { authorId } from "../cache/UserData";
 
 const { TabPane } = Tabs;
 const { Text, Link } = Typography;
 const { Footer } = Layout;
 
 export default function Home() {
-  const authorId = 3;
-  const suggestedTopics = [
-    "AI",
-    "BlockChain",
-    "React",
-    "Nano",
-  ];
-  const graphData ={
-    target:10,
-    read:0,
-  };
-  useEffect(() => {
-    axios.get( backendUrl+'/articleMeta' )
-    .then((res) => {
-      console.log(res.data);
-      var arr = res.data.map((data) => {
-        var dt = data;        
-        return(
-          {
-            authorname: dt.authorName,
-            title:dt.title,
-            summary:dt.summary,
-            publishDate: dt.publishDate || "2020-06-14",
-            readTime: dt.readTime + " min",
-            fireCount: 15,
-            tag: dt.tag || "React",
-            authorLink: profileUrl+dt.authorId,
-            link:  articleUrl+dt.articleId,
-            imageLink: (dt.imageLink? backendUrl+"/uploads/"+dt.imageLink : "https://miro.medium.com/fit/c/300/201/0*J8_v8vmIyMZgQFhK"),
-          }
-        );
-      })
-    setDisplayData(arr);
-    })
+  const [graphData, setGraphData] = useState({ target: 10, read: 0 });
+  const [displayData, setDisplayData] = useState([]);
 
-    axios.get( backendUrl+'/UserStats/'+ authorId)
-    .then((res) => {
+  useEffect(() => {
+    // loading data for article meta
+    axios.get(backendUrl + "/articleMeta").then((res) => {
       console.log(res.data);
-      graphData.read = res.data.articleRead;
-      graphData.target = res.data.articleTargetRead;
-    })
-  },[])
-  const [displayData, setDisplayData] =  useState([
-    {
-      authorname: "Bhargav Bachina",
-      title: "React — How To Proxy To Backend Server",
-      summary: "Explaining how to configure a proxy for backend API calls with an example.",
-      publishDate: "2020-06-14",
-      readTime: "6 min",
-      fireCount: 15,
-      tag: "React",
-      authorLink: profileUrl+authorId, // {localhost:3000}/profile/{userId}
-      link: articleUrl+12, // {localhost:3000}/article/{articleId}
-      imageLink: "https://miro.medium.com/fit/c/300/201/0*J8_v8vmIyMZgQFhK", // first image file object
-    },
-    {
-      authorname: "Sean Kernan",
-      title: "You Aren’t Lazy. You Are Overstimulated.",
-      summary: "Slowing your life down is the secret to getting things done.",
-      publishDate: "2021-06-02",
-      readTime: "5 min",
-      fireCount: 5336,
-      tag: "Life",
-      authorLink: profileUrl+authorId,
-      link: articleUrl+12,
-      imageLink: "https://miro.medium.com/fit/c/300/201/1*__4RC4kaUgXdNFbFTzatcQ.jpeg",
-    }
-  ]);
+      setDisplayData( res.data.map((dt) => {
+        return {
+          authorname: dt.authorName,
+          title: dt.title,
+          summary: dt.summary,
+          publishDate: dt.publishDate,
+          readTime: dt.readTime + " min",
+          fireCount: dt.likes,
+          tag: dt.tag ,
+          authorLink: profileUrl + dt.authorId,
+          link: articleUrl + dt.articleId,
+          imageLink: dt.imageLink
+            ? backendUrl + "/uploads/" + dt.imageLink
+            : thumbUrl(),
+        };
+      })
+      )
+    });
+    // loading data for performance graph
+    axios.get(backendUrl + "/UserStats/" + authorId()).then((res) => {
+      console.log(res.data);
+      setGraphData({
+        target: res.data.articleTargetRead, 
+        read: res.data.articleRead,
+        authored: res.data.articleAuthored,
+      });
+    });
+
+  }, []);
 
   return (
     <>
@@ -91,27 +60,38 @@ export default function Home() {
         <Col xs={0} sm={2} md={1} lg={4} xl={4}>
           <Space direction="vertical" id="profile-left-hide">
             {/* <Text>left</Text> */}
-
           </Space>
         </Col>
         {/* Feed/ Article starts */}
         <Col xs={24} sm={18} md={15} lg={14} xl={13}>
-          <Space direction="vertical" size={8} style={{width:'100%', paddingTop:'25px'}}>
-            <Text type="secondary" style={{padding:'25px'}}>Recommended For You</Text>
-            <Divider style={{ margin: "0 0 0 20px",width: "180px", minWidth: "30%"}} />
+          <Space
+            direction="vertical"
+            size={8}
+            style={{ width: "100%", paddingTop: "25px" }}
+          >
+            <Text type="secondary" style={{ padding: "25px" }}>
+              Recommended For You
+            </Text>
+            <Divider
+              style={{ margin: "0 0 0 20px", width: "180px", minWidth: "30%" }}
+            />
             {displayData.map((dataObject) => {
-            return <BuzzCard data={dataObject} />;
+              return <BuzzCard data={dataObject} />;
             })}
           </Space>
         </Col>
         {/* Feed/ Article ends */}
-        
+
         <Col xs={0} sm={4} md={8} lg={6} xl={7}>
-          <Space direction="vertical" id="profile-right-hide" 
-            style={{ 
-              position: "sticky", top: "10px",
-              padding:'25px'
-            }}>
+          <Space
+            direction="vertical"
+            id="profile-right-hide"
+            style={{
+              position: "sticky",
+              top: "10px",
+              padding: "25px",
+            }}
+          >
             {/* performance chart start */}
             <Text type="secondary">Your Performance</Text>
             <Divider style={{ margin: "0", width: "40%", minWidth: "30%" }} />
@@ -170,26 +150,11 @@ export default function Home() {
             </Space>
             {/* connect social media end */}
             <br />
-
-            {/* Topic suggestion start */}
-            <Text type="secondary">Topics you might like</Text>
-            <Divider style={{ margin: "0", width: "50%", minWidth: "30%" }} />
-
-            <Space wrap={true} style={{ width: "80%" }}>
-              {suggestedTopics.map((topic) => (
-                <Topics data={topic} />
-              ))}
-            </Space>
-            {/* Topic suggestion end */}
-
-            <br />
+            {/*             
+            <Footer>Copyright ©2021 Buzzpress Inc. All rights reserved.</Footer> */}
           </Space>
         </Col>
       </Row>
-
-      <br />
-
-      <Footer>Copyright ©2021 Buzzpress Inc. All rights reserved.</Footer>
     </>
   );
 }

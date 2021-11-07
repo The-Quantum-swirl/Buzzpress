@@ -1,4 +1,4 @@
-import { backendUrl } from "../common/Path";
+import { backendUrl } from "../../components/common/Path";
 import Preview from "./Preview";
 
 export default function FinalPreview(props) {

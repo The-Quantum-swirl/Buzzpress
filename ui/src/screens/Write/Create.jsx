@@ -7,7 +7,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import UploadButton from "../../components/UploadButton";
 import Topics from "../../components/home/Topics";
-import { profileUrl } from "../common/Path.js";
+import { profileUrl } from "../../components/common/Path.js";
 
 const { Option } = Select;
 

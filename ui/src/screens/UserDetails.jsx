@@ -1,35 +1,60 @@
-import { BookOutlined, TeamOutlined } from "@ant-design/icons";
-import { ArticleOutlined, DesignServicesOutlined, LibraryBooksOutlined, PendingOutlined, ReadMoreOutlined } from "@mui/icons-material";
-import { Button, Card, Col, Divider, Form, Input, PageHeader, Row, Space, Statistic, Switch, Tabs, Typography } from "antd";
+import { useEffect } from "react";
+import axios from "axios";
+import { backendUrl } from "../components/common/Path";
+import { Button, Col, Divider, Form, Input, PageHeader, Row, Space, Switch, Tabs, Typography } from "antd";
 import { useState } from "react";
 import NavBar from "../components/NavBar";
 import MessageCard from "../components/settings/MessageCard";
+import { convertDate, DateToMonthYearFormat } from "../components/common/Miscellaneous";
+import { authorId } from "../cache/UserData";
 
 const { TabPane } = Tabs;
 const { Paragraph } = Typography;
 
-const DateToMonthYearFormat = (date) => {
-  let todaysDate = date.toDateString();
-  let dateArr = todaysDate.split(" ");
-  return dateArr[1] + " " + Number(dateArr[2]).toString() + ", " + dateArr[3];
-};
-
 export default function UserDetails() {
-  const props = {
+  const [authorDetails, setAuthorDetails] = useState({
     PersonalData: { firstName: "Suarez" },
     ArticlePublished: 2
-  };
-  const Stats = {
-    ArticlePublished: 21,
-    ArticlesRead: 50
+  });
+  const [stats, setStats] = useState({
+    ArticlesRead: 0, ArticlePublished: 0
+  });
+  
+  const [editableName, setEditableName] = useState("none");
+
+  useEffect(() => {
+
+    axios.get(backendUrl + "/UserStats/"+authorId()).then((res) =>{
+      console.log(res.data);
+      setStats({
+        ArticlePublished: res.data.articleAuthored,
+        ArticlesRead: res.data.articleRead
+      })
+    })
+
+    // loading data for article meta
+    axios.get(backendUrl + "/user/"+authorId()).then((res) => {
+      console.log(res.data);
+      setAuthorDetails({
+        PersonalData: {firstName: res.data.userName},
+        ArticlePublished: stats.ArticlePublished,
+      })
+      setEditableName(res.data.userName);
+
+    });
+
+  }, []);
+  const handleDetailsChange = (event) => {
+    console.log(event.target.name);
+    // change user details
+    // axios.post(backendUrl+)
   }
+
   const onFinish = (values) => {
     if (values.password === values.confirmPassword) {
-
       console.log("Success:", values);
       return true;
     }
-
     console.log("Success:", values);
   };
 
@@ -37,8 +62,6 @@ export default function UserDetails() {
     console.log("Failed:", errorInfo);
   };
 
-  const [editableName, setEditableName] = useState("Hari Ohm");
-  const [editableEmail, setEditableEmail] = useState("hari@gmail.com");
 
   //   old password get from db
   const oldPasswordFromDB = "";
@@ -50,7 +73,7 @@ export default function UserDetails() {
     <div>
       <NavBar />
       <PageHeader
-        subTitle={DateToMonthYearFormat(new Date())}
+        subTitle={DateToMonthYearFormat( convertDate(new Date()))}
         backIcon={false}
         title={
           // "Settings"
@@ -62,43 +85,10 @@ export default function UserDetails() {
         <Row gutter={12}>
           <Col className="gutter-row" span={16}>
             <MessageCard
-              rmPersonalData={props.PersonalData}
-              ArticlePublished={props.ArticlePublished}
+              rmPersonalData={authorDetails.PersonalData}
+              ArticlePublished={authorDetails.ArticlePublished}
             />
           </Col>
-          <Col className="gutter-row" span={4}>
-            <Card style={stylecard}
-              title={<DesignServicesOutlined style={{ fontSize: "30px", color: "#fa5500" }} />}
-              //  bordered={true}
-              headStyle={{ textAlign: "center", padding: "0px" }}
-              bodyStyle={{ textAlign: "center", padding: "13px" }}
-              hoverable={true}
-            >
-              <Statistic title="Articles Published" value={Stats.ArticlePublished} />
-            </Card>
-          </Col>
-          <Col className="gutter-row" span={4}>
-            <Card style={stylecard}
-              title={<LibraryBooksOutlined style={{ fontSize: "30px", color: "#fa5500" }} />}
-              //  bordered={true}
-              headStyle={{ textAlign: "center", padding: "0px" }}
-              bodyStyle={{ textAlign: "center", padding: "13px" }}
-              hoverable={true}
-            >
-              <Statistic title="Articles Read" value={Stats.ArticlesRead} />
-            </Card>
-          </Col>
-          {/* <Col className="gutter-row" span={4}>
-            <Card style={stylecard}
-              title={<BookOutlined style={{ fontSize: "30px", color: "#10239e" }} />}
-              //  bordered={true}
-              headStyle={{ textAlign: "center", padding: "0px" }}
-              bodyStyle={{ textAlign: "center", padding: "13px" }}
-              hoverable={true}
-            >
-              <Statistic title="Published" value={Stats.ArticlePublished} />
-            </Card>
-          </Col> */}
         </Row>
 
         <Divider />
@@ -109,10 +99,7 @@ export default function UserDetails() {
               <Paragraph editable={{ onChange: setEditableName }}>
                 {editableName}
               </Paragraph>
-              <Paragraph editable={{ onChange: setEditableEmail }}>
-                {editableEmail}
-              </Paragraph>
-              <Button type="primary" style={{ marginTop: "5%" }}>
+              <Button type="primary" style={{ marginTop: "5%" }} onClick={handleDetailsChange}>
                 Update
               </Button>
             </Space>

@@ -7,7 +7,7 @@ import Home from './screens/Home';
 import UserDetails from './screens/UserDetails';
 import Write from './screens/Write/Write';
 import Profile from './screens/Profile';
-import Article from './screens/Article';
+import Article from './screens/Article/Article';
 import Admin from './screens/Admin/AdminDashboard';
 export default function Routes() {
     return (

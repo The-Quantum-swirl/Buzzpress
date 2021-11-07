@@ -5,6 +5,7 @@ import { Dropdown, Button } from "antd";
 import { Typography } from "antd";
 import { useHistory } from "react-router-dom";
 import Logout from "./logout";
+import { authorId } from "../cache/UserData";
 const { Header } = Layout;
 const { Text } = Typography;
 
@@ -12,7 +13,7 @@ export default function NavBar() {
   let history = useHistory();
   const menu = (
     <Menu>
-      <Menu.Item onClick={(e) => history.push("/profile/123")}>
+      <Menu.Item onClick={(e) => history.push("/profile/"+authorId())}>
         Your Profile
       </Menu.Item>
       <Menu.Item onClick={(e) => history.push("/create")}>

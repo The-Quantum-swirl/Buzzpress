@@ -4,8 +4,8 @@ import { UserOutlined, FireFilled, FireOutlined } from "@ant-design/icons";
 import "../css/home.css";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
-import { convertDate, DateToMonthYearFormat } from "../../screens/common/Miscellaneous";
-import { Error } from "../../screens/common/Error";
+import { convertDate, DateToMonthYearFormat } from "../common/Miscellaneous";
+import { Error } from "../common/Error";
 const { Text, Title } = Typography;
 
 export default function BuzzCard(props) {

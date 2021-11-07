@@ -35,7 +35,7 @@ public class Controller {
     UserStatsRepository userStatsRepository;
 
     @GetMapping(value = "/user/{id}")
-    public Users_ getUserDetails(@PathVariable("id") Long id) throws NotFoundException {
+    public Users_ getUserDetails(@PathVariable Long id) throws NotFoundException {
         System.out.println(id);
         return iUserService.getUserDetails(id);
     }
@@ -78,7 +78,7 @@ public class Controller {
     }
 
     @PutMapping(value = "/follow")
-    public ResponseEntity<ResponseMessage> Followuser(@RequestBody long follower, Long toFollow) {
+    public ResponseEntity<ResponseMessage> Followuser(@RequestBody Long follower, Long toFollow) {
         iUserService.FollowUser(follower, toFollow);
         ResponseMessage rm = new ResponseMessage();
         rm.setMessage("Success");
@@ -86,8 +86,8 @@ public class Controller {
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/follow")
-    public ResponseEntity<ResponseMessage> UnFollowuser(@RequestBody long follower, Long toUnFollow) {
+    @PutMapping(value = "/unfollow")
+    public ResponseEntity<ResponseMessage> UnFollowuser(@RequestBody Long follower, Long toUnFollow) {
         iUserService.UnFollowUser(follower, toUnFollow);
         ResponseMessage rm = new ResponseMessage();
         rm.setMessage("Success");
