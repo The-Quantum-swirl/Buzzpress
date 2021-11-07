@@ -3,6 +3,7 @@ package com.buzzpress.service.impl;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.buzzpress.beans.Users_;
 import com.buzzpress.dao.UserDataRepository;
@@ -84,17 +85,36 @@ public class IUserServiceImpl implements IUserService {
     }
 
     @Override
-    public void FollowUser(Long follower, long toFollow) {
-        Users_ UserFollowing = userDataRepository.findByUserId(follower);
-        Users_ UserBeingFollowed = userDataRepository.findByUserId(toFollow);
-        UserBeingFollowed.getFollowers().add(follower);
-        UserFollowing.getFollowing().add(toFollow);
+    public void FollowUser(Long follower, Long toFollow) throws NotFoundException {
+        Users_ UserFollowing = null;
+        Users_ UserBeingFollowed = null;
+
+        UserFollowing = userDataRepository.findByUserId(follower);
+
+        if (UserFollowing == null)
+            throw new NotFoundException("not found user1");
+        UserBeingFollowed = userDataRepository.findByUserId(toFollow);
+        System.out.println(UserBeingFollowed);
+        if (UserBeingFollowed == null)
+            throw new NotFoundException("not found user2");
+        HashSet<Long> followers = UserBeingFollowed.getFollowers();
+        if (followers == null) {
+            followers = new HashSet<>();
+        }
+        followers.add(follower);
+        HashSet<Long> following = UserFollowing.getFollowing();
+        if (following == null) {
+            following = new HashSet<>();
+        }
+        following.add(toFollow);
+        UserBeingFollowed.setFollowers(followers);
+        UserFollowing.setFollowing(following);
         userDataRepository.save(UserBeingFollowed);
         userDataRepository.save(UserFollowing);
     }
 
     @Override
-    public void UnFollowUser(Long follower, long toUnFollow) {
+    public void UnFollowUser(Long follower, Long toUnFollow) {
         Users_ UserFollowing = userDataRepository.findByUserId(follower);
         Users_ UserBeingUnFollowed = userDataRepository.findByUserId(toUnFollow);
         UserBeingUnFollowed.getFollowers().remove(follower);
@@ -102,4 +122,15 @@ public class IUserServiceImpl implements IUserService {
         userDataRepository.save(UserBeingUnFollowed);
         userDataRepository.save(UserFollowing);
     }
+
+    @Override
+    public void deleteUser(Long id) throws NotFoundException {
+        userDataRepository.delete(userDataRepository.findByUserId(id));
+    }
+
+    @Override
+    public void deleteAllUsers() {
+        userDataRepository.deleteAll();
+    }
+
 }

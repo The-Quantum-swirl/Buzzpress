@@ -3,6 +3,7 @@ package com.buzzpress.beans;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -53,6 +54,8 @@ public class Users_ implements Serializable {
         this.userAddress = userAddress;
         this.userPhoneNumber = userPhoneNumber;
         this.dateOfBirth = dateOfBirth;
+        this.followers = new HashSet<Long>();
+        this.following = new HashSet<Long>();
     }
 
 }
