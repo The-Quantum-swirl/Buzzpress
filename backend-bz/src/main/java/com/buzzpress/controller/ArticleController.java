@@ -69,7 +69,7 @@ public class ArticleController {
 
     @GetMapping(value = "/article/{id}")
     public List<Article> getArticlebyId(@PathVariable Long id) {
-
+        iArticleMetaSevice.view(id);
         return iArticleService.fetchArticleByArticleId(id);
     }
 }

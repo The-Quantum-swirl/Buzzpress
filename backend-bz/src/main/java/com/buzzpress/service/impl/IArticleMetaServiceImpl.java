@@ -45,4 +45,23 @@ public class IArticleMetaServiceImpl implements IArticleMetaSevice {
         articleMetaDataRepository.save(metaData);
     }
 
+    @Override
+    public void handleLike(String operation, Long id) {
+        switch (operation) {
+        case "+":
+            System.out.println("PLus");
+            articleMetaDataRepository.incrementLike(id);
+            break;
+        case "-":
+            System.out.println("minus");
+            articleMetaDataRepository.decrementLike(id);
+            break;
+        default:
+            break;
+        }
+    }
+
+    public void view(Long id) {
+        articleMetaDataRepository.view(id);
+    }
 }

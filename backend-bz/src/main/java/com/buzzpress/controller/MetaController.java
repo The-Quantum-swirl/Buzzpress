@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javassist.NotFoundException;
@@ -40,4 +41,16 @@ public class MetaController {
     public List<ArticleMeta> getartic(@PathVariable Long authorId) throws NotFoundException {
         return iArticleMetaSevice.fetchArticleMetaByAuthorId(authorId);
     }
+
+    @PutMapping(value = "/like/{id}")
+
+    public void like(@PathVariable Long id) {
+        iArticleMetaSevice.handleLike("+", id);
+    }
+
+    @PutMapping(value = "/unlike/{id}")
+    public void unlike(@PathVariable Long id) {
+        iArticleMetaSevice.handleLike("-", id);
+    }
+
 }

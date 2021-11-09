@@ -16,4 +16,8 @@ public interface IArticleMetaSevice {
     public List<ArticleMeta> fetchArticleMetaByAuthorId(Long authorId) throws NotFoundException;
 
     public void saveMetaData(Article article, String author);
+
+    public void handleLike(String operation, Long id);
+
+    public void view(Long id);
 }

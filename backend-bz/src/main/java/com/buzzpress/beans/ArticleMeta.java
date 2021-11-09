@@ -43,6 +43,8 @@ public class ArticleMeta {
         this.ThumbUrl = article.getImageLink();
         this.readTime = article.getReadTime();
         this.publishDate = LocalDate.now();
+        this.views = Long.parseLong("1");
+        this.likes = 0;
     }
 
 }
