@@ -5,13 +5,13 @@ import "../css/home.css";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
 import { convertDate, DateToMonthYearFormat } from "../common/Miscellaneous";
-import { Error } from "../common/Error";
+import { Response } from "../../service/Response";
 const { Text, Title } = Typography;
 
 export default function BuzzCard(props) {
   const [onFire, setOnFire] = useState(false);
   if (props === undefined || props.data === undefined) {
-    return <Error />;
+    return <Response statusCode={404} />;
   }
   
   const authorname = props.data.authorname;
@@ -30,8 +30,7 @@ export default function BuzzCard(props) {
   }
   return (
     <>
-    
-    
+
       <Row style={{marginTop:'10px'}}>
         <Col offset={1} span={16}>
           {/* author name start*/}

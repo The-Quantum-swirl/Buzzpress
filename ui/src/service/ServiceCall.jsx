@@ -23,12 +23,15 @@ const getUserStats = async (id) =>{
 
 const postArticle = (id, data) => {
     httpService.post( LRM_API + `saveArticle/${id}`, data )
-    .then((res) => { console.log(res); });
+    .then((res) => { return res.status; })
+    .catch((err) => { return err.response.status;})
+    
 }
 
 const postImage = (fd, header) => {
     httpService.post( LRM_API + `upload-image`, fd , header)
-    .then((res) => { console.log(res); });
+    .then((res) => { return res.status; })
+    .catch((err) => { return err.response.status;})
 }
 
 const postFollow = (followerId, followingId) =>{

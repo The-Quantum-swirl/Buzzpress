@@ -6,19 +6,11 @@ import {backendUrl, profileUrl} from '../../components/common/Path';
 import { Button } from 'antd';
 import { UserOutlined, FireFilled, FireOutlined } from "@ant-design/icons";
 import api from "../../service/ServiceCall";
+import { Response } from '../../service/Response';
 
 export default function Article(){
     let {articleId} = useParams();
-    const [loadedData, setLoadedData] = useState({
-        readTime: "5 min",
-        authorLink: "",
-        title: "",
-        summary: "",
-        contentType : [],
-        content: [],
-        imagelist:[],
-        tag: [],
-    });
+    const [loadedData, setLoadedData] = useState(false);
     const [fireCount, setFireCount] = useState(0);
     const [onFire, setOnFire] = useState(false);
     const handleFire = () => {
@@ -33,29 +25,33 @@ export default function Article(){
       var temp ="Anonymous"
       api.getArticleMetaById(articleId).then((res)=>{
         console.log(res)
-        setFireCount(res.likes);
-        temp = res.authorName;
+        if (res!==undefined){
+          setFireCount(res.likes);
+          temp = res.authorName;
+        }
       })
 
       api.getArticle(articleId).then((res) => {
         console.log(res);
-        setLoadedData({
-          authorName: res.authorName || temp,
-          publishDate: res.publishDate,
-          readTime: res.readTime,
-          authorLink: profileUrl+res.authorId,
+        if (res!==undefined){
+          setLoadedData({
+            authorName: res.authorName || temp,
+            publishDate: res.publishDate,
+            readTime: res.readTime,
+            authorLink: profileUrl+res.authorId,
 
-          title:res.title,
-          summary:res.summary,
+            title:res.title,
+            summary:res.summary,
 
-          content:res.description.split("\n") || [""],
-          contentType: res.textType.split("\n") || ["head"],
-          imagelist: res.imagelist || [""],
+            content:res.description.split("\n") || [""],
+            contentType: res.textType.split("\n") || ["head"],
+            imagelist: res.imagelist || [""],
 
-          fireCount: res.fireCount || 0,
-          tag: res.tag.split("\n") || [""],
+            fireCount: res.fireCount || 0,
+            tag: res.tag.split("\n") || [""],
 
-        });
+          });
+        }
       })
       
       // api post for read 1 more article
@@ -63,6 +59,8 @@ export default function Article(){
       },[])    
  
     return(
+        <>
+        { loadedData === false ? <Response statusCode={404} /> :
         <>
         <NavBar />
         <FinalPreview data={loadedData} />
@@ -74,6 +72,9 @@ export default function Article(){
             {fireCount + onFire? 1: 0}
           </Button>
         </div>
+        </>
+        }
+        
         </>
     );
 }

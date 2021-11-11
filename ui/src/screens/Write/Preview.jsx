@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LazyLoad from "react-lazyload";
 import Topics from "../../components/home/Topics";
-import { Error } from "../../components/common/Error";
+import { Response } from "../../service/Response";
 import { convertDate, DateToMonthYearFormat } from "../../components/common/Miscellaneous";
 import { Row, Col, Typography } from "antd";
 import { Avatar, Space, Button } from "antd";
@@ -27,7 +27,7 @@ export default function Preview(props) {
     // props.data.contentType === undefined ||
     // props.data.imageList === undefined
   ) {
-    return <Error statusCode={404} /> ;
+    return <Response statusCode={404} /> ;
   }
 
   const authorName = props.data.authorName;

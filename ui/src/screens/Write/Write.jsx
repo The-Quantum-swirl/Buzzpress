@@ -1,25 +1,30 @@
 import NavBar from "../../components/NavBar";
-import { useHistory } from "react-router-dom";
 import { useState } from "react";
-import { Result, Button } from "antd";
+import { Button } from "antd";
 import Create from "./Create";
 import Preview from "./Preview";
 import { backendUrl, profileUrl } from "../../components/common/Path";
-import axios from "axios";
 import { convertDate } from "../../components/common/Miscellaneous";
 import api from "../../service/ServiceCall";
+import { Response } from "../../service/Response";
 
 export default function Write() {
   const [currentStep, setCurrentStep] = useState(0);
   const authorId =3;
-  let history = useHistory(); 
+  var statusCode = 200;
   const [data, setData] = useState({
     readTime: "5 min",
-    authorLink: profileUrl+1,
+    authorLink: profileUrl,
     title: "",
     summary: "",
   });
-  
+
+  const outcome = (res1, res2) => {
+    if(res1 !==200 ) statusCode = res1;
+    else if(res2 !==200 ) statusCode = res2;
+    else statusCode= 200;
+  }
+
   var previewData={};
   const handleNext = () => {
     // publish stage step 1 clicked on next
@@ -39,7 +44,7 @@ export default function Write() {
         tag:data.tag.join("\n"),
       }
 
-      api.postArticle(authorId, payload)
+      let rawDataResponse = api.postArticle(authorId, payload) || "";
 
       // axios.post(backendUrl+'/saveArticle/'+authorId,{
       //   authorId:authorId,
@@ -56,10 +61,11 @@ export default function Write() {
       // uploading image in batch start
       let imgArr = data.imagelist;
       let formData = new FormData();
+      let imgDataResponse ="";
       imgArr.forEach(element => {
         
         formData.append("file", element)
-        api.postImage(formData, { headers: {"Content-Type": "multipart/form-data",}})
+        imgDataResponse=api.postImage(formData, { headers: {"Content-Type": "multipart/form-data",}})
 
         // axios.post(backendUrl+'/upload-image', formData, {
         //   headers: {
@@ -69,6 +75,8 @@ export default function Write() {
         formData.delete("file")
       });
       // uploading of image end
+
+      outcome(imgDataResponse, rawDataResponse);
     }
     setCurrentStep( Math.min(currentStep + 1, 2) );
     setData(previewData);
@@ -84,16 +92,7 @@ export default function Write() {
   const screen = [
     <Create data={handleData} />,
     <Preview data={data} />,
-    <Result
-      status="success"
-      title="Article Successfully Published!"
-      subTitle="Server configuration takes 1-5 minutes, please wait."
-      extra={[
-        <Button type="primary" key="console" onClick={(e) => history.push("/home")}>
-          Back to Home
-        </Button>,
-      ]}
-    />
+    <Response statusCode={statusCode} />,
   ];
 
   return (
