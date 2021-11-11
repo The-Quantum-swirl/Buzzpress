@@ -6,7 +6,7 @@ import { useState } from "react";
 import NavBar from "../components/NavBar";
 import MessageCard from "../components/settings/MessageCard";
 import { convertDate, DateToMonthYearFormat } from "../components/common/Miscellaneous";
-import { authorId } from "../cache/UserData";
+import { authorId } from "../constants/UserData";
 import UploadButton from "../components/UploadButton";
 
 const { TabPane } = Tabs;

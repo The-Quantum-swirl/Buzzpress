@@ -5,7 +5,7 @@ import { Response } from "../../service/Response";
 import { convertDate, DateToMonthYearFormat } from "../../components/common/Miscellaneous";
 import { Row, Col, Typography } from "antd";
 import { Avatar, Space, Button } from "antd";
-import { UserOutlined, FireFilled, FireOutlined } from "@ant-design/icons";
+import { UserOutlined, FireFilled, FireOutlined, ReadOutlined } from "@ant-design/icons";
 const { Title, contentgraph, Text } = Typography;
 
 const checkURL = (url) => {
@@ -124,7 +124,7 @@ export default function Preview(props) {
                 <Text style={{ marginLeft: "10px" }}>
                   {publishDate}
                   <Text style={{ marginLeft: "10px" }}>
-                    {readTime + " min read"}
+                  <ReadOutlined style={{color:'#757575'}} />{" "+readTime + " min"}
                   </Text>
                 </Text>
               </span>

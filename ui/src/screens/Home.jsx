@@ -6,7 +6,7 @@ import RadialChart from "../components/home/RadialChart.js";
 import { InstagramOutlined, TwitterOutlined } from "@ant-design/icons";
 import { profileUrl, articleUrl, backendUrl } from "../components/common/Path.js";
 import { useEffect, useState } from "react";
-import { authorId } from "../cache/UserData";
+import { authorId } from "../constants/UserData";
 import api from "../service/ServiceCall";
 
 const { TabPane } = Tabs;
@@ -23,12 +23,17 @@ export default function Home() {
       console.log(res);
       var arr = res.map((dt) => {
         return {
-          authorname: dt.authorName, authorLink: profileUrl + dt.authorId,
+          authorname: dt.authorName, 
+          authorLink: profileUrl + dt.authorId,
 
-          title: dt.title, summary: dt.summary,
+          title: dt.title,
+          summary: dt.summary,
 
-          publishDate: dt.publishDate, readTime: dt.readTime + " min",
-          fireCount: dt.likes, tag: dt.tag ,
+          publishDate: dt.publishDate, 
+          readTime: dt.readTime + " min",
+          fireCount: dt.likes, 
+          views: dt.views,
+          tag: dt.tag ,
 
           link: articleUrl + dt.articleId,
           imageLink: api.getThumbUrl(dt.thumbUrl),

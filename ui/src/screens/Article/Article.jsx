@@ -3,15 +3,15 @@ import {useParams} from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import FinalPreview from '../Write/FinalPreview';
 import {backendUrl, profileUrl} from '../../components/common/Path';
-import { Button } from 'antd';
-import { UserOutlined, FireFilled, FireOutlined } from "@ant-design/icons";
+import { Button, Col, Row } from 'antd';
+import { UserOutlined, FireFilled, FireOutlined,EyeFilled } from "@ant-design/icons";
 import api from "../../service/ServiceCall";
 import { Response } from '../../service/Response';
 
 export default function Article(){
     let {articleId} = useParams();
+    let views = 0, likes =0;
     const [loadedData, setLoadedData] = useState(false);
-    const [fireCount, setFireCount] = useState(0);
     const [onFire, setOnFire] = useState(false);
     const handleFire = () => {
       setOnFire(!onFire);
@@ -26,8 +26,9 @@ export default function Article(){
       api.getArticleMetaById(articleId).then((res)=>{
         console.log(res)
         if (res!==undefined){
-          setFireCount(res.likes);
+          likes = res.likes;
           temp = res.authorName;
+          views =res.views;
         }
       })
 
@@ -56,7 +57,34 @@ export default function Article(){
       
       // api post for read 1 more article
 
-      },[])    
+      },[])
+      const bottomBar = () =>{
+
+        return (
+        <div style={{padding:'20px', paddingLeft:'25%',paddingRight:'25%' }} onScroll={handleScroll}>
+          <Row 
+          style={{borderTop:'1px solid grey'}}
+          >
+          <Col span={6}>
+            <Button icon={onFire ? <FireFilled style={{color:'#f50057'}} /> : 
+              <FireOutlined style={{color:'#f50057'}} />} 
+              onClick={handleFire}
+              style={{backgroundColor:'inherit', width:'100%', borderTop:'0'}} 
+              >
+              {likes + onFire? 1: 0}
+            </Button>
+          </Col>
+          <Col offset={6} span={12}>
+            <div style={{width:'100%',height:'100%', textAlign:'center', paddingTop:'4px',}}>
+            <EyeFilled style={{color:'#757575'}} />
+            {" views " +views}
+            </div>
+          </Col>
+          </Row>
+          
+        </div>
+        );
+      }
  
     return(
         <>
@@ -64,14 +92,7 @@ export default function Article(){
         <>
         <NavBar />
         <FinalPreview data={loadedData} />
-        <div style={{padding:'20px', paddingLeft:'45%'}} onScroll={handleScroll}>
-          <Button icon={onFire ? <FireFilled style={{color:'#f50057'}} /> : 
-            <FireOutlined style={{color:'#f50057'}} />} 
-            onClick={handleFire}
-            style={{backgroundColor:'inherit', padding:'2px', paddingLeft:'20px',paddingRight:'20px'}} >
-            {fireCount + onFire? 1: 0}
-          </Button>
-        </div>
+        {bottomBar()}
         </>
         }
         

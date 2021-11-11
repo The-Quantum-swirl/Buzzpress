@@ -1,6 +1,6 @@
 import { Row, Col, Space, Button } from "antd";
 import { Typography, Avatar } from "antd";
-import { UserOutlined, FireFilled, FireOutlined } from "@ant-design/icons";
+import { UserOutlined, FireFilled, ReadOutlined,FireOutlined,RiseOutlined,EyeFilled } from "@ant-design/icons";
 import "../css/home.css";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
@@ -24,6 +24,7 @@ export default function BuzzCard(props) {
   const articleLink = props.data.link;
   const imageLink = props.data.imageLink;
   const fireCount = props.data.fireCount;
+  const views = props.data.views;
 
   function handleFire(){
     setOnFire(!onFire) ;
@@ -101,14 +102,15 @@ export default function BuzzCard(props) {
               }}
             >
               <Text style={{ display: "table-cell", verticalAlign: "middle" }}>
-                {publishDate +" "+ readTime + " read "}
-                
-                <Button shape="round" icon={onFire ? <FireFilled style={{color:'#f50057'}} /> : 
-                <FireOutlined style={{color:'#f50057'}} />} 
-                onClick={handleFire}
-                style={{backgroundColor:'inherit', border:'0', padding:'4px'}} >
-                {fireCount+ (onFire? 1:0)}
-                </Button>
+                {publishDate +" "}
+                <ReadOutlined style={{color:'#757575'}} />
+                <Text >{" "+readTime+" "}</Text>
+                {/* <RiseOutlined style={{color:'#01579b'}} /> */}
+                <EyeFilled style={{color:'#757575'}} />
+                <Text >{views + " "}</Text>
+
+                <FireOutlined style={{color:'#f50057'}} />
+                <Text >{fireCount+" "}</Text>
 
               </Text>
             </div>

@@ -7,7 +7,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { profileUrl, backendUrl,articleUrl } from '../components/common/Path';
 import { DateToMonthYearFormat, thumbUrl } from '../components/common/Miscellaneous';
 import api from "../service/ServiceCall";
-import { authorId } from '../cache/UserData';
+import { authorId } from '../constants/UserData';
 import { ButtonGroup } from '@mui/material';
 const { Text, Link, Title } = Typography;
 
