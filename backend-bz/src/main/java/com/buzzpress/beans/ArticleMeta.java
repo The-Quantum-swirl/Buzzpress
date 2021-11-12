@@ -1,6 +1,7 @@
 package com.buzzpress.beans;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,8 +19,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class ArticleMeta {
     @Id
-    @SequenceGenerator(name = "ArticleId_sequence", sequenceName = "ArticleId_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ArticleId_sequence")
+    @SequenceGenerator(name = "ArticleMetaId_sequence", sequenceName = "ArticleMetaId_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ArticleMetaId_sequence")
     private Long articleId;
     private String authorName;
     private String title;
@@ -29,7 +30,7 @@ public class ArticleMeta {
     private Integer readTime;
     private Integer likes;
     private String tags;
-
+    private HashSet<Long> likerUserId;
     private LocalDate publishDate;
     private String ThumbUrl;
 
@@ -45,6 +46,7 @@ public class ArticleMeta {
         this.publishDate = LocalDate.now();
         this.views = Long.parseLong("1");
         this.likes = 0;
+        this.likerUserId = new HashSet<Long>();
     }
 
 }
