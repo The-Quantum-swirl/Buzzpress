@@ -2,6 +2,7 @@ package com.buzzpress.controller;
 
 import com.buzzpress.beans.ArticleMeta;
 import com.buzzpress.dao.ArticleMetaDataRepository;
+import com.buzzpress.model.LikeBody;
 import com.buzzpress.service.IArticleMetaSevice;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javassist.NotFoundException;
@@ -44,7 +46,8 @@ public class MetaController {
 
     @PutMapping(value = "/like/{id}")
 
-    public void like(@PathVariable Long id) {
+    public void like(@PathVariable Long id, @RequestBody LikeBody body) {
+
         iArticleMetaSevice.handleLike("+", id);
     }
 
