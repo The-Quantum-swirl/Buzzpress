@@ -31,7 +31,7 @@ export default function Home() {
 
           publishDate: dt.publishDate, 
           readTime: dt.readTime + " min",
-          fireCount: dt.likes, 
+          likes: dt.likes, 
           views: dt.views,
           tag: dt.tag ,
 

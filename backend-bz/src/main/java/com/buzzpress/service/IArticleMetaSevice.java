@@ -17,7 +17,7 @@ public interface IArticleMetaSevice {
 
     public void saveMetaData(Article article, String author);
 
-    public void handleLike(String operation, Long id);
+    public void handleLike(String operation, Long id, Long userId) throws NotFoundException;
 
     public void view(Long id);
 }

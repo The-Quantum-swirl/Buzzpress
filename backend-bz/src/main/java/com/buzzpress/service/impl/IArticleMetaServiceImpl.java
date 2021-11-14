@@ -1,5 +1,6 @@
 package com.buzzpress.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
 
 import com.buzzpress.beans.Article;
@@ -46,19 +47,41 @@ public class IArticleMetaServiceImpl implements IArticleMetaSevice {
     }
 
     @Override
-    public void handleLike(String operation, Long id) {
-        switch (operation) {
-        case "+":
-            System.out.println("PLus");
+    public void handleLike(String operation, Long id, Long userId) throws NotFoundException {
+
+    	List<ArticleMeta> articleMetaList = articleMetaDataRepository.findAllByArticleId(id);
+        if (articleMetaList == null) throw new NotFoundException("No Article found");
+        
+//        found the article here
+        ArticleMeta articleMeta = articleMetaList.get(0); 
+//        hashset of all the people who liked
+        HashSet<Long> likers = articleMeta.getLikerUserId();
+        
+        if (likers == null) likers = new HashSet<Long>();
+        
+        if (operation == "+") {
+            System.out.println("Plus");
+//            already like exists here for this user 
+            if (likers.contains(userId)) return ;
+            
+//            added like
+            likers.add(userId);
             articleMetaDataRepository.incrementLike(id);
-            break;
-        case "-":
-            System.out.println("minus");
-            articleMetaDataRepository.decrementLike(id);
-            break;
-        default:
-            break;
+            
+            
         }
+        else if (operation == "-") {
+            System.out.println("minus");
+//            can't remove like if liker doesnot already exists
+            if (likers.contains(userId)==false) return ;
+            
+            likers.remove(userId);
+            articleMetaDataRepository.decrementLike(id);
+        }
+
+        articleMeta.setLikerUserId(likers);
+        articleMetaDataRepository.save(articleMeta);
+        
     }
 
     public void view(Long id) {

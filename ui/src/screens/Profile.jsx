@@ -45,7 +45,7 @@ export default function Profile(){
           title: dt.title, summary: dt.summary,
 
           publishDate: dt.publishDate, readTime: dt.readTime + " min",
-          fireCount: dt.likes, tag: dt.tag ,
+          likes: dt.likes, tag: dt.tag ,
 
           link: articleUrl + dt.articleId,
           imageLink: api.getThumbUrl(dt.thumbUrl),

@@ -42,15 +42,14 @@ public class MetaController {
         return iArticleMetaSevice.fetchArticleMetaByAuthorId(authorId);
     }
 
-    @PutMapping(value = "/like/{id}")
-
-    public void like(@PathVariable Long id) {
-        iArticleMetaSevice.handleLike("+", id);
+    @PutMapping(value = "/like/{articleId}/user/{userId}")
+    public void like(@PathVariable Long articleId, @PathVariable Long userId) throws NotFoundException {
+        iArticleMetaSevice.handleLike("+", articleId, userId);
     }
 
-    @PutMapping(value = "/unlike/{id}")
-    public void unlike(@PathVariable Long id) {
-        iArticleMetaSevice.handleLike("-", id);
+    @PutMapping(value = "/unlike/{articleId}/user/{userId}")
+    public void unlike(@PathVariable Long articleId, @PathVariable Long userId) throws NotFoundException {
+        iArticleMetaSevice.handleLike("-", articleId, userId);
     }
 
 }

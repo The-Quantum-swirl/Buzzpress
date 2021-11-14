@@ -17,7 +17,6 @@ const checkURL = (url) => {
 };
 
 export default function Preview(props) {
-  const [onFire, setOnFire] = useState(false);
   console.log(props.data);
   if (
     props.data === undefined ||
@@ -40,13 +39,9 @@ export default function Preview(props) {
   const summary = props.data.summary || "Empty Recap";
   const content = props.data.content;
   const contentType = props.data.contentType;
-  const fireCount = props.data.fireCount || 0;
   const imageList = props.data.imagelist || [];
 
   var temp = "";
-  function handleFire() {
-    setOnFire(!onFire);
-  }
 
   const mapData = (type, val) => {
     if (type === "head")
@@ -152,17 +147,6 @@ export default function Preview(props) {
           </Title>
 
           {content.map((point, i) => mapData(contentType[i], point))}
-
-          <div
-            style={{
-              margin: "auto",
-              marginTop: "50px",
-              backgroundColor: "rgba(0, 0, 0, 0.03)",
-              borderRadius: "200px",
-              padding: "2px 12px 2px",
-              display: "table",
-            }}
-          ></div>
 
           <div style={{ margin: "auto", padding: "20px 12px 10px 12px" }}>
             <Space
