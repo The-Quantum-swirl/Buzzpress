@@ -25,7 +25,6 @@ const postArticle = (id, data) => {
     httpService.post( LRM_API + `saveArticle/${id}`, data )
     .then((res) => { return res.status; })
     .catch((err) => { return err.response.status;})
-    
 }
 
 const postImage = (fd, header) => {
@@ -48,6 +47,15 @@ const postUnFollow = (followerId, followingId) =>{
         "toFollow": 0,
         "toUnFollow": followingId,
     } ).then((res) => { console.log(res); });
+}
+
+const postLike = (articleId,userId) =>{
+    httpService.put( LRM_API + `like/${articleId}/user/${userId}`)
+    .then((res) => { console.log(res); });
+}
+const postUnlike = (articleId,userId) =>{
+    httpService.put( LRM_API + `unlike/${articleId}/user/${userId}`)
+    .then((res) => { console.log(res); });
 }
 // ger thumb url from image name
 const getThumbUrl = (imageName) => LRM_API + "uploads/" + imageName;
@@ -84,5 +92,7 @@ export default {
     postImage,
     postFollow,
     postUnFollow,
+    postLike,
+    postUnlike,
 }
 

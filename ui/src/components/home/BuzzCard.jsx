@@ -23,7 +23,7 @@ export default function BuzzCard(props) {
   const authorLink = props.data.authorLink;
   const articleLink = props.data.link;
   const imageLink = props.data.imageLink;
-  const fireCount = props.data.fireCount;
+  const likes = props.data.likes;
   const views = props.data.views;
 
   function handleFire(){
@@ -107,10 +107,10 @@ export default function BuzzCard(props) {
                 <Text >{" "+readTime+" "}</Text>
                 {/* <RiseOutlined style={{color:'#01579b'}} /> */}
                 <EyeFilled style={{color:'#757575'}} />
-                <Text >{views + " "}</Text>
+                <Text >{" "+views + " "}</Text>
 
                 <FireOutlined style={{color:'#f50057'}} />
-                <Text >{fireCount+" "}</Text>
+                <Text >{" "+likes+" "}</Text>
 
               </Text>
             </div>
