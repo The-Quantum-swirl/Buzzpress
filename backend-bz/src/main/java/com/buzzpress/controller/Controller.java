@@ -128,6 +128,11 @@ public class Controller {
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/postuserphoto/{:profilePhotoUrl}/{:authorId}")
+    public void SetUserProfilePhoto(@PathVariable String profilePhotoUrl, @PathVariable Long authorId) {
+        iUserService.postUserPhoto(profilePhotoUrl, authorId);
+    }
+
     @ExceptionHandler(DuplicateUserException.class)
     public ResponseEntity<ResponseMessage> handleDuplicateUserException(HttpServletRequest request, Exception ex) {
         ResponseMessage rm = new ResponseMessage();

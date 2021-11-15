@@ -123,6 +123,12 @@ public class IUserServiceImpl implements IUserService {
         userDataRepository.save(UserFollowing);
     }
 
+    public void postUserPhoto(String profilePhotoUrl, Long authorId) {
+        Users_ user = userDataRepository.getById(authorId);
+        user.setProfilePhotoUrl(profilePhotoUrl);
+        userDataRepository.save(user);
+    }
+
     @Override
     public void deleteUser(Long id) throws NotFoundException {
         userDataRepository.delete(userDataRepository.findByUserId(id));

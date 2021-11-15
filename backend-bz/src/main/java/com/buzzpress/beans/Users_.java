@@ -44,8 +44,10 @@ public class Users_ implements Serializable {
     private String userPhoneNumber;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
+    private LocalDate userJoinDate;
     private HashSet<Long> followers;
     private HashSet<Long> following;
+    private String profilePhotoUrl;
 
     public Users_(String userName, String userEmail, String userAddress, String userPhoneNumber,
             LocalDate dateOfBirth) {
@@ -54,8 +56,10 @@ public class Users_ implements Serializable {
         this.userAddress = userAddress;
         this.userPhoneNumber = userPhoneNumber;
         this.dateOfBirth = dateOfBirth;
+        this.userJoinDate = LocalDate.now();
         this.followers = new HashSet<Long>();
         this.following = new HashSet<Long>();
+
     }
 
 }

@@ -25,6 +25,8 @@ public interface IUserService {
 
     public void UnFollowUser(Long follower, Long toUnFollow);
 
+    public void postUserPhoto(String profilePhotoUrl, Long authorId);
+
     public void deleteUser(Long id) throws NotFoundException;
 
     public void deleteAllUsers();
