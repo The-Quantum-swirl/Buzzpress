@@ -8,4 +8,6 @@ public interface IUserStatsService {
     public UserStats getUserStats(long id);
 
     public List<UserStats> findAllStats();
+
+    public void incrementAuthored(Long userID);
 }

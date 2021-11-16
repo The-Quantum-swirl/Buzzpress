@@ -9,6 +9,8 @@ import com.buzzpress.model.ResponseMessage;
 import com.buzzpress.service.IArticleMetaSevice;
 import com.buzzpress.service.IArticleService;
 import com.buzzpress.service.IUserService;
+import com.buzzpress.service.IUserStatsService;
+import com.buzzpress.service.impl.UserStatServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +34,8 @@ public class ArticleController {
     IArticleService iArticleService;
     @Autowired
     IArticleMetaSevice iArticleMetaSevice;
+    @Autowired
+    IUserStatsService iUserStatsService;
 
     @PostMapping(value = "/saveArticle/{authorId}")
     public ResponseEntity<ResponseMessage> saveArticle(@RequestBody Article entity, @PathVariable Long authorId)
@@ -44,6 +48,7 @@ public class ArticleController {
         System.out.println(username);
         iArticleMetaSevice.saveMetaData(entity, username);
         iArticleService.saveArticle(entity);
+        iUserStatsService.incrementAuthored(authorId);
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
     }
 
