@@ -4,7 +4,7 @@ import { Button } from "antd";
 import Create from "./Create";
 import Preview from "./Preview";
 import { profileUrl } from "../../components/common/Path";
-import { convertDate } from "../../components/common/Miscellaneous";
+import { convertDate } from "../../components/Date";
 import api from "../../service/ServiceCall";
 import { Response } from "../../service/Response";
 import { authorId } from "../../constants/UserData";

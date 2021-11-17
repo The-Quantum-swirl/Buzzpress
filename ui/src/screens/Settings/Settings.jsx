@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import axios from "axios";
-import { backendUrl } from "../components/common/Path";
+import { backendUrl } from "../../components/common/Path";
 import { Button, Col, Divider, Form, Input, PageHeader, Row, Space, Switch, Tabs, Typography } from "antd";
 import { useState } from "react";
-import NavBar from "../components/NavBar";
-import MessageCard from "../components/settings/MessageCard";
-import { convertDate, DateToMonthYearFormat } from "../components/common/Miscellaneous";
-import { authorId } from "../constants/UserData";
-import UploadButton from "../components/UploadButton";
-import api from "../service/ServiceCall";
+import NavBar from "../../components/NavBar";
+import MessageCard from "../../components/settings/MessageCard";
+import { convertDate, DateToMonthYearFormat } from "../../components/Date";
+import { authorId } from "../../constants/UserData";
+import UploadButton from "../../components/UploadButton";
+import api from "../../service/ServiceCall";
 const { TabPane } = Tabs;
 const { Paragraph } = Typography;
 

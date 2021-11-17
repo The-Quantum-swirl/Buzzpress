@@ -3,10 +3,10 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 // import ProtectedRoute from './components/ProtectedRoute';
 import LoginPage from "./screens/loginPage";
 import Logout from "./components/logout";
-import Home from './screens/Home';
-import UserDetails from './screens/Settings';
+import Home from './screens/Home/Home';
+import UserDetails from './screens/Settings/Settings';
 import Write from './screens/Write/Write';
-import Profile from './screens/Profile';
+import Profile from './screens/Profile/Profile';
 import Article from './screens/Article/Article';
 import Admin from './screens/Admin/AdminDashboard';
 export default function Routes() {

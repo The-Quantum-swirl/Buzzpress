@@ -2,10 +2,11 @@ import { useState } from "react";
 import LazyLoad from "react-lazyload";
 import Topics from "../../components/home/Topics";
 import { Response } from "../../service/Response";
-import { convertDate, DateToMonthYearFormat } from "../../components/common/Miscellaneous";
+import { convertDate, DateToMonthYearFormat } from "../../components/Date";
 import { Row, Col, Typography } from "antd";
 import { Avatar, Space, Button } from "antd";
 import { UserOutlined, FireFilled, FireOutlined, ReadOutlined } from "@ant-design/icons";
+import BuzzAvatar from "../../components/BuzzAvatar";
 const { Title, contentgraph, Text } = Typography;
 
 const checkURL = (url) => {
@@ -22,9 +23,6 @@ export default function Preview(props) {
     props.data === undefined ||
     props.data.title === undefined ||
     props.data.summary === undefined
-    // props.data.content === undefined ||
-    // props.data.contentType === undefined ||
-    // props.data.imageList === undefined
   ) {
     return <Response statusCode={404} /> ;
   }
@@ -34,6 +32,7 @@ export default function Preview(props) {
   const readTime = props.data.readTime;
   const tag = props.data.tag;
   const authorLink = props.data.authorLink;
+  const userId = props.data.userId;
 
   const title = props.data.title || "Empty Title";
   const summary = props.data.summary || "Empty Recap";
@@ -99,14 +98,15 @@ export default function Preview(props) {
                 width: "100%",
               }}
             >
-              <Avatar
+              {/* <Avatar
                 style={{
                   width: "34px",
                   height: "34px",
                   backgroundColor: "blue",
                 }}
                 icon={<UserOutlined />}
-              />
+              /> */}
+              <BuzzAvatar type="small" userId={userId} />
               <span
                 id="author"
                 style={{

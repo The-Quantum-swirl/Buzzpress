@@ -36,14 +36,15 @@ export default function Article() {
   };
 
   useEffect(() => {
-    var temp = "Anonymous",
-      templikes = 1;
+    var temp = "Anonymous", templikes = 1, tempUserId = undefined;
     api.getArticleMetaById(articleId).then((res) => {
       console.log(res);
       if (res !== undefined) {
         templikes = res.likes;
         temp = res.authorName;
+        tempUserId =res.authorId;
         setViews(res.views);
+        // setting likes logic don't change
         if (res.likerUserId.includes(authorId())) {
           setOnFire(true);
           templikes -= 1;
@@ -60,7 +61,7 @@ export default function Article() {
           publishDate: res.publishDate,
           readTime: res.readTime,
           authorLink: profileUrl + res.authorId,
-
+          userId: tempUserId,
           title: res.title,
           summary: res.summary,
 
@@ -82,33 +83,40 @@ export default function Article() {
     return (
       <div
         style={{
-          margin: "20px 25% 0 25%",
+          margin: "20px 20% 0 20%",
           backgroundColor: "rgba(0, 0, 0, 0.08)",
           borderRadius: "200px",
           padding: "0px",
         }}
       >
         <Row>
-          <Col span={4}>
+          <Col span={3}>
             <Button shape="round"
-              icon={
-                onFire ? (
-                  <FireFilled style={{ color: "#f50057" }} />
-                ) : (
-                  <FireOutlined style={{ color: "#f50057" }} />
-                )
-              }
               onClick={handleFire}
               style={{
                 backgroundColor: "inherit",
                 width: "100%",
                 borderTop: "0",
+                padding:0
               }}
             >
-              {likes + (onFire ? 1 : 0)}
+            {onFire ? (<FireFilled style={{ color: "#f50057", fontSize:'20px' }} />) 
+              : (<FireOutlined style={{ color: "#f50057", fontSize:'20px' }} /> )}
             </Button>
           </Col>
-          <Col offset={8} span={12}>
+          <Col span={9}>
+          <div 
+            style={{
+              width: "100%",
+              height: "100%",
+              textAlign: "center",
+              paddingTop: "4px",
+            }}
+            >
+            {likes + (onFire ? 1 : 0)}
+          </div>
+          </Col>
+          <Col span={12}>
             <div
               style={{
                 width: "100%",
@@ -118,7 +126,7 @@ export default function Article() {
               }}
             >
               <EyeFilled style={{ color: "#757575" }} />
-              {" views " + views}
+              {" " + views}
             </div>
           </Col>
         </Row>
