@@ -4,10 +4,11 @@ import { UserOutlined, FireFilled, ReadOutlined,FireOutlined,RiseOutlined,EyeFil
 import "../css/home.css";
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import { convertDate, DateToMonthYearFormat } from "../common/Miscellaneous";
+import { convertDate, DateToMonthYearFormat } from "../Date";
 import api from "../../service/ServiceCall";
 import { authorId } from "../../constants/UserData";
 import { Response } from "../../service/Response";
+import BuzzAvatar from "../BuzzAvatar";
 const { Text, Title } = Typography;
 
 export default function BuzzCard(props) {
@@ -37,6 +38,7 @@ export default function BuzzCard(props) {
   const imageLink = props.data.imageLink;
   const likes = props.data.likes;
   const views = props.data.views;
+  const userId = props.data.authorId;
 
   function handleFire(){
     setOnFire(!onFire) ;
@@ -57,15 +59,7 @@ export default function BuzzCard(props) {
                 width: "100%",
               }}
             >
-              <Avatar
-                src={profilePicture===false ? "": api.getThumbUrl(profilePicture) }
-                style={{
-                  width: "34px",
-                  height: "34px",
-                  backgroundColor: "blue",
-                }}
-                icon={<UserOutlined />}
-              />
+              <BuzzAvatar type="small" userId={userId} />
               <span
                 id="author"
                 style={{

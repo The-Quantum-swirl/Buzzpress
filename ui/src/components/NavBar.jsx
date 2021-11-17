@@ -1,5 +1,4 @@
 import { Avatar } from "antd";
-import { UserOutlined } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import { Dropdown, Button } from "antd";
 import { Typography } from "antd";
@@ -8,6 +7,7 @@ import api from "../service/ServiceCall";
 import Logout from "./logout";
 import { authorId } from "../constants/UserData";
 import { useEffect, useState } from "react";
+import BuzzAvatar from "./BuzzAvatar";
 const { Header } = Layout;
 const { Text } = Typography;
 
@@ -29,15 +29,6 @@ export default function NavBar() {
       </Menu.Item>
     </Menu>
   );
-  const [profilePicture, setProfilePicture] = useState(false);
-  useEffect(()=>{
-
-    api.getUser(authorId()).then((res) => {
-      console.log(res)
-      if (res.profilePhotoUrl!==null){  setProfilePicture(res.profilePhotoUrl) }
-    })
-
-  }, [])
 
   return (
     <div>
@@ -77,15 +68,7 @@ export default function NavBar() {
                   borderRadius: "50%",
                 }}
               >
-                <Avatar
-                  src={profilePicture===false ? "": api.getThumbUrl(profilePicture) }
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    backgroundColor: "#ADD8E6",
-                  }}
-                  icon={<UserOutlined />}
-                />
+                <BuzzAvatar />
               </Button>
           </Dropdown>
             

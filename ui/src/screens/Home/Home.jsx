@@ -1,13 +1,13 @@
-import NavBar from "../components/NavBar";
+import NavBar from "../../components/NavBar";
 import { Layout, Row, Col, Tabs } from "antd";
 import { Typography, Space, Divider } from "antd";
-import BuzzCard from "../components/home/BuzzCard";
-import RadialChart from "../components/home/RadialChart.js";
+import BuzzCard from "../../components/home/BuzzCard";
+import RadialChart from "../../components/home/RadialChart.js";
 import { InstagramOutlined, TwitterOutlined } from "@ant-design/icons";
-import { profileUrl, articleUrl, backendUrl } from "../components/common/Path.js";
+import { profileUrl, articleUrl, backendUrl } from "../../components/common/Path.js";
 import { useEffect, useState } from "react";
-import { authorId } from "../constants/UserData";
-import api from "../service/ServiceCall";
+import { authorId } from "../../constants/UserData";
+import api from "../../service/ServiceCall";
 
 const { TabPane } = Tabs;
 const { Text, Link } = Typography;
@@ -25,6 +25,7 @@ export default function Home() {
         return {
           authorname: dt.authorName, 
           authorLink: profileUrl + dt.authorId,
+          authorId: dt.authorId,
 
           title: dt.title,
           summary: dt.summary,

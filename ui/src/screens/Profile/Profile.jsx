@@ -1,14 +1,15 @@
 import {useParams} from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import NavBar from '../components/NavBar';
-import BuzzCard from '../components/home/BuzzCard';
+import NavBar from '../../components/NavBar';
+import BuzzCard from '../../components/home/BuzzCard';
 import { Avatar, Col, Row, Space, Typography, Divider, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { profileUrl, backendUrl,articleUrl } from '../components/common/Path';
-import { DateToMonthYearFormat, thumbUrl } from '../components/common/Miscellaneous';
-import api from "../service/ServiceCall";
-import { authorId } from '../constants/UserData';
+import { profileUrl, backendUrl,articleUrl } from '../../components/common/Path';
+import { DateToMonthYearFormat, thumbUrl } from '../../components/Date';
+import api from "../../service/ServiceCall";
+import { authorId } from '../../constants/UserData';
 import { ButtonGroup } from '@mui/material';
+import BuzzAvatar from '../../components/BuzzAvatar';
 const { Text, Link, Title } = Typography;
 
 export default function Profile(){
@@ -86,15 +87,8 @@ export default function Profile(){
           <Col xs={24} sm={18} md={15} lg={14} xl={13}>
             <div style={{padding:'3%' , display:'flex', flexDirection:'row'}}>
               {/* profile picture */}
-              <Avatar
-              src={personalData.profilePicture===false ? "": api.getThumbUrl(personalData.profilePicture) }
-              style={{
-              width: "150px",
-              height: "150px",
-              backgroundColor: "#ADD8E6",
-              }}
-              icon={<UserOutlined style={{fontSize:'90px', padding:'30px'}}/>}
-              />
+              <BuzzAvatar type="large" userId={userId} />
+
               {/* profile picture end */}
               <div style={{display:'flex', flexDirection:'column',
               marginRight:'8%', marginLeft:'auto',
