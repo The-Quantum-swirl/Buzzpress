@@ -3,15 +3,14 @@ package com.buzzpress.controller;
 import java.util.List;
 
 import com.buzzpress.beans.UserStats;
-import com.buzzpress.beans.Users_;
 import com.buzzpress.dao.UserStatsRepository;
-import com.buzzpress.service.impl.UserStatServiceImpl;
+import com.buzzpress.model.TopUsers;
+import com.buzzpress.service.IUserStatsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserStatsController {
 
     @Autowired
-    UserStatServiceImpl userStatServiceImpl;
+    IUserStatsService iUserStatsService;
 
     @Autowired
     UserStatsRepository userStatsRepository;
@@ -28,18 +27,18 @@ public class UserStatsController {
     @GetMapping(value = "/allUserStats")
     public List<UserStats> getAllUsersStats() {
 
-        return userStatServiceImpl.findAllStats();
+        return iUserStatsService.findAllStats();
     }
 
     @GetMapping(value = "/userStats/{id}")
     public UserStats getUserStats(@PathVariable Long id) {
 
-        return userStatServiceImpl.getUserStats(id);
+        return iUserStatsService.getUserStats(id);
     }
 
     @PutMapping(value = "/setArticleTarget/{id}/{target}")
     public Integer setArticleTarget(@PathVariable Long id, @PathVariable Integer target) {
-        UserStats userS = userStatServiceImpl.getUserStats(id);
+        UserStats userS = iUserStatsService.getUserStats(id);
         userS.setArticleTargetRead(target);
         userStatsRepository.save(userS);
         return target;
@@ -47,9 +46,14 @@ public class UserStatsController {
 
     @PutMapping(value = "/readCount/{authorId}")
     public void incrementReadCount(@PathVariable Long authorId) {
-        UserStats userS = userStatServiceImpl.getUserStats(authorId);
+        UserStats userS = iUserStatsService.getUserStats(authorId);
         Integer articleRead = userS.getArticleRead();
         userS.setArticleRead(articleRead + 1);
         userStatsRepository.save(userS);
+    }
+
+    @GetMapping(value = "/topUsers")
+    public List<TopUsers> getTopUsers() {
+        return iUserStatsService.getTopUsers();
     }
 }

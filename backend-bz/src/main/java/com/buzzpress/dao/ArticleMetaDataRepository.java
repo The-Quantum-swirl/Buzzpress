@@ -16,7 +16,7 @@ public interface ArticleMetaDataRepository extends JpaRepository<ArticleMeta, Lo
 
     public List<ArticleMeta> findAllByArticleId(Long ArticleId);
 
-    List<ArticleMeta> findByAuthorId(Long authorId);
+    public List<ArticleMeta> findByAuthorId(Long authorId);
 
     @Query(value = "SELECT * FROM article_meta,article.author_name INNER JOIN article ON article_meta.article_id=article.article_id", nativeQuery = true)
     List<Object[]> listAllArticleMeta();
@@ -35,4 +35,6 @@ public interface ArticleMetaDataRepository extends JpaRepository<ArticleMeta, Lo
     @Modifying
     @Query(value = "update article_meta SET views=views+1 where article_id=:id", nativeQuery = true)
     public void view(@Param("id") long id);
+
+    public List<ArticleMeta> findTop10ByOrderByViewsDesc();
 }

@@ -3,7 +3,6 @@ package com.buzzpress.service.impl;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.buzzpress.beans.Users_;
 import com.buzzpress.dao.UserDataRepository;
