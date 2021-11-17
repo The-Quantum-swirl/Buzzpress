@@ -110,7 +110,7 @@ public class Controller {
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "deleteUser/{:id}")
+    @DeleteMapping(value = "deleteUser/{id}")
     public ResponseEntity<ResponseMessage> DeleteUser(@RequestParam Long id) throws NotFoundException {
         iUserService.deleteUser(id);
         ResponseMessage rm = new ResponseMessage();
@@ -128,7 +128,7 @@ public class Controller {
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/postuserphoto/{:profilePhotoUrl}/{:authorId}")
+    @PostMapping(value = "/postuserphoto/{profilePhotoUrl}/{authorId}")
     public void SetUserProfilePhoto(@PathVariable String profilePhotoUrl, @PathVariable Long authorId) {
         iUserService.postUserPhoto(profilePhotoUrl, authorId);
     }

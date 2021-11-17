@@ -8,20 +8,39 @@ import MessageCard from "../components/settings/MessageCard";
 import { convertDate, DateToMonthYearFormat } from "../components/common/Miscellaneous";
 import { authorId } from "../constants/UserData";
 import UploadButton from "../components/UploadButton";
-
+import api from "../service/ServiceCall";
 const { TabPane } = Tabs;
 const { Paragraph } = Typography;
 
 export default function UserDetails() {
   const [authorDetails, setAuthorDetails] = useState({
-    PersonalData: { firstName: "Suarez" },
-    ArticlePublished: 2
+    PersonalData: { firstName: "Anonymous" },
+    ArticlePublished: 0
   });
-  const [stats, setStats] = useState({
-    ArticlesRead: 0, ArticlePublished: 0
-  });
+  const [stats, setStats] = useState({ ArticlesRead: 0, ArticlePublished: 0});
+  const [profilePicture, setProfilePicture] = useState(false);
   
   const [editableName, setEditableName] = useState("none");
+  const handleImage =(imageData) => {
+    setProfilePicture(imageData);
+    console.log("setted image here"+profilePicture);
+  }
+
+  const handlePostImage =(e)=>{
+
+    let imageData= profilePicture, fd = new FormData();
+
+    console.log(imageData)
+    fd.append("file", imageData);
+    console.log(fd);
+    console.log("formdata ---------")
+    api.postImage(fd, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    fd.delete("file");
+    console.log("posting photo");
+    api.postProfilePhoto(imageData.name,authorId())
+  }
 
   useEffect(() => {
 
@@ -162,8 +181,8 @@ export default function UserDetails() {
           <TabPane tab="Edit Profile" key="4">
             <label>Change Profile Photo</label>
             <br />
-            <UploadButton/>
-
+            <UploadButton imageData={(e) => handleImage(e)} />
+            <Button type="primary" onClick={(e) => handlePostImage(e)}>Submit</Button>
           </TabPane>
 
         </Tabs>

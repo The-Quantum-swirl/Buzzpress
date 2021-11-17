@@ -2,7 +2,7 @@ package com.buzzpress.controller;
 
 import com.buzzpress.beans.ArticleMeta;
 import com.buzzpress.dao.ArticleMetaDataRepository;
-import com.buzzpress.model.LikeBody;
+//import com.buzzpress.model.LikeBody;
 import com.buzzpress.service.IArticleMetaSevice;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,8 +4,10 @@ import { Layout, Menu } from "antd";
 import { Dropdown, Button } from "antd";
 import { Typography } from "antd";
 import { useHistory } from "react-router-dom";
+import api from "../service/ServiceCall";
 import Logout from "./logout";
 import { authorId } from "../constants/UserData";
+import { useEffect, useState } from "react";
 const { Header } = Layout;
 const { Text } = Typography;
 
@@ -27,6 +29,16 @@ export default function NavBar() {
       </Menu.Item>
     </Menu>
   );
+  const [profilePicture, setProfilePicture] = useState(false);
+  useEffect(()=>{
+
+    api.getUser(authorId()).then((res) => {
+      console.log(res)
+      if (res.profilePhotoUrl!==null){  setProfilePicture(res.profilePhotoUrl) }
+    })
+
+  }, [])
+
   return (
     <div>
       <Header style={{ boxShadow: "0 4px 18px 0 rgb(0 0 0 / 10%)" }}>
@@ -66,6 +78,7 @@ export default function NavBar() {
                 }}
               >
                 <Avatar
+                  src={profilePicture===false ? "": api.getThumbUrl(profilePicture) }
                   style={{
                     width: "40px",
                     height: "40px",

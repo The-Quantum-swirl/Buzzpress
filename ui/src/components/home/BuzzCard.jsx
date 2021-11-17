@@ -2,14 +2,27 @@ import { Row, Col, Space, Button } from "antd";
 import { Typography, Avatar } from "antd";
 import { UserOutlined, FireFilled, ReadOutlined,FireOutlined,RiseOutlined,EyeFilled } from "@ant-design/icons";
 import "../css/home.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { convertDate, DateToMonthYearFormat } from "../common/Miscellaneous";
+import api from "../../service/ServiceCall";
+import { authorId } from "../../constants/UserData";
 import { Response } from "../../service/Response";
 const { Text, Title } = Typography;
 
 export default function BuzzCard(props) {
   const [onFire, setOnFire] = useState(false);
+  const [profilePicture, setProfilePicture] = useState(false);
+
+  useEffect(()=>{
+
+    api.getUser(authorId()).then((res) => {
+      console.log(res)
+      if (res.profilePhotoUrl!==null){  setProfilePicture(res.profilePhotoUrl) }
+    })
+
+  }, [])
+  
   if (props === undefined || props.data === undefined) {
     return <Response statusCode={404} />;
   }
@@ -46,6 +59,7 @@ export default function BuzzCard(props) {
               }}
             >
               <Avatar
+                src={profilePicture===false ? "": api.getThumbUrl(profilePicture) }
                 style={{
                   width: "34px",
                   height: "34px",

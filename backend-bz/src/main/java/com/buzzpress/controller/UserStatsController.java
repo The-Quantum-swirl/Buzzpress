@@ -37,7 +37,7 @@ public class UserStatsController {
         return userStatServiceImpl.getUserStats(id);
     }
 
-    @PutMapping(value = "/setArticleTarget/{:id}/{:target}")
+    @PutMapping(value = "/setArticleTarget/{id}/{target}")
     public Integer setArticleTarget(@PathVariable Long id, @PathVariable Integer target) {
         UserStats userS = userStatServiceImpl.getUserStats(id);
         userS.setArticleTargetRead(target);
@@ -45,7 +45,7 @@ public class UserStatsController {
         return target;
     }
 
-    @PutMapping(value = "/readCount/{:authorId}")
+    @PutMapping(value = "/readCount/{authorId}")
     public void incrementReadCount(@PathVariable Long authorId) {
         UserStats userS = userStatServiceImpl.getUserStats(authorId);
         Integer articleRead = userS.getArticleRead();

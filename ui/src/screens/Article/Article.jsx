@@ -74,6 +74,8 @@ export default function Article() {
     });
 
     // api post for read 1 more article
+    api.postReadCountIncrement(authorId())
+    
   }, []);
   // bottom bar
   const bottomBar = () => {

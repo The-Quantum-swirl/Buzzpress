@@ -32,6 +32,10 @@ const postImage = (fd, header) => {
     .then((res) => { return res.status; })
     .catch((err) => { return err.response.status;})
 }
+const postProfilePhoto = (imageName, userId) => {
+    httpService.post( LRM_API + `postuserphoto/${imageName}/${userId}`)
+
+}
 
 const postFollow = (followerId, followingId) =>{
     httpService.put( LRM_API + `follow`, {
@@ -56,6 +60,12 @@ const postLike = (articleId,userId) =>{
 const postUnlike = (articleId,userId) =>{
     httpService.put( LRM_API + `unlike/${articleId}/user/${userId}`)
     .then((res) => { console.log(res); });
+}
+
+const postReadCountIncrement = (userId) =>{
+    httpService.put( LRM_API + `readCount/${userId}`)
+    .then((res) => { console.log(res); })
+    .catch((err) => {console.log(err)});
 }
 // ger thumb url from image name
 const getThumbUrl = (imageName) => LRM_API + "uploads/" + imageName;
@@ -94,5 +104,7 @@ export default {
     postUnFollow,
     postLike,
     postUnlike,
+    postReadCountIncrement,
+    postProfilePhoto,
 }
 

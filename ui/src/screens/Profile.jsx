@@ -21,7 +21,8 @@ export default function Profile(){
   const [personalData, setPersonalData] = useState({
     name:'Derek Obrien',
     joinedDate:DateToMonthYearFormat('2020-06-14'),
-    followers:3000
+    followers:3000,
+    profilePicture:false,
   });
 
   useEffect(() => {
@@ -30,9 +31,10 @@ export default function Profile(){
       console.log(res)
       setPersonalData({
         name:res.userName,
-        joinedDate:DateToMonthYearFormat(res.dateOfBirth),
-        followers: res.followers.length|| 0,
-        following:res.following.length|| 0,
+        joinedDate:res.userJoinDate!==null ? DateToMonthYearFormat(res.userJoinDate) : "1 Jan,1999",
+        followers: res.followers!==null ? res.followers.length: 0,
+        following: res.following!==null ? res.following.length: 0,
+        profilePicture: res.profilePhotoUrl!==null ? res.profilePhotoUrl: false,
       })
     })
 
@@ -46,7 +48,7 @@ export default function Profile(){
 
           publishDate: dt.publishDate, readTime: dt.readTime + " min",
           likes: dt.likes, tag: dt.tag ,
-
+          views: dt.views,
           link: articleUrl + dt.articleId,
           imageLink: api.getThumbUrl(dt.thumbUrl),
         }
@@ -85,6 +87,7 @@ export default function Profile(){
             <div style={{padding:'3%' , display:'flex', flexDirection:'row'}}>
               {/* profile picture */}
               <Avatar
+              src={personalData.profilePicture===false ? "": api.getThumbUrl(personalData.profilePicture) }
               style={{
               width: "150px",
               height: "150px",
@@ -102,10 +105,12 @@ export default function Profile(){
                 <Title level={3} style={{fontWeight:'400', color:"#001529",
                  lineHeight:'0.7', marginTop:'0.5rem'}}>{personalData.name} </Title>
                 <Text type="secondary" style={{fontWeight:'400'}}>{"Joined "+personalData.joinedDate} </Text>
-                <ButtonGroup>
-                <Button size="middle" type="primary" onClick={(e) => handleFollow(e)}>Follow</Button>
-                <Button size="middle" type="default" onClick={(e) => handleUnFollow(e)}>UnFollow</Button>
-                </ButtonGroup>
+                
+                  <ButtonGroup>
+                  <Button size="middle" disabled={authorId()===userId} type="primary" onClick={(e) => handleFollow(e)}>Follow</Button>
+                  <Button size="middle" disabled={authorId()===userId} type="default" onClick={(e) => handleUnFollow(e)}>UnFollow</Button>
+                  </ButtonGroup>
+                
                 {/* user info end */}
               </div>
             </div>

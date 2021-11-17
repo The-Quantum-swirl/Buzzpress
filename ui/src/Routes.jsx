@@ -4,7 +4,7 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import LoginPage from "./screens/loginPage";
 import Logout from "./components/logout";
 import Home from './screens/Home';
-import UserDetails from './screens/UserDetails';
+import UserDetails from './screens/Settings';
 import Write from './screens/Write/Write';
 import Profile from './screens/Profile';
 import Article from './screens/Article/Article';
