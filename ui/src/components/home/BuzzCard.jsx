@@ -17,12 +17,11 @@ export default function BuzzCard(props) {
   useEffect(()=>{
 
     api.getUser(authorId()).then((res) => {
-      console.log(res)
       if (res.profilePhotoUrl!==null){  setProfilePicture(res.profilePhotoUrl) }
     })
 
   }, [])
-  
+
   if (props === undefined || props.data === undefined) {
     return <Response statusCode={404} />;
   }

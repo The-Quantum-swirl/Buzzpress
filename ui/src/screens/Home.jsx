@@ -101,6 +101,10 @@ export default function Home() {
             <RadialChart {...graphData} />
             {/* performance chart end */}
 
+            
+            <Text type="secondary">Top Performers</Text>
+            <Divider style={{ margin: "0", width: "70%", minWidth: "30%" }} />
+
             {/* connect social media start
             <Text type="secondary">Connect With Us</Text>
             <Divider style={{ margin: "0", width: "40%", minWidth: "30%" }} />

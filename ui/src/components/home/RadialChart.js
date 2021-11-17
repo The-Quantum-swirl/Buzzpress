@@ -30,12 +30,12 @@ export default function RadialChart(props) {
   return (
     <>
     <RadialBarChart
-      width={200}
-      height={200}
-      cx={120}
-      cy={100}
-      innerRadius={50}
-      outerRadius={100}
+      width={180}
+      height={180}
+      cx={100}
+      cy={90}
+      innerRadius={40}
+      outerRadius={90}
       barSize={12}
       data={data}
     >
@@ -45,19 +45,9 @@ export default function RadialChart(props) {
         clockWise
         dataKey="value"
       />
-      {/* <Legend
-        iconSize={8}
-        width={100}
-        height={80}
-        layout="vertical"
-        verticalAlign="middle"
-        wrapperStyle={style}
-      /> */}
     </RadialBarChart>
-    {/* <Space direction="vertical" style={{marginLeft:'auto', marginRight:'5%', width:'90%'}}> */}
       <Text strong style={{color:'#1c54b2', marginLeft:'50px'}}>{"Target "+target}</Text>
       <Text strong style={{color:'#b22c5a', marginLeft:'10px'}}>{"Read "+read}</Text>
-    {/* </Space> */}
     </>
   );
   
