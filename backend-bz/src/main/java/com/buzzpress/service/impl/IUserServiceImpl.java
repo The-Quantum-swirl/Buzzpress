@@ -1,5 +1,6 @@
 package com.buzzpress.service.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -40,6 +41,7 @@ public class IUserServiceImpl implements IUserService {
             if (userDataRepository.findByUserEmail(details.getUserEmail()).size() != 0) {
                 throw new DuplicateUserException("Please use unique Email");
             }
+            details.setUserJoinDate(LocalDate.now());
             userDataRepository.save(details);
 
         } catch (DuplicateUserException e) {
