@@ -49,7 +49,7 @@ public class UserStatServiceImpl implements IUserStatsService {
     @Override
     public List<TopUsers> getTopUsers() {
         List<TopUsers> top = new ArrayList<TopUsers>();
-        List<ArticleMeta> meta = articleMetaDataRepository.findTop10ByOrderByViewsDesc();
+        List<ArticleMeta> meta = articleMetaDataRepository.findTop10AuthorIdByOrderByViewsDesc();
 
         meta.forEach(s -> {
             TopUsers topuser = new TopUsers();

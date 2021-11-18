@@ -1,5 +1,7 @@
 package com.buzzpress.beans;
 
+import java.util.HashSet;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,12 +27,14 @@ public class UserStats {
     private Integer articleRead;
     private Integer articleAuthored;
     private Integer articleTargetRead;
+    private HashSet<Long> authoredArticleId;
 
     public UserStats(Long userId) {
         this.userId = userId;
         this.articleRead = 0;
         this.articleAuthored = 0;
         this.articleTargetRead = 5;
+        this.authoredArticleId = new HashSet<Long>();
     }
 
 }
