@@ -26,12 +26,8 @@ export default function Article() {
   const [exist, setExist] = useState(true);
   const handleFire = () => {
     console.log("on click state " + !onFire);
-    if (!onFire) {
-      api.postLike(articleId, authorId());
-    } else {
-      api.postUnlike(articleId, authorId());
-    }
-
+    if (!onFire) { api.postLike(articleId, authorId()); } 
+    else { api.postUnlike(articleId, authorId());}
     setOnFire(!onFire);
   };
 

@@ -30,10 +30,7 @@ export default function UserDetails() {
 
     let imageData= profilePicture, fd = new FormData();
 
-    console.log(imageData)
     fd.append("file", imageData);
-    console.log(fd);
-    console.log("formdata ---------")
     api.postImage(fd, {
       headers: { "Content-Type": "multipart/form-data" },
     });
@@ -172,13 +169,7 @@ export default function UserDetails() {
 
           </TabPane>
 
-          <TabPane tab="Prefrences" key="3">
-            
-            Toggle Dark Mode <Switch defaultChecked />
-
-          </TabPane>
-
-          <TabPane tab="Edit Profile" key="4">
+          <TabPane tab="Edit Profile" key="3">
             <label>Change Profile Photo</label>
             <br />
             <UploadButton imageData={(e) => handleImage(e)} />

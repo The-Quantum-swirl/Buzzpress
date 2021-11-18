@@ -8,6 +8,7 @@ import { profileUrl, articleUrl, backendUrl } from "../../components/common/Path
 import { useEffect, useState } from "react";
 import { authorId } from "../../constants/UserData";
 import api from "../../service/ServiceCall";
+import BuzzPerformer from "../../components/home/BuzzPerformer";
 
 const { TabPane } = Tabs;
 const { Text, Link } = Typography;
@@ -16,6 +17,7 @@ const { Footer } = Layout;
 export default function Home() {
   const [graphData, setGraphData] = useState({ target: 10, read: 0 });
   const [displayData, setDisplayData] = useState([]);
+  const [performer, setPerformer] = useState([]);
 
   useEffect(() => {
     // loading data for article meta
@@ -24,7 +26,7 @@ export default function Home() {
       var arr = res.map((dt) => {
         return {
           authorname: dt.authorName, 
-          authorLink: profileUrl + dt.authorId,
+          authorLink: api.getProfileUrl(dt.authorId),
           authorId: dt.authorId,
 
           title: dt.title,
@@ -46,12 +48,22 @@ export default function Home() {
 
     // loading data for performance graph
     api.getUserStats(authorId()).then((res)=> {
-      console.log(res)
+      console.log(res);
       setGraphData({
         target: res.articleTargetRead, 
         read: res.articleRead,
         authored: res.articleAuthored,
       });
+    })
+
+    // load the top performing users
+    api.getPerformers().then((res)=> {
+      console.log(res);
+      if (res!== undefined){
+        setPerformer(res.map((data) => {
+          return <BuzzPerformer {...data} />;
+        }))
+      }
     })
 
   }, []);
@@ -60,7 +72,9 @@ export default function Home() {
     <>
       {/* <Layout> */}
       <NavBar />
-      <Row>
+      <Row 
+      // style={{backgroundColor:'black'}}
+      >
         <Col xs={0} sm={2} md={1} lg={4} xl={4}>
           <Space direction="vertical" id="profile-left-hide">
             {/* <Text>left</Text> */}
@@ -105,7 +119,7 @@ export default function Home() {
             
             <Text type="secondary">Top Performers</Text>
             <Divider style={{ margin: "0", width: "70%", minWidth: "30%" }} />
-
+            {performer}
             {/* connect social media start
             <Text type="secondary">Connect With Us</Text>
             <Divider style={{ margin: "0", width: "40%", minWidth: "30%" }} />

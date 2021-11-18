@@ -1,6 +1,7 @@
 package com.buzzpress.beans;
 
 import java.util.HashSet;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,6 +29,7 @@ public class UserStats {
     private Integer articleAuthored;
     private Integer articleTargetRead;
     private HashSet<Long> authoredArticleId;
+    private LocalDate lastUpdatedDate;
 
     public UserStats(Long userId) {
         this.userId = userId;
@@ -35,6 +37,7 @@ public class UserStats {
         this.articleAuthored = 0;
         this.articleTargetRead = 5;
         this.authoredArticleId = new HashSet<Long>();
+        this.lastUpdatedDate = LocalDate.now();
     }
 
 }
