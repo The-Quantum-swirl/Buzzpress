@@ -1,5 +1,6 @@
 package com.buzzpress.service.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,16 @@ public class UserStatServiceImpl implements IUserStatsService {
     public List<UserStats> findAllStats() {
         return userStatsRepository.findAll();
 
+    }
+    @Override
+    public void  updateStats(Long userId) {
+        UserStats userStat = userStatsRepository.findByUserId(userId);
+        if (userStat.getLastUpdatedDate()==null || LocalDate.now().isAfter(userStat.getLastUpdatedDate())) {
+        	userStat.setLastUpdatedDate(LocalDate.now());
+        	userStat.setArticleRead(0);
+        	userStat.setArticleAuthored(0);
+        	userStatsRepository.save(userStat);
+        }
     }
 
     @Override

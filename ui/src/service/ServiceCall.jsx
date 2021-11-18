@@ -12,6 +12,7 @@ function saveUsers(params) {
         console.log(res);
     });
 }
+
 const getUser = async (id) => {
     const res = await httpService.get( LRM_API + `user/${id}`);
     return res.data;
@@ -34,7 +35,6 @@ const postImage = (fd, header) => {
 }
 const postProfilePhoto = (imageName, userId) => {
     httpService.post( LRM_API + `postuserphoto/${imageName}/${userId}`)
-
 }
 
 const postFollow = (followerId, followingId) =>{
@@ -67,8 +67,9 @@ const postReadCountIncrement = (userId) =>{
     .then((res) => { console.log(res); })
     .catch((err) => {console.log(err)});
 }
-// ger thumb url from image name
+// get Urls
 const getThumbUrl = (imageName) => LRM_API + "uploads/" + imageName;
+const getProfileUrl = (authorId) => `/profile/${authorId}`;
 
 const getArticleCards = async () =>{
     const res = await httpService.get(LRM_API + `/articleMeta`);
@@ -86,6 +87,11 @@ const getArticle = async (articleId) =>{
     const res = await httpService.get(LRM_API + `/article/${articleId}`);
     return res.data[0];
 }
+
+const getPerformers = async () =>{
+    const res = await httpService.get(LRM_API + `/topUsers`);
+    return res.data;
+}
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     getAllUsers,
@@ -95,7 +101,9 @@ export default {
     getArticleMetaById,
     getArticleCardsByAuthorId,
     getThumbUrl,
+    getProfileUrl,
     getArticle,
+    getPerformers,
 
     saveUsers,
     postArticle,

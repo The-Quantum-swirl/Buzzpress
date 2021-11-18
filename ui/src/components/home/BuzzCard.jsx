@@ -44,9 +44,11 @@ export default function BuzzCard(props) {
     setOnFire(!onFire) ;
   }
   return (
-    <>
+    <div style={{marginTop:'10px', backgroundColor:'rgba(0,0,0,0.02)', 
+    backdropFilter:'blur("12px")', padding:'8px 4px 4px 4px', borderRadius:'20px 20px'
+    }}>
 
-      <Row style={{marginTop:'10px'}}>
+      <Row>
         <Col offset={1} span={16}>
           {/* author name start*/}
           <Link to={authorLink} >
@@ -156,6 +158,6 @@ export default function BuzzCard(props) {
       {/* <Space wrap={true}>
         {tag.filter((item, idx) => idx < 4).map((topic) => <Topics data={topic} />)}
       </Space> */}
-    </>
+    </div>
   );
 }

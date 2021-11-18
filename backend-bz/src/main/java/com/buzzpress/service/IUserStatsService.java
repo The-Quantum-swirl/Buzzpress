@@ -13,4 +13,6 @@ public interface IUserStatsService {
     public void incrementAuthored(Long userID);
 
     public List<TopUsers> getTopUsers();
+
+	public void updateStats(Long userId);
 }

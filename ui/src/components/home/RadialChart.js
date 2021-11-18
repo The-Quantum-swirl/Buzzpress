@@ -7,7 +7,8 @@ const {Text, Title} = Typography;
 export default function RadialChart(props) {
   // articles target set by user
   const target =props.target || 10;
-  const read =props.read || 4
+  const read =props.read || 0;
+
   const data = [
     {
       name: "Target "+target.toString(),
@@ -15,18 +16,11 @@ export default function RadialChart(props) {
       fill: "#1c54b2"
     },
     {
-      name: "Read "+ read.toString(),
+      name: "Read "+ Math.max(target, read).toString(),
       value: read,
       fill: "#b22c5a"
     }
   ];
-  
-  const style = {
-    top: 70,
-    left: 230,
-    lineHeight: "22px"
-  };
-
   return (
     <>
     <RadialBarChart
@@ -46,8 +40,12 @@ export default function RadialChart(props) {
         dataKey="value"
       />
     </RadialBarChart>
-      <Text strong style={{color:'#1c54b2', marginLeft:'50px'}}>{"Target "+target}</Text>
-      <Text strong style={{color:'#b22c5a', marginLeft:'10px'}}>{"Read "+read}</Text>
+    <Text strong style={{color:'#1c54b2', marginLeft:'50px'}}>{"Target "+target}</Text>
+    <Text strong style={{color:'#b22c5a', marginLeft:'10px'}}>{"Read "+read}</Text>
+    <br />
+    <Text strong style={{color:'#ff6d00', marginLeft:'70px'}}>
+      {read>target? "Congrats 😋!" : ""}
+    </Text>
     </>
   );
   
