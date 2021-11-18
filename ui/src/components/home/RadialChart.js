@@ -6,9 +6,9 @@ const {Text, Title} = Typography;
 
 export default function RadialChart(props) {
   // articles target set by user
-  const target =props.target || 10;
-  const read =props.read || 0;
-
+  const target = Number(props.target) || 10;
+  const read = Number(props.read) || 0;
+  
   const data = [
     {
       name: "Target "+target.toString(),
@@ -16,8 +16,8 @@ export default function RadialChart(props) {
       fill: "#1c54b2"
     },
     {
-      name: "Read "+ Math.max(target, read).toString(),
-      value: read,
+      name: "Read "+ read.toString(),
+      value: Math.min(target, read),
       fill: "#b22c5a"
     }
   ];
@@ -44,7 +44,7 @@ export default function RadialChart(props) {
     <Text strong style={{color:'#b22c5a', marginLeft:'10px'}}>{"Read "+read}</Text>
     <br />
     <Text strong style={{color:'#ff6d00', marginLeft:'70px'}}>
-      {read>target? "Congrats 😋!" : ""}
+      {read>=target? "Congrats 😋!" : ""}
     </Text>
     </>
   );

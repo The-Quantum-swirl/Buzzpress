@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 // import ProtectedRoute from './components/ProtectedRoute';
 import LoginPage from "./screens/loginPage";
