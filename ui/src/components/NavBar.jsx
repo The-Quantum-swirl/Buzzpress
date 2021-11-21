@@ -47,9 +47,7 @@ export default function NavBar() {
           }}
           onClick={(e) => history.push("/home")}
         >
-          {theme==="dark"? <Text strong style={{color:'white'}}>BuzzPress</Text>
-          : 
-          <Text strong style={{color:'black'}}>BuzzPress</Text>}
+          <Text style={{color:'white'}}>1minthoughts</Text>
         </Menu.Item>
         <Menu.Item
           className='ant-dropdown-link'
@@ -61,7 +59,7 @@ export default function NavBar() {
             backgroundColor: "inherit",
           }}
         >
-        <Switch defaultChecked onChange={onChange} style={{marginRight:'15px'}} />
+        {/* <Switch defaultChecked onChange={onChange} style={{marginRight:'15px'}} /> */}
         <Dropdown overlay={menu} placement="bottomRight" arrow>
             <Button
               style={{

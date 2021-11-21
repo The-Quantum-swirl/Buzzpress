@@ -24,3 +24,19 @@
   content: '';
   margin-right: 10px;
 }
+.btn-notclicked, .btn-notclicked:hover, .btn-notclicked:focus, .btn-notclicked:active {
+  background-color:#faf2f5;
+  border: 1.5px solid #f50057;
+}
+.btn-clicked, .btn-clicked:hover, .btn-clicked:focus, .btn-clicked:active{
+  background-color: #f50057;
+}
+
+#btn-notclicked-content, #btn-notclicked-content:hover, #btn-notclicked-content:focus,  #btn-notclicked-content:active{
+  color: #f50057;
+}
+
+#btn-clicked-content, #btn-notclicked-content:hover, #btn-notclicked-content:focus, #btn-notclicked-content:active{
+  color: #fff;
+}
+      

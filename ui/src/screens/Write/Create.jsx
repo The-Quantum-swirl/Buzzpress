@@ -1,27 +1,27 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import Preview from "./Preview";
-import { Row, Col, Divider } from "antd";
+import { Row, Col, Divider, message } from "antd";
 import { Button, Radio, Select } from "antd";
 import { TextField } from "@mui/material";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import UploadButton from "../../components/UploadButton";
-import Topics from "../../components/home/Topics";
-import { profileUrl } from "../../components/common/Path.js";
+import { authorId } from "../../constants/UserData";
+import api from "../../service/ServiceCall";
 
 const { Option } = Select;
 
 export default function Create(props) {
   const [title, setTitle]       = useState("");
   const [summary, setSummary] = useState("");
-  const [selectedTags, setSelectedTags] = useState([]);
-
+  const [selectedTags, setSelectedTags] = useState([]); 
   const [contentType, setContentType]   = useState(["head"]);
   const [content, setContent]             = useState([""]);
   const [imageList, setImageList]   = useState([]);
   const [firstImage, setFirstImage]   = useState("");
-
-  const authorId = 123;
+  const [esimatedTime, setEstimatedTime] = useState(1);
+  const maxLengthOfContent = 20;
+  const maxLengthOfImageList = 3;
   const MAX_COUNT = 255;
 
   const reset = () => {
@@ -29,13 +29,35 @@ export default function Create(props) {
     setContentType(["head"]);
     setImageList([]);
   }
+
+  const wordCount = (line) => {
+    // On Average we read 200-250 words per minute
+    let timeDump = parseInt(line.split(" ").length / 200)
+    setEstimatedTime(Math.max(timeDump,1))
+  } 
+  // this will manage change in text
   const handleChange = (event, position) => {
+    // copying from previous stored value in content
     let updatedcontent = [...content];
     updatedcontent[position] = event.target.value;
     setContent(updatedcontent);
+    // word counting merging content array in string 
+    wordCount(updatedcontent.join(' '));
   };
 
+  // this will manage change in images upon selecion
   function handleImage (imageData, position) {
+    //max image list = [image1, image2] limit
+    if ((imageList.length? imageList.length:0)+1 > maxLengthOfImageList){
+      message.error("Max no of images reached");
+      message.warning("Please delete it using bin icon");
+    }
+    // max image size (individual)
+    else if (imageData!== undefined && parseInt(imageData.size/1024) >= (2048) ){
+      message.error("Exceeds max size of 2Mb");
+      message.warning("Please delete it using bin icon");
+    }
+    else{
     let updatedcontent = [...content], updatedImageList = [...imageList];
     // image position stored in content using image list length
     updatedcontent[position] = imageData.name;
@@ -45,10 +67,17 @@ export default function Create(props) {
 
     setContent(updatedcontent);
     setImageList(updatedImageList);
-    
+    // console.log(imageData);
+    }
   };
-
+  
   const addField = (event, pos) => {
+    console.log(content.length+1);
+    if ((content.length? content.length:0)+1 > maxLengthOfContent){
+      message.error("Max content length reached");
+    }
+    else{
+
     let oldcontent = [...content], oldType = [...contentType];
 
     oldcontent.splice(pos+1, 0, "");
@@ -56,8 +85,7 @@ export default function Create(props) {
 
     setContent(oldcontent);
     setContentType(oldType);
-
-    console.log("Var content = "+content+ "|| Var contentType = "+contentType);
+    }
   };
 
   const deleteField = (event, pos) => {
@@ -81,8 +109,6 @@ export default function Create(props) {
     inparr[index] = e.target.value;
     setContentType(inparr);
 
-    console.log("change is called");
-    console.log("Var content = "+content+ "|| Var contentType = "+contentType);
   }
 
   function handleTags(value) {
@@ -101,8 +127,9 @@ export default function Create(props) {
     firstImage: firstImage,
 	  content: content,
     contentType : contentType,
-	  readTime: 5,
-    authorLink: profileUrl+authorId,
+	  readTime: esimatedTime,
+    authorName: api.getAuthorName(authorId),
+    authorLink: api.getProfileUrl(authorId),
     tag: selectedTags,
   }
   props.data(data);
@@ -225,6 +252,7 @@ export default function Create(props) {
       </Row>
       <Divider>Live Preview</Divider>
       <Preview data={data} />
+      
     </>
   );
 }

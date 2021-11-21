@@ -29,7 +29,7 @@ export default function BuzzPerformer(props) {
   }
   return (
     <div
-    style={{marginTop:'10px', backgroundColor:'rgba(0,0,0,0.02)', 
+    style={{marginTop:'10px', backgroundColor:'rgba(0,0,0,0.05)', 
     backdropFilter:'blur("12px")', padding:'12px 20px 12px 20px', borderRadius:'20px 20px'
     }}>
     <Link to={authorLink} >

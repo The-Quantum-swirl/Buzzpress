@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import FinalPreview from "../Write/FinalPreview";
-import { backendUrl, profileUrl } from "../../components/common/Path";
+import { profileUrl } from "../../components/common/Path";
+import { DateToMonthYearFormat } from "../../components/Date";
 import { Button, Col, Row, Skeleton } from "antd";
 import { Typography } from "antd";
 import {
+  ReadOutlined,
   UserOutlined,
   FireFilled,
   FireOutlined,
@@ -24,12 +26,18 @@ export default function Article() {
   const [loadedData, setLoadedData] = useState(false);
   const [onFire, setOnFire] = useState(false);
   const [exist, setExist] = useState(true);
+
   const handleFire = () => {
     console.log("on click state " + !onFire);
     if (!onFire) { api.postLike(articleId, authorId()); } 
     else { api.postUnlike(articleId, authorId());}
     setOnFire(!onFire);
   };
+  const convertNum = (num) => {
+    if (num >= 1000000) return parseInt(num/1000000)+"M+";
+    else if (num >= 1000) return parseInt(num/1000)+"k+";
+    else return num;
+  }
 
   useEffect(() => {
     var temp = "Anonymous", templikes = 1, tempUserId = undefined;
@@ -77,56 +85,61 @@ export default function Article() {
   // bottom bar
   const bottomBar = () => {
     return (
-      <div
+
+      <Row justify="center" className="desktop mobile"
         style={{
-          margin: "20px 20% 0 20%",
-          backgroundColor: "rgba(0, 0, 0, 0.08)",
-          borderRadius: "200px",
-          padding: "0px",
-        }}
-      >
-        <Row>
-          <Col span={3}>
-            <Button shape="round"
-              onClick={handleFire}
-              style={{
-                backgroundColor: "inherit",
-                width: "100%",
-                borderTop: "0",
-                padding:0
-              }}
-            >
-            {onFire ? (<FireFilled style={{ color: "#f50057", fontSize:'20px' }} />) 
-              : (<FireOutlined style={{ color: "#f50057", fontSize:'20px' }} /> )}
-            </Button>
-          </Col>
-          <Col span={9}>
-          <div 
+          backgroundColor: "rgba(0, 0, 0, 0.03)",
+          borderRadius: "200px"
+          }}
+          >
+        <Col span={18} style={{paddingTop:'5px', paddingBottom:'5px'}}>
+          {/* left top */}
+          <Row >
+            <Col style={{display:'block', marginLeft:'auto', marginRight:'auto'}}>
+              <Text style={{fontWeight: "500" }}>{"By "+ loadedData.authorName}</Text>
+              <Text style={{ marginLeft: '10px' }}>{DateToMonthYearFormat(loadedData.publishDate)}</Text>
+            </Col>
+          </Row>
+          {/* left top ends */}
+
+          {/* left bottom */}
+          <Row>
+            <Col style={{display:'block', marginLeft:'auto', marginRight:'auto'}}>
+              <Text>
+                <ReadOutlined style={{color:'#757575'}} />
+                {" "+loadedData.readTime + ' min '}
+              </Text>
+              <Text style={{ marginLeft: '10px' }}>
+                <EyeFilled style={{ color: "#757575" }} />
+                {" " + views}
+              </Text>
+            
+            </Col>
+          </Row>
+          {/* left bottom ends */}
+        </Col>
+
+        {/* right top-bottom */}
+        <Col span={6}>
+          <Button shape="round"
+          className={onFire? 'btn-clicked':'btn-notclicked' }
+            onClick={handleFire}
             style={{
-              width: "100%",
-              height: "100%",
-              textAlign: "center",
-              paddingTop: "4px",
+              width: '100%',
+              height:'100%',
             }}
-            >
-            {likes + (onFire ? 1 : 0)}
-          </div>
-          </Col>
-          <Col span={12}>
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-                textAlign: "center",
-                paddingTop: "4px",
-              }}
-            >
-              <EyeFilled style={{ color: "#757575" }} />
-              {" " + views}
-            </div>
-          </Col>
-        </Row>
-      </div>
+          >
+          
+          <Title level={3} id={onFire? 'btn-clicked-content':'btn-notclicked-content'}
+          style={{marginBottom:0, fontWeight:'400'}}>
+          {onFire ? (<FireFilled style={{ color: "white", fontSize:'23px' }} />) 
+            : (<FireOutlined style={{ color: "#f50057", fontSize:'23px' }} /> )}
+          {convertNum(likes + (onFire? 1:0) )}
+          </Title>
+          </Button>
+        </Col>
+        {/* right top-bottom ends */}
+      </Row>
     );
   };
 

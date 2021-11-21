@@ -98,14 +98,6 @@ export default function Preview(props) {
                 width: "100%",
               }}
             >
-              {/* <Avatar
-                style={{
-                  width: "34px",
-                  height: "34px",
-                  backgroundColor: "blue",
-                }}
-                icon={<UserOutlined />}
-              /> */}
               <BuzzAvatar type="small" userId={userId} />
               <span
                 id="author"

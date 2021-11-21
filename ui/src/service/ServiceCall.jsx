@@ -1,4 +1,5 @@
 import { LRM_API } from "../constants/API";
+import { authorId } from "../constants/UserData";
 import httpService from './Httpservice';
 
 const getAllUsers = async () => {
@@ -70,6 +71,7 @@ const postReadCountIncrement = (userId) =>{
 // get Urls
 const getThumbUrl = (imageName) => LRM_API + "uploads/" + imageName;
 const getProfileUrl = (authorId) => `/profile/${authorId}`;
+const getAuthorName = (authorId) => "Anonymous";
 
 const getArticleCards = async () =>{
     const res = await httpService.get(LRM_API + `/articleMeta`);
@@ -104,6 +106,7 @@ export default {
     getProfileUrl,
     getArticle,
     getPerformers,
+    getAuthorName,
 
     saveUsers,
     postArticle,
