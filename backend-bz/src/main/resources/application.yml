@@ -4,7 +4,7 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/buzzpressdb
-    password: quicuxeo
+    password: postgres
     username: postgres
   jpa:
     hibernate:
@@ -14,3 +14,13 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 951185255388-294hcugserjf1qjm5qo3rcmsdkg7nl4e.apps.googleusercontent.com
+            client-secret: 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
+          facebook:
+            client-id:
+            client-secret:
