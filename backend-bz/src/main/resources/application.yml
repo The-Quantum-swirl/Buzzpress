@@ -23,8 +23,5 @@ spring:
             client-secret: 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
             redirect-uri: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
-            - email
-            - profile
-          facebook:
-            client-id:
-            client-secret:
+              - email
+              - profile
