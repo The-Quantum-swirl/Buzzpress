@@ -9,12 +9,13 @@ import { useEffect, useState } from "react";
 import { authorId } from "../../constants/UserData";
 import api from "../../service/ServiceCall";
 import BuzzPerformer from "../../components/home/BuzzPerformer";
+import { LoginModal } from "../../components/LoginModal";
 
 const { TabPane } = Tabs;
 const { Text, Link } = Typography;
 const { Footer } = Layout;
 
-export default function Home() {
+export default function Home(props) {
   const [graphData, setGraphData] = useState({ target: 10, read: 0 });
   const [displayData, setDisplayData] = useState([]);
   const [performer, setPerformer] = useState([]);
@@ -87,6 +88,7 @@ export default function Home() {
             size={8}
             style={{ width: "100%", paddingTop: "25px" }}
           >
+            <LoginModal />
             <Text type="secondary" style={{ padding: "25px" }}>
               Recommended For You
             </Text>

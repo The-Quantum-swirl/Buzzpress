@@ -1,9 +1,9 @@
 import { Layout, Menu, Dropdown, Button, Typography, Switch } from "antd";
 import { useHistory } from "react-router-dom";
-import Logout from "./logout";
 import { authorId } from "../constants/UserData";
 import { useEffect, useState } from "react";
 import BuzzAvatar from "./BuzzAvatar";
+import { accessToken } from "../service/ServicePath";
 const { Header } = Layout;
 const { Text } = Typography;
 
@@ -14,6 +14,9 @@ export default function NavBar() {
     console.log(`switch to ${checked}`);
     if (theme==="dark") setTheme("light");
     else setTheme("dark");
+  }
+  const logout = () => {
+    localStorage.removeItem(accessToken());
   }
 
   const menu = (
@@ -27,7 +30,7 @@ export default function NavBar() {
       <Menu.Item onClick={(e) => history.push("/settings")}>
         Settings
       </Menu.Item>
-      <Menu.Item onClick={(e) => <Logout />}>
+      <Menu.Item onClick={(e) => logout()}>
         Logout
       </Menu.Item>
     </Menu>
