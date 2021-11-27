@@ -29,7 +29,7 @@ public class UserStatServiceImpl implements IUserStatsService {
     IArticleMetaSevice iArticleMetaSevice;
 
     @Override
-    public UserStats getUserStats(long id) {
+    public UserStats getUserStats(String id) {
         return userStatsRepository.findByUserId(id);
     }
 
@@ -38,20 +38,21 @@ public class UserStatServiceImpl implements IUserStatsService {
         return userStatsRepository.findAll();
 
     }
+
     @Override
-    public void  updateStats(Long userId) {
+    public void updateStats(String userId) {
         UserStats userStat = userStatsRepository.findByUserId(userId);
-        if (userStat.getLastUpdatedDate()==null || LocalDate.now().isAfter(userStat.getLastUpdatedDate())) {
-        	userStat.setLastUpdatedDate(LocalDate.now());
-        	userStat.setArticleRead(0);
-        	userStat.setArticleAuthored(0);
-        	userStatsRepository.save(userStat);
+        if (userStat.getLastUpdatedDate() == null || LocalDate.now().isAfter(userStat.getLastUpdatedDate())) {
+            userStat.setLastUpdatedDate(LocalDate.now());
+            userStat.setArticleRead(0);
+            userStat.setArticleAuthored(0);
+            userStatsRepository.save(userStat);
         }
     }
 
     @Override
-    public void incrementAuthored(Long userId) {
-        UserStats userS = userStatsRepository.getById(userId);
+    public void incrementAuthored(String userId) {
+        UserStats userS = userStatsRepository.findByUserId(userId);
         Integer i = userS.getArticleAuthored();
         userS.setArticleAuthored(i + 1);
         userStatsRepository.save(userS);

@@ -16,6 +16,8 @@ import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,9 +35,13 @@ import lombok.ToString;
 
 public class Users_ implements Serializable {
     @Id
-    @SequenceGenerator(name = "UserId_sequence", sequenceName = "UserId_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "UserId_sequence")
-    private Long userId;
+    // @SequenceGenerator(name = "UserId_sequence", sequenceName =
+    // "UserId_sequence", allocationSize = 1)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY, generator =
+    // "UserId_sequence")
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private String userId;
     private String userName;
 
     @Column(unique = true)
@@ -45,8 +51,8 @@ public class Users_ implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
     private LocalDate userJoinDate;
-    private HashSet<Long> followers;
-    private HashSet<Long> following;
+    private HashSet<String> followers;
+    private HashSet<String> following;
     private String profilePhotoUrl;
 
     public Users_(String userName, String userEmail, String userAddress, String userPhoneNumber,
@@ -57,8 +63,8 @@ public class Users_ implements Serializable {
         this.userPhoneNumber = userPhoneNumber;
         this.dateOfBirth = dateOfBirth;
         this.userJoinDate = LocalDate.now();
-        this.followers = new HashSet<Long>();
-        this.following = new HashSet<Long>();
+        this.followers = new HashSet<String>();
+        this.following = new HashSet<String>();
 
     }
 

@@ -31,18 +31,18 @@ public class UserStatsController {
     }
 
     @GetMapping(value = "/userStats/{id}")
-    public UserStats getUserStats(@PathVariable Long id) {
-    	// updating user stats for the day
-    	iUserStatsService.updateStats(id);
-    	
+    public UserStats getUserStats(@PathVariable String id) {
+        // updating user stats for the day
+        iUserStatsService.updateStats(id);
+
         return iUserStatsService.getUserStats(id);
     }
 
     @PutMapping(value = "/setArticleTarget/{id}/{target}")
-    public Integer setArticleTarget(@PathVariable Long id, @PathVariable Integer target) {
-    	// updating user stats for the day
-    	iUserStatsService.updateStats(id);
-    	
+    public Integer setArticleTarget(@PathVariable String id, @PathVariable Integer target) {
+        // updating user stats for the day
+        iUserStatsService.updateStats(id);
+
         UserStats userS = iUserStatsService.getUserStats(id);
         userS.setArticleTargetRead(target);
         userStatsRepository.save(userS);
@@ -50,10 +50,10 @@ public class UserStatsController {
     }
 
     @PutMapping(value = "/readCount/{authorId}")
-    public void incrementReadCount(@PathVariable Long authorId) {
-    	// updating user stats for the day
-    	iUserStatsService.updateStats(authorId);
-    	
+    public void incrementReadCount(@PathVariable String authorId) {
+        // updating user stats for the day
+        iUserStatsService.updateStats(authorId);
+
         UserStats userS = iUserStatsService.getUserStats(authorId);
         Integer articleRead = userS.getArticleRead();
         userS.setArticleRead(articleRead + 1);

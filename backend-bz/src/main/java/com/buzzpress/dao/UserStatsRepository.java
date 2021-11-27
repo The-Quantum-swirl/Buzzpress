@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserStatsRepository extends JpaRepository<UserStats, Long> {
 
-	UserStats findByUserId(long id);
+	UserStats findByUserId(String id);
 
 }

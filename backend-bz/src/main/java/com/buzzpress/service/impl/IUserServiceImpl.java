@@ -22,7 +22,7 @@ public class IUserServiceImpl implements IUserService {
     UserDataRepository userDataRepository;
 
     @Override
-    public Users_ getUserDetails(Long userId) throws NotFoundException {
+    public Users_ getUserDetails(String userId) throws NotFoundException {
         Users_ userObj = null;
         try {
             userObj = userDataRepository.findByUserId(userId);
@@ -59,7 +59,7 @@ public class IUserServiceImpl implements IUserService {
     }
 
     @Override
-    public String getUsernameFromUserId(Long userId) throws NotFoundException {
+    public String getUsernameFromUserId(String userId) throws NotFoundException {
         Users_ user = null;
         try {
             user = userDataRepository.findByUserId(userId);
@@ -72,21 +72,21 @@ public class IUserServiceImpl implements IUserService {
     }
 
     @Override
-    public List<Long> getFollowers(long userId) throws NotFoundException {
-        HashSet<Long> followers = userDataRepository.findByUserId(userId).getFollowers();
-        List<Long> followersList = new ArrayList<>(followers);
+    public List<String> getFollowers(String userId) throws NotFoundException {
+        HashSet<String> followers = userDataRepository.findByUserId(userId).getFollowers();
+        List<String> followersList = new ArrayList<>(followers);
         return followersList;
     }
 
     @Override
-    public List<Long> getFollowing(long userId) throws NotFoundException {
-        HashSet<Long> following = userDataRepository.findByUserId(userId).getFollowing();
-        List<Long> followingList = new ArrayList<>(following);
+    public List<String> getFollowing(String userId) throws NotFoundException {
+        HashSet<String> following = userDataRepository.findByUserId(userId).getFollowing();
+        List<String> followingList = new ArrayList<>(following);
         return followingList;
     }
 
     @Override
-    public void FollowUser(Long follower, Long toFollow) throws NotFoundException {
+    public void FollowUser(String follower, String toFollow) throws NotFoundException {
         Users_ UserFollowing = null;
         Users_ UserBeingFollowed = null;
 
@@ -98,12 +98,12 @@ public class IUserServiceImpl implements IUserService {
         System.out.println(UserBeingFollowed);
         if (UserBeingFollowed == null)
             throw new NotFoundException("not found user2");
-        HashSet<Long> followers = UserBeingFollowed.getFollowers();
+        HashSet<String> followers = UserBeingFollowed.getFollowers();
         if (followers == null) {
             followers = new HashSet<>();
         }
         followers.add(follower);
-        HashSet<Long> following = UserFollowing.getFollowing();
+        HashSet<String> following = UserFollowing.getFollowing();
         if (following == null) {
             following = new HashSet<>();
         }
@@ -115,7 +115,7 @@ public class IUserServiceImpl implements IUserService {
     }
 
     @Override
-    public void UnFollowUser(Long follower, Long toUnFollow) {
+    public void UnFollowUser(String follower, String toUnFollow) {
         Users_ UserFollowing = userDataRepository.findByUserId(follower);
         Users_ UserBeingUnFollowed = userDataRepository.findByUserId(toUnFollow);
         UserBeingUnFollowed.getFollowers().remove(follower);
@@ -124,14 +124,14 @@ public class IUserServiceImpl implements IUserService {
         userDataRepository.save(UserFollowing);
     }
 
-    public void postUserPhoto(String profilePhotoUrl, Long authorId) {
+    public void postUserPhoto(String profilePhotoUrl, String authorId) {
         Users_ user = userDataRepository.getById(authorId);
         user.setProfilePhotoUrl(profilePhotoUrl);
         userDataRepository.save(user);
     }
 
     @Override
-    public void deleteUser(Long id) throws NotFoundException {
+    public void deleteUser(String id) throws NotFoundException {
         userDataRepository.delete(userDataRepository.findByUserId(id));
     }
 

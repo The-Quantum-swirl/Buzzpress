@@ -45,12 +45,12 @@ public class MetaController {
     }
 
     @PutMapping(value = "/like/{articleId}/user/{userId}")
-    public void like(@PathVariable Long articleId, @PathVariable Long userId) throws NotFoundException {
+    public void like(@PathVariable Long articleId, @PathVariable String userId) throws NotFoundException {
         iArticleMetaSevice.handleLike("+", articleId, userId);
     }
 
     @PutMapping(value = "/unlike/{articleId}/user/{userId}")
-    public void unlike(@PathVariable Long articleId, @PathVariable Long userId) throws NotFoundException {
+    public void unlike(@PathVariable Long articleId, @PathVariable String userId) throws NotFoundException {
         iArticleMetaSevice.handleLike("-", articleId, userId);
     }
 

@@ -33,7 +33,7 @@ public class User {
     private String email;
 
     private String imageUrl;
-
+    @Builder.Default
     private Boolean emailVerified = false;
 
     @JsonIgnore

@@ -38,7 +38,7 @@ public class ArticleController {
     IUserStatsService iUserStatsService;
 
     @PostMapping(value = "/saveArticle/{authorId}")
-    public ResponseEntity<ResponseMessage> saveArticle(@RequestBody Article entity, @PathVariable Long authorId)
+    public ResponseEntity<ResponseMessage> saveArticle(@RequestBody Article entity, @PathVariable String authorId)
             throws NotFoundException {
         ResponseMessage rm = new ResponseMessage();
         rm.setMessage("Article Added");

@@ -2,6 +2,7 @@ package com.buzzpress.controller;
 
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletRequest;
 
 import com.buzzpress.beans.UserStats;
@@ -38,7 +39,7 @@ public class Controller {
     UserStatsRepository userStatsRepository;
 
     @GetMapping(value = "/user/{id}")
-    public Users_ getUserDetails(@PathVariable Long id) throws NotFoundException {
+    public Users_ getUserDetails(@PathVariable String id) throws NotFoundException {
         System.out.println(id);
         return iUserService.getUserDetails(id);
     }
@@ -56,10 +57,11 @@ public class Controller {
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
     }
 
+    @PermitAll
     @PostMapping(value = "/saveusers")
     public ResponseEntity<ResponseMessage> postMethodName(@RequestBody List<Users_> entity)
             throws DuplicateUserException {
-        // System.out.println(entity);
+        System.out.println(entity);
         ResponseMessage rm = new ResponseMessage();
         rm.setMessage("Data Added");
         rm.setStatusCode(200);
@@ -84,8 +86,8 @@ public class Controller {
     public ResponseEntity<ResponseMessage> Followuser(@RequestBody FollowBody followBody) throws NotFoundException {
         System.out.println("Print follow bosdyy");
         System.out.println(followBody);
-        Long follower = followBody.getFollower();
-        long toFollow = followBody.getToFollow();
+        String follower = followBody.getFollower();
+        String toFollow = followBody.getToFollow();
         System.out.println(follower);
 
         iUserService.FollowUser(follower, toFollow);
@@ -99,8 +101,8 @@ public class Controller {
     @PutMapping(value = "/unFollow")
     public ResponseEntity<ResponseMessage> UnFollowuser(@RequestBody FollowBody followBody) {
         System.out.println(followBody);
-        Long follower = followBody.getFollower();
-        long toUnFollow = followBody.getToUnFollow();
+        String follower = followBody.getFollower();
+        String toUnFollow = followBody.getToUnFollow();
         iUserService.UnFollowUser(follower, toUnFollow);
         ResponseMessage rm = new ResponseMessage();
         rm.setMessage("Success");
@@ -109,7 +111,7 @@ public class Controller {
     }
 
     @DeleteMapping(value = "deleteUser/{id}")
-    public ResponseEntity<ResponseMessage> DeleteUser(@RequestParam Long id) throws NotFoundException {
+    public ResponseEntity<ResponseMessage> DeleteUser(@RequestParam String id) throws NotFoundException {
         iUserService.deleteUser(id);
         ResponseMessage rm = new ResponseMessage();
         rm.setMessage("Success");
@@ -127,7 +129,7 @@ public class Controller {
     }
 
     @PostMapping(value = "/postuserphoto/{profilePhotoUrl}/{authorId}")
-    public void SetUserProfilePhoto(@PathVariable String profilePhotoUrl, @PathVariable Long authorId) {
+    public void SetUserProfilePhoto(@PathVariable String profilePhotoUrl, @PathVariable String authorId) {
         iUserService.postUserPhoto(profilePhotoUrl, authorId);
     }
 

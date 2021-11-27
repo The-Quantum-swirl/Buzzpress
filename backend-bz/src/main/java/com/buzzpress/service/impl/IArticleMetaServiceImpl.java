@@ -47,41 +47,43 @@ public class IArticleMetaServiceImpl implements IArticleMetaSevice {
     }
 
     @Override
-    public void handleLike(String operation, Long id, Long userId) throws NotFoundException {
+    public void handleLike(String operation, Long id, String userId) throws NotFoundException {
 
-    	List<ArticleMeta> articleMetaList = articleMetaDataRepository.findAllByArticleId(id);
-        if (articleMetaList == null) throw new NotFoundException("No Article found");
-        
-//        found the article here
-        ArticleMeta articleMeta = articleMetaList.get(0); 
-//        hashset of all the people who liked
-        HashSet<Long> likers = articleMeta.getLikerUserId();
-        
-        if (likers == null) likers = new HashSet<Long>();
-        
+        List<ArticleMeta> articleMetaList = articleMetaDataRepository.findAllByArticleId(id);
+        if (articleMetaList == null)
+            throw new NotFoundException("No Article found");
+
+        // found the article here
+        ArticleMeta articleMeta = articleMetaList.get(0);
+        // hashset of all the people who liked
+        HashSet<String> likers = articleMeta.getLikerUserId();
+
+        if (likers == null)
+            likers = new HashSet<String>();
+
         if (operation == "+") {
             System.out.println("Plus");
-//            already like exists here for this user 
-            if (likers.contains(userId)) return ;
-            
-//            added like
+            // already like exists here for this user
+            if (likers.contains(userId))
+                return;
+
+            // added like
             likers.add(userId);
             articleMetaDataRepository.incrementLike(id);
-            
-            
-        }
-        else if (operation == "-") {
+
+        } else if (operation == "-") {
             System.out.println("minus");
-//            can't remove like if liker doesnot already exists
-            if (likers.contains(userId)==false) return ;
-            
+            // can't remove like if liker doesnot already exists
+            if (likers.contains(userId) == false)
+                return;
+
             likers.remove(userId);
             articleMetaDataRepository.decrementLike(id);
         }
 
         articleMeta.setLikerUserId(likers);
         articleMetaDataRepository.save(articleMeta);
-        
+
     }
 
     public void view(Long id) {
