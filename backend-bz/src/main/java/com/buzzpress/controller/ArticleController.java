@@ -15,6 +15,7 @@ import com.buzzpress.service.impl.UserStatServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javassist.NotFoundException;
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 public class ArticleController {
     @Autowired
@@ -38,6 +39,7 @@ public class ArticleController {
     IUserStatsService iUserStatsService;
 
     @PostMapping(value = "/saveArticle/{authorId}")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<ResponseMessage> saveArticle(@RequestBody Article entity, @PathVariable String authorId)
             throws NotFoundException {
         ResponseMessage rm = new ResponseMessage();
@@ -61,6 +63,7 @@ public class ArticleController {
     }
 
     @GetMapping(value = "/article")
+    @PreAuthorize("hasRole('USER')")
     public List<Article> getAllArticles() {
 
         return iArticleService.displayAllArticles();
@@ -73,6 +76,7 @@ public class ArticleController {
     // }
 
     @GetMapping(value = "/article/{id}")
+    @PreAuthorize("hasRole('USER')")
     public List<Article> getArticlebyId(@PathVariable Long id) {
         iArticleMetaSevice.view(id);
         return iArticleService.fetchArticleByArticleId(id);

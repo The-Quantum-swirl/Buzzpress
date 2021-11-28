@@ -61,7 +61,6 @@ window.env = {
   "REACT_APP_ACCESS_TOKEN": "accessToken",
   "REACT_APP_API_BASE_URL": "http://localhost:8080/",
   "REACT_APP_FRONTEND_URL": "http://localhost:3000/",
-  "REACT_APP_GOOGLE_AUTH_URL": "$REACT_APP_API_BASE_URLoauth2/authorize/google?redirect_uri=$REACT_APP_OAUTH2_REDIRECT_URI",
   "REACT_APP_OAUTH2_REDIRECT_URI": "http://localhost:3000/oauth2/redirect",
   "SystemDrive": "C:",
   "SystemRoot": "C:\\WINDOWS",
@@ -74,5 +73,5 @@ window.env = {
   "windir": "C:\\WINDOWS",
   "WSLENV": "WT_SESSION::WT_PROFILE_ID",
   "WT_PROFILE_ID": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-  "WT_SESSION": "d8f4efb6-8e93-4b22-892e-7f2597719bf1"
+  "WT_SESSION": "1da0771d-edda-464b-8394-9b4d47c0338a"
 };

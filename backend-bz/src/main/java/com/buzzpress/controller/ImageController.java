@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javassist.NotFoundException;
 
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @RestController
 public class ImageController {
 
@@ -30,6 +31,7 @@ public class ImageController {
     IFileStorageService fileStorageService;
 
     @PostMapping(value = "/upload-image")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
             fileStorageService.saveMultipartFile(file);
@@ -44,6 +46,7 @@ public class ImageController {
 
     // use if we want to download image
     @GetMapping("/image/{filename:.+}")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Resource> getFile(@PathVariable String filename) {
         Resource file = fileStorageService.loadImage(filename);
         return ResponseEntity.ok()
@@ -53,12 +56,14 @@ public class ImageController {
 
     // To return url not to be used
     @GetMapping("/imageUrl/{filename:.+}")
+    @PreAuthorize("hasRole('USER')")
     public String getFileUrl(@PathVariable String filename) {
         return "http://localhost:8080/uploads/" + filename;
     }
 
     // use this api for image fetching
     @GetMapping("/uploads/{filename:.+}")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Resource> getImage(@PathVariable("filename") String filename) throws RuntimeException {
         Resource image = fileStorageService.loadImage(filename);
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(image);

@@ -16,6 +16,7 @@ import com.buzzpress.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javassist.NotFoundException;
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 public class Controller {
 
@@ -45,6 +46,7 @@ public class Controller {
     }
 
     @PostMapping(value = "/saveuser")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<ResponseMessage> postMethodName(@RequestBody Users_ entity) throws DuplicateUserException {
         System.out.println(entity);
         ResponseMessage rm = new ResponseMessage();

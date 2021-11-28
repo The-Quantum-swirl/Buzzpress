@@ -8,13 +8,14 @@ import com.buzzpress.model.TopUsers;
 import com.buzzpress.service.IUserStatsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 public class UserStatsController {
 
@@ -31,6 +32,7 @@ public class UserStatsController {
     }
 
     @GetMapping(value = "/userStats/{id}")
+    @PreAuthorize("hasRole('USER')")
     public UserStats getUserStats(@PathVariable String id) {
         // updating user stats for the day
         iUserStatsService.updateStats(id);
@@ -39,6 +41,7 @@ public class UserStatsController {
     }
 
     @PutMapping(value = "/setArticleTarget/{id}/{target}")
+    @PreAuthorize("hasRole('USER')")
     public Integer setArticleTarget(@PathVariable String id, @PathVariable Integer target) {
         // updating user stats for the day
         iUserStatsService.updateStats(id);
@@ -50,6 +53,7 @@ public class UserStatsController {
     }
 
     @PutMapping(value = "/readCount/{authorId}")
+    @PreAuthorize("hasRole('USER')")
     public void incrementReadCount(@PathVariable String authorId) {
         // updating user stats for the day
         iUserStatsService.updateStats(authorId);
@@ -61,6 +65,7 @@ public class UserStatsController {
     }
 
     @GetMapping(value = "/topUsers")
+    @PreAuthorize("hasRole('USER')")
     public List<TopUsers> getTopUsers() {
         return iUserStatsService.getTopUsers();
     }

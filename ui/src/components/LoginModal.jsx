@@ -10,8 +10,9 @@ export const LoginModal = () => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   useEffect(() => {
     if (localStorage.getItem(accessToken()) !== null) {
-        setVisible(false);
-        console.log(service.getKeyFromToken())
+      setVisible(false);
+      console.log(service.getKeyFromToken())
+      service.setJwt(localStorage.getItem(accessToken()))
     }
   }, [])
 
