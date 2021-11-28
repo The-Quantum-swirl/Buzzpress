@@ -15,8 +15,7 @@ const { Text, Link, Title } = Typography;
 export default function Profile(){
 
   let {userId} = useParams();
-  userId = parseInt(userId)
-  
+  const [disable, setDisable] = useState(false);
   const [displayData, setDisplayData] = useState([]);
   // personal Data 
   const [personalData, setPersonalData] = useState({
@@ -27,6 +26,10 @@ export default function Profile(){
   });
 
   useEffect(() => {
+
+    api.sameUser(userId).then((res) => {
+      res? setDisable(true): setDisable(false)
+    })
 
     api.getUser(userId).then((res) => {
       console.log(res)
@@ -61,17 +64,13 @@ export default function Profile(){
   },[])    
   const handleFollow = (e) => {
     console.log("followed")
-    // if (authorId() !== userId){
-      console.log(authorId(),userId)
-      api.postFollow(authorId(),userId);
-    // }
+    console.log(userId)
+    api.postFollow(userId);
   }
   const handleUnFollow = (e) => {
     console.log("Unfollowed")
-    // if (authorId() !== userId){
-      console.log(authorId(),userId)
-      api.postUnFollow(authorId(),userId);
-    // }
+    console.log(userId)
+    api.postUnFollow(userId);
   }
     return(
         <>
@@ -101,8 +100,8 @@ export default function Profile(){
                 <Text type="secondary" style={{fontWeight:'400'}}>{"Joined "+personalData.joinedDate} </Text>
                 
                   <ButtonGroup>
-                  <Button size="middle" disabled={authorId()===userId} type="primary" onClick={(e) => handleFollow(e)}>Follow</Button>
-                  <Button size="middle" disabled={authorId()===userId} type="default" onClick={(e) => handleUnFollow(e)}>UnFollow</Button>
+                  <Button size="middle" disabled={disable} type="primary" onClick={(e) => handleFollow(e)}>Follow</Button>
+                  <Button size="middle" disabled={disable} type="default" onClick={(e) => handleUnFollow(e)}>UnFollow</Button>
                   </ButtonGroup>
                 
                 {/* user info end */}

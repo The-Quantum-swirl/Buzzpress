@@ -1,6 +1,5 @@
 import { Layout, Menu, Dropdown, Button, Typography, Switch } from "antd";
 import { useHistory } from "react-router-dom";
-import { authorId } from "../constants/UserData";
 import { useEffect, useState } from "react";
 import BuzzAvatar from "./BuzzAvatar";
 import { accessToken } from "../service/ServicePath";
@@ -21,7 +20,7 @@ export default function NavBar() {
 
   const menu = (
     <Menu>
-      <Menu.Item onClick={(e) => history.push("/profile/"+authorId())}>
+      <Menu.Item onClick={(e) => history.push("/profile/")}>
         Your Profile
       </Menu.Item>
       <Menu.Item onClick={(e) => history.push("/create")}>

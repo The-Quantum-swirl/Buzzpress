@@ -12,7 +12,6 @@ import { authorId } from "../../constants/UserData";
 export default function Write() {
   const [currentStep, setCurrentStep] = useState(0);
   const [data, setData] = useState({ readTime: "1 min", authorLink: profileUrl, title: "", summary: "",});
-  const userId = authorId();
   var statusCode = 200, previewData = {};
 
   const outcome = (res1, res2) => {
@@ -28,7 +27,6 @@ export default function Write() {
 
     // making raw data payload for posting
     var payload = {
-      authorId: userId,
       title: data.title,
       summary: data.summary,
       publishDate: convertDate(new Date()),
@@ -39,7 +37,7 @@ export default function Write() {
       tag: data.tag.join("\n"),
     };
     // getting raw data response status in code 200,404,500 etc
-    rawDataResponse = api.postArticle(userId, payload);
+    rawDataResponse = api.postArticle(payload);
 
     // uploading image in batch start
     let imgArr = data.imagelist;

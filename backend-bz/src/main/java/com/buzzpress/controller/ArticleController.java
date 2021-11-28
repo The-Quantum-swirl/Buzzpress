@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.buzzpress.beans.Article;
 import com.buzzpress.model.ResponseMessage;
+import com.buzzpress.security.CurrentUser;
+import com.buzzpress.security.UserPrincipal;
 import com.buzzpress.service.IArticleMetaSevice;
 import com.buzzpress.service.IArticleService;
 import com.buzzpress.service.IUserService;
@@ -38,28 +40,19 @@ public class ArticleController {
     @Autowired
     IUserStatsService iUserStatsService;
 
-    @PostMapping(value = "/saveArticle/{authorId}")
+    @PostMapping(value = "/saveArticle")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<ResponseMessage> saveArticle(@RequestBody Article entity, @PathVariable String authorId)
+    public ResponseEntity<ResponseMessage> saveArticle(@RequestBody Article entity, @CurrentUser UserPrincipal userPrincipal)
             throws NotFoundException {
-        ResponseMessage rm = new ResponseMessage();
-        rm.setMessage("Article Added");
-        rm.setStatusCode(200);
-        entity.setAuthorId(authorId);
-        String username = iUserService.getUsernameFromUserId(authorId);
-        System.out.println(username);
-        iArticleMetaSevice.saveMetaData(entity, username);
+        
+        entity.setAuthorId(userPrincipal.getUserId());
+        
+        iArticleMetaSevice.saveMetaData(entity, iUserService.getUsernameFromUserId(entity.getAuthorId()));
         iArticleService.saveArticle(entity);
-        iUserStatsService.incrementAuthored(authorId);
+        iUserStatsService.incrementAuthored(entity.getAuthorId());
+        
+        ResponseMessage rm = new ResponseMessage("Article Added", 200);
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
-    }
-
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ResponseMessage> handleNotFoundException(HttpServletRequest request, Exception ex) {
-        ResponseMessage rm = new ResponseMessage();
-        rm.setMessage(ex.getMessage());
-        rm.setStatusCode(404);
-        return new ResponseEntity<ResponseMessage>(rm, HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/article")
@@ -68,12 +61,6 @@ public class ArticleController {
 
         return iArticleService.displayAllArticles();
     }
-
-    // @GetMapping(value = "/customArticle")
-    // public Object getCustomArticle() {
-    // Object hi = new Object();
-    // return hi;
-    // }
 
     @GetMapping(value = "/article/{id}")
     @PreAuthorize("hasRole('USER')")

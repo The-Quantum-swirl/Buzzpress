@@ -1,11 +1,10 @@
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import { authorId } from "../constants/UserData";
 import api from "../service/ServiceCall";
 
 export default function BuzzAvatar(props) {
-  const userId = props.userId || authorId();
+  const userId = props.userId;
   const [profilePicture, setProfilePicture] = useState(false);
 
   useEffect(() => {

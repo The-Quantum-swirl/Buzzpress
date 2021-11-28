@@ -13,7 +13,7 @@ public interface IArticleMetaSevice {
 
     public List<ArticleMeta> fetchArticleMetaByArticleId(Long articleId);
 
-    public List<ArticleMeta> fetchArticleMetaByAuthorId(Long authorId) throws NotFoundException;
+    public List<ArticleMeta> fetchArticleMetaByAuthorId(String userId) throws NotFoundException;
 
     public void saveMetaData(Article article, String author);
 

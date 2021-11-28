@@ -48,7 +48,7 @@ export default function Home(props) {
     })
 
     // loading data for performance graph
-    api.getUserStats(authorId()).then((res)=> {
+    api.getUserStats().then((res)=> {
       console.log(res);
       setGraphData({
         target: res.articleTargetRead, 

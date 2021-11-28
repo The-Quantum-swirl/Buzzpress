@@ -2,8 +2,12 @@ package com.buzzpress.controller;
 
 import com.buzzpress.beans.ArticleMeta;
 import com.buzzpress.dao.ArticleMetaDataRepository;
+import com.buzzpress.security.CurrentUser;
+import com.buzzpress.security.UserPrincipal;
 //import com.buzzpress.model.LikeBody;
 import com.buzzpress.service.IArticleMetaSevice;
+
+import java.util.HashSet;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -43,22 +47,35 @@ public class MetaController {
         return iArticleMetaSevice.fetchArticleMetaByArticleId(id);
     }
     
+    @GetMapping(value = "/hasLikedArticle/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public boolean checkArticleMetaLikebyId(@PathVariable Long id, @CurrentUser UserPrincipal userPrincipal) {
+        HashSet<String> likers = iArticleMetaSevice.fetchArticleMetaByArticleId(id).get(0).getLikerUserId();
+        return likers.contains(userPrincipal.getUserId());
+    }
+    
     @GetMapping(value = "/articleMetaByAuthor/{authorId}")
     @PreAuthorize("hasRole('USER')")
-    public List<ArticleMeta> getartic(@PathVariable Long authorId) throws NotFoundException {
+    public List<ArticleMeta> getarticle(@PathVariable String authorId) throws NotFoundException {
         return iArticleMetaSevice.fetchArticleMetaByAuthorId(authorId);
     }
-
-    @PutMapping(value = "/like/{articleId}/user/{userId}")
+    
+    @GetMapping(value = "/articleMetaByAuthor")
     @PreAuthorize("hasRole('USER')")
-    public void like(@PathVariable Long articleId, @PathVariable String userId) throws NotFoundException {
-        iArticleMetaSevice.handleLike("+", articleId, userId);
+    public List<ArticleMeta> getarticle(@CurrentUser UserPrincipal userPrincipal) throws NotFoundException {
+    	return iArticleMetaSevice.fetchArticleMetaByAuthorId(userPrincipal.getUserId());
     }
 
-    @PutMapping(value = "/unlike/{articleId}/user/{userId}")
+    @PutMapping(value = "/like/{articleId}")
     @PreAuthorize("hasRole('USER')")
-    public void unlike(@PathVariable Long articleId, @PathVariable String userId) throws NotFoundException {
-        iArticleMetaSevice.handleLike("-", articleId, userId);
+    public void like(@PathVariable Long articleId, @CurrentUser UserPrincipal userPrincipal) throws NotFoundException {
+        iArticleMetaSevice.handleLike("+", articleId, userPrincipal.getUserId());
+    }
+
+    @PutMapping(value = "/unlike/{articleId}")
+    @PreAuthorize("hasRole('USER')")
+    public void unlike(@PathVariable Long articleId, @CurrentUser UserPrincipal userPrincipal) throws NotFoundException {
+        iArticleMetaSevice.handleLike("-", articleId, userPrincipal.getUserId());
     }
 
 }

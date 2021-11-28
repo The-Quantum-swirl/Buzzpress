@@ -21,6 +21,8 @@ public class LoginController {
     @GetMapping("/profile")
     @PreAuthorize("hasRole('USER')")
     public Users_ getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
+    	System.out.println(userPrincipal.getUserEmail()+" userId:"+userPrincipal.getUserId()+" "
+    			+ " atributes:"+ userPrincipal.getAttributes()+ " authorities:"+ userPrincipal.getAuthorities());
         return UserDataRepository.findById(userPrincipal.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getUserId()));
     }

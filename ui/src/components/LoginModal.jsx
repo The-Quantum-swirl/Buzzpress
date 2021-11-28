@@ -3,6 +3,7 @@ import { Modal, Button, Typography } from "antd";
 import googleLogo from "../assets/google-logo.png";
 import { accessToken, googleAuthURL } from "../service/ServicePath";
 import service from "../service/Httpservice";
+import api from "../service/ServiceCall";
 
 const { Text } = Typography;
 export const LoginModal = () => {
@@ -11,8 +12,9 @@ export const LoginModal = () => {
   useEffect(() => {
     if (localStorage.getItem(accessToken()) !== null) {
       setVisible(false);
-      console.log(service.getKeyFromToken())
+      // setting jwt token in default headers of axios
       service.setJwt(localStorage.getItem(accessToken()))
+      // api.setUser()
     }
   }, [])
 

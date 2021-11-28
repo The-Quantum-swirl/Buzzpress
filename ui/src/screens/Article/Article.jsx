@@ -29,8 +29,8 @@ export default function Article() {
 
   const handleFire = () => {
     console.log("on click state " + !onFire);
-    if (!onFire) { api.postLike(articleId, authorId()); } 
-    else { api.postUnlike(articleId, authorId());}
+    if (!onFire) { api.postLike(articleId); } 
+    else { api.postUnlike(articleId);}
     setOnFire(!onFire);
   };
   const convertNum = (num) => {
@@ -49,13 +49,22 @@ export default function Article() {
         tempUserId =res.authorId;
         setViews(res.views);
         // setting likes logic don't change
-        if (res.likerUserId.includes(authorId())) {
-          setOnFire(true);
-          templikes -= 1;
-        }
-        setLikes(templikes);
+        // if (res.likerUserId.includes(authorId())) {
+        //   setOnFire(true);
+        //   templikes -= 1;
+        // }
+        // setLikes(templikes);
       } else setExist(false);
     });
+    
+    // logic for like
+    api.hasLiked(articleId).then((res) => {
+      if (res) {
+        setOnFire(true);
+        templikes -= 1;
+      }
+      setLikes(templikes);
+    })
 
     api.getArticle(articleId).then((res) => {
       console.log(res);
@@ -79,7 +88,7 @@ export default function Article() {
     });
 
     // api post for read 1 more article
-    api.postReadCountIncrement(authorId())
+    api.postReadCountIncrement()
     
   }, []);
   // bottom bar

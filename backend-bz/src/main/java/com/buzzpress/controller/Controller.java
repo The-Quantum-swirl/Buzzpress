@@ -11,6 +11,8 @@ import com.buzzpress.dao.UserStatsRepository;
 import com.buzzpress.exception.DuplicateUserException;
 import com.buzzpress.model.FollowBody;
 import com.buzzpress.model.ResponseMessage;
+import com.buzzpress.security.CurrentUser;
+import com.buzzpress.security.UserPrincipal;
 import com.buzzpress.service.IUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +42,22 @@ public class Controller {
     UserStatsRepository userStatsRepository;
 
     @GetMapping(value = "/user/{id}")
+    @PreAuthorize("hasRole('USER')")
     public Users_ getUserDetails(@PathVariable String id) throws NotFoundException {
         System.out.println(id);
         return iUserService.getUserDetails(id);
+    }
+    
+    @GetMapping(value = "/author")
+    @PreAuthorize("hasRole('USER')")
+    public Users_ getUserDetails(@CurrentUser UserPrincipal userPrincipal) throws NotFoundException {
+        return iUserService.getUserDetails(userPrincipal.getUserId());
+    }
+    
+    @GetMapping(value = "/compareuser/{userId}")
+    @PreAuthorize("hasRole('USER')")
+    public boolean compareUser(@CurrentUser UserPrincipal userPrincipal, @PathVariable String userId) throws NotFoundException {
+    	return (userPrincipal.getUserId() == userId);
     }
 
     @PostMapping(value = "/saveuser")
@@ -79,75 +94,64 @@ public class Controller {
     }
 
     @GetMapping(value = "/allUsers")
+    @PreAuthorize("hasRole('USER')")
     public List<Users_> getAllUserDetails() {
-
         return iUserService.showAllUsers();
     }
 
     @PutMapping(value = "/follow")
-    public ResponseEntity<ResponseMessage> Followuser(@RequestBody FollowBody followBody) throws NotFoundException {
-        System.out.println("Print follow bosdyy");
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<ResponseMessage> Followuser(@RequestBody FollowBody followBody, @CurrentUser UserPrincipal userPrincipal) throws NotFoundException {
+        followBody.setFollower(userPrincipal.getUserId());
+        
+    	System.out.println("<-- Print follow body -->");
         System.out.println(followBody);
+        
         String follower = followBody.getFollower();
         String toFollow = followBody.getToFollow();
-        System.out.println(follower);
 
         iUserService.FollowUser(follower, toFollow);
 
-        ResponseMessage rm = new ResponseMessage();
-        rm.setMessage("Success");
-        rm.setStatusCode(200);
+        ResponseMessage rm = new ResponseMessage("Success", 200);
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
     }
 
     @PutMapping(value = "/unFollow")
-    public ResponseEntity<ResponseMessage> UnFollowuser(@RequestBody FollowBody followBody) {
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<ResponseMessage> UnFollowuser(@RequestBody FollowBody followBody, @CurrentUser UserPrincipal userPrincipal) {
+    	followBody.setFollower(userPrincipal.getUserId());
+         
+     	System.out.println("<-- Print follow body -->");
         System.out.println(followBody);
-        String follower = followBody.getFollower();
+         
+        String follower = followBody.getFollower();  	
         String toUnFollow = followBody.getToUnFollow();
+        
         iUserService.UnFollowUser(follower, toUnFollow);
-        ResponseMessage rm = new ResponseMessage();
-        rm.setMessage("Success");
-        rm.setStatusCode(200);
+        ResponseMessage rm = new ResponseMessage("Success", 200);
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "deleteUser/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseMessage> DeleteUser(@RequestParam String id) throws NotFoundException {
         iUserService.deleteUser(id);
-        ResponseMessage rm = new ResponseMessage();
-        rm.setMessage("Success");
-        rm.setStatusCode(200);
+        ResponseMessage rm = new ResponseMessage("Success", 200);
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "deleteAllUsers")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseMessage> DeleteAllUsers() {
         iUserService.deleteAllUsers();
-        ResponseMessage rm = new ResponseMessage();
-        rm.setMessage("Success");
-        rm.setStatusCode(200);
+        ResponseMessage rm = new ResponseMessage("Success", 200);
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/postuserphoto/{profilePhotoUrl}/{authorId}")
-    public void SetUserProfilePhoto(@PathVariable String profilePhotoUrl, @PathVariable String authorId) {
-        iUserService.postUserPhoto(profilePhotoUrl, authorId);
+    @PostMapping(value = "/postuserphoto/{profilePhotoUrl}")
+    @PreAuthorize("hasRole('USER')")
+    public void SetUserProfilePhoto(@PathVariable String profilePhotoUrl, @CurrentUser UserPrincipal userPrincipal) {
+        iUserService.postUserPhoto(profilePhotoUrl, userPrincipal.getUserId());
     }
 
-    @ExceptionHandler(DuplicateUserException.class)
-    public ResponseEntity<ResponseMessage> handleDuplicateUserException(HttpServletRequest request, Exception ex) {
-        ResponseMessage rm = new ResponseMessage();
-        rm.setMessage(ex.getMessage());
-        rm.setStatusCode(406);
-        return new ResponseEntity<ResponseMessage>(rm, HttpStatus.NOT_ACCEPTABLE);
-    }
-
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ResponseMessage> handleNotFoundException(HttpServletRequest request, Exception ex) {
-        ResponseMessage rm = new ResponseMessage();
-        rm.setMessage(ex.getMessage());
-        rm.setStatusCode(404);
-        return new ResponseEntity<ResponseMessage>(rm, HttpStatus.NOT_FOUND);
-    }
 }

@@ -24,7 +24,7 @@ export default function BuzzCard(props) {
   const [profilePicture, setProfilePicture] = useState(false);
 
   useEffect(() => {
-    api.getUser(authorId()).then((res) => {
+    api.getUser(props.data.userId).then((res) => {
       if (res.profilePhotoUrl !== null) {
         setProfilePicture(res.profilePhotoUrl);
       }

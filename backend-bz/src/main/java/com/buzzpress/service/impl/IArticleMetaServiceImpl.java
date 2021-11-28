@@ -31,7 +31,7 @@ public class IArticleMetaServiceImpl implements IArticleMetaSevice {
     }
 
     @Override
-    public List<ArticleMeta> fetchArticleMetaByAuthorId(Long authorId) throws NotFoundException {
+    public List<ArticleMeta> fetchArticleMetaByAuthorId(String authorId) throws NotFoundException {
         List<ArticleMeta> articleMeta = articleMetaDataRepository.findByAuthorId(authorId);
         if (articleMeta.size() == 0) {
             throw new NotFoundException("Author not found");

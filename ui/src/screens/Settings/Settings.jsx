@@ -36,12 +36,12 @@ export default function UserDetails() {
     });
     fd.delete("file");
     console.log("posting photo");
-    api.postProfilePhoto(imageData.name,authorId())
+    api.postProfilePhoto(imageData.name)
   }
 
   useEffect(() => {
 
-    axios.get(backendUrl + "/userStats/"+authorId()).then((res) =>{
+    axios.get(backendUrl + "/userStats").then((res) =>{
       console.log(res.data);
       setStats({
         ArticlePublished: res.data.articleAuthored,
@@ -50,7 +50,7 @@ export default function UserDetails() {
     })
 
     // loading data for article meta
-    axios.get(backendUrl + "/user/"+authorId()).then((res) => {
+    axios.get(backendUrl + "/user").then((res) => {
       console.log(res.data);
       setAuthorDetails({
         PersonalData: {firstName: res.data.userName},
