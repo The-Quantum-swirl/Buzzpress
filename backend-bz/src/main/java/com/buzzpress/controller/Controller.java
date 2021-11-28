@@ -112,7 +112,7 @@ public class Controller {
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "deleteUser/{id}")
+    @DeleteMapping(value = "deleteUser/{:id}")
     public ResponseEntity<ResponseMessage> DeleteUser(@RequestParam String id) throws NotFoundException {
         iUserService.deleteUser(id);
         ResponseMessage rm = new ResponseMessage();

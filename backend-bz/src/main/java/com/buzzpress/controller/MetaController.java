@@ -1,17 +1,17 @@
 package com.buzzpress.controller;
 
+import java.util.List;
+
 import com.buzzpress.beans.ArticleMeta;
 import com.buzzpress.dao.ArticleMetaDataRepository;
 //import com.buzzpress.model.LikeBody;
 import com.buzzpress.service.IArticleMetaSevice;
-import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javassist.NotFoundException;
@@ -42,7 +42,7 @@ public class MetaController {
     public List<ArticleMeta> getArticleMetabyId(@PathVariable Long id) {
         return iArticleMetaSevice.fetchArticleMetaByArticleId(id);
     }
-    
+
     @GetMapping(value = "/articleMetaByAuthor/{authorId}")
     @PreAuthorize("hasRole('USER')")
     public List<ArticleMeta> getartic(@PathVariable Long authorId) throws NotFoundException {
