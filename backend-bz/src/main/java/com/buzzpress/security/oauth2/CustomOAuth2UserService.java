@@ -2,14 +2,17 @@ package com.buzzpress.security.oauth2;
 
 import java.util.Optional;
 
+import com.buzzpress.beans.UserStats;
 import com.buzzpress.beans.Users_;
 import com.buzzpress.dao.UserDataRepository;
+import com.buzzpress.dao.UserStatsRepository;
 import com.buzzpress.exception.OAuth2AuthenticationProcessingException;
 import com.buzzpress.model.AuthProvider;
 import com.buzzpress.security.UserPrincipal;
 import com.buzzpress.security.oauth2.user.OAuth2UserInfo;
 import com.buzzpress.security.oauth2.user.OAuth2UserInfoFactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -26,6 +29,8 @@ import lombok.RequiredArgsConstructor;
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private final UserDataRepository UserDataRepository;
+    @Autowired
+    UserStatsRepository userStatsRepository;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
@@ -76,7 +81,14 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         user.setName(oAuth2UserInfo.getName());
         user.setUserEmail(oAuth2UserInfo.getUserEmail());
         user.setImageUrl(oAuth2UserInfo.getImageUrl());
-        return UserDataRepository.save(user);
+        Users_ response = UserDataRepository.save(user);
+        // fallback for adding data to the userStats table till the join mapping is
+        // clear
+        Optional<Users_> user_fromDb = UserDataRepository.findByUserEmail(user.getUserEmail());
+        System.out.println(user_fromDb.get());
+        UserStats userStats = new UserStats(user_fromDb.get().getUserId());
+        userStatsRepository.save(userStats);
+        return response;
     }
 
     private Users_ updateExistingUser(Users_ existingUser, OAuth2UserInfo oAuth2UserInfo) {
