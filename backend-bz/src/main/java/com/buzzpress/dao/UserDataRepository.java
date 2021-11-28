@@ -1,6 +1,7 @@
 package com.buzzpress.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.buzzpress.beans.Users_;
 
@@ -14,6 +15,6 @@ public interface UserDataRepository extends JpaRepository<Users_, String> {
 
     public List<Users_> findByUserName(String userName);
 
-    public List<Users_> findByUserEmail(String userEmail);
+    Optional<Users_> findByUserEmail(String email);
 
 }

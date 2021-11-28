@@ -6,9 +6,7 @@ import com.buzzpress.security.oauth2.CustomOAuth2UserService;
 import com.buzzpress.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.buzzpress.security.oauth2.OAuth2AuthenticationFailureHandler;
 import com.buzzpress.security.oauth2.OAuth2AuthenticationSuccessHandler;
-import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -18,19 +16,20 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import lombok.RequiredArgsConstructor;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
-	
+
     private final CustomOAuth2UserService customOAuth2UserService;
-	
+
     private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
-	
+
     private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
-	
+
     private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
     @Bean

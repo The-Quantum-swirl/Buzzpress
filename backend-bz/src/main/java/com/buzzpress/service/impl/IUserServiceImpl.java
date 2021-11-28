@@ -38,8 +38,8 @@ public class IUserServiceImpl implements IUserService {
     @Override
     public void saveUserDetails(Users_ details) throws DuplicateUserException {
         try {
-            if (userDataRepository.findByUserEmail(details.getUserEmail()).size() != 0) {
-                throw new DuplicateUserException("Please use unique Email");
+            if (userDataRepository.findByUserName(details.getUserEmail()).size() != 0) {
+                throw new DuplicateUserException("Please use unique UserName");
             }
             details.setUserJoinDate(LocalDate.now());
             userDataRepository.save(details);

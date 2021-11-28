@@ -3,18 +3,17 @@ package com.buzzpress.beans;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.buzzpress.model.AuthProvider;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -35,17 +34,13 @@ import lombok.ToString;
 
 public class Users_ implements Serializable {
     @Id
-    // @SequenceGenerator(name = "UserId_sequence", sequenceName =
-    // "UserId_sequence", allocationSize = 1)
-    // @GeneratedValue(strategy = GenerationType.IDENTITY, generator =
-    // "UserId_sequence")
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String userId;
     private String userName;
-
     @Column(unique = true)
     private String userEmail;
+    private String name;
     private String userAddress;
     private String userPhoneNumber;
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -54,6 +49,14 @@ public class Users_ implements Serializable {
     private HashSet<String> followers;
     private HashSet<String> following;
     private String profilePhotoUrl;
+    private String imageUrl;
+    @Builder.Default
+    private Boolean emailVerified = false;
+    @JsonIgnore
+    private String password = null;
+    private AuthProvider provider;
+
+    private String providerId;
 
     public Users_(String userName, String userEmail, String userAddress, String userPhoneNumber,
             LocalDate dateOfBirth) {

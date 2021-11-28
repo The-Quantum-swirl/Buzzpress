@@ -1,7 +1,7 @@
 package com.buzzpress.controller;
 
-import com.buzzpress.beans.User;
-import com.buzzpress.dao.UserRepository;
+import com.buzzpress.beans.Users_;
+import com.buzzpress.dao.UserDataRepository;
 import com.buzzpress.exception.ResourceNotFoundException;
 import com.buzzpress.security.CurrentUser;
 import com.buzzpress.security.UserPrincipal;
@@ -16,12 +16,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LoginController {
 
-    private final UserRepository userRepository;
+    private final UserDataRepository UserDataRepository;
 
     @GetMapping("/profile")
     @PreAuthorize("hasRole('USER')")
-    public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
-        return userRepository.findById(userPrincipal.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
+    public Users_ getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
+        return UserDataRepository.findById(userPrincipal.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getUserId()));
     }
 }
