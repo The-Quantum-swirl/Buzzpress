@@ -25,6 +25,7 @@ export default function Home(props) {
     api.getArticleCards().then((res) => {
       console.log(res);
       var arr = res.map((dt) => {
+        
         return {
           authorname: dt.authorName, 
           authorLink: api.getProfileUrl(dt.authorId),
@@ -40,7 +41,7 @@ export default function Home(props) {
           tag: dt.tag ,
 
           link: articleUrl + dt.articleId,
-          imageLink: api.getThumbUrl(dt.thumbUrl),
+          imageLink:  dt.thumbUrl,
         }
       })
       setDisplayData(arr)

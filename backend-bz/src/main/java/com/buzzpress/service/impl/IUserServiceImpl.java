@@ -26,6 +26,7 @@ public class IUserServiceImpl implements IUserService {
         Users_ userObj = null;
         try {
             userObj = userDataRepository.findByUserId(userId);
+            System.out.println(userObj.getName());
             if (userObj == null) {
                 throw new NotFoundException("user not found");
             }
@@ -64,7 +65,7 @@ public class IUserServiceImpl implements IUserService {
         try {
             user = userDataRepository.findByUserId(userId);
             System.out.println(user);
-            return user.getUserName();
+            return user.getName();
         } catch (Exception e) {
             throw e;
         }

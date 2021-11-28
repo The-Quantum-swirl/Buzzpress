@@ -20,16 +20,7 @@ import BuzzAvatar from "../BuzzAvatar";
 const { Text, Title } = Typography;
 
 export default function BuzzCard(props) {
-  const [onFire, setOnFire] = useState(false);
-  const [profilePicture, setProfilePicture] = useState(false);
-
-  useEffect(() => {
-    api.getUser(props.data.userId).then((res) => {
-      if (res.profilePhotoUrl !== null) {
-        setProfilePicture(res.profilePhotoUrl);
-      }
-    });
-  }, []);
+  const [img, setImg] = useState(false);
 
   if (props === undefined || props.data === undefined) {
     return <Response statusCode={404} />;
@@ -43,14 +34,16 @@ export default function BuzzCard(props) {
   const tag = props.data.tag;
   const authorLink = props.data.authorLink;
   const articleLink = props.data.link;
-  const imageLink = props.data.imageLink;
+  api.getThumbUrl(props.data.imageLink).then((res) => {
+    setImg(res);
+    // return res
+  });
   const likes = props.data.likes;
   const views = props.data.views;
   const userId = props.data.authorId;
 
-  function handleFire() {
-    setOnFire(!onFire);
-  }
+  console.log(img)
+
   return (
     <div
       style={{
@@ -164,7 +157,7 @@ export default function BuzzCard(props) {
               alt="unable to load"
               className="imghover"
               style={{ height: "100%", width: "100%" }}
-              src={imageLink}
+              src={img}
             />
           </div>
           {/* image end */}
