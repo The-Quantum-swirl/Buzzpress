@@ -22,6 +22,13 @@ const { Text, Title } = Typography;
 export default function BuzzCard(props) {
   const [img, setImg] = useState(false);
 
+  useEffect(() => {
+    api.getThumbUrl(props.data.imageLink).then((res) => {
+      setImg(res);
+      // return res
+    });
+  }, [])
+
   if (props === undefined || props.data === undefined) {
     return <Response statusCode={404} />;
   }
@@ -34,15 +41,14 @@ export default function BuzzCard(props) {
   const tag = props.data.tag;
   const authorLink = props.data.authorLink;
   const articleLink = props.data.link;
-  api.getThumbUrl(props.data.imageLink).then((res) => {
-    setImg(res);
-    // return res
-  });
+  
   const likes = props.data.likes;
   const views = props.data.views;
   const userId = props.data.authorId;
-
-  console.log(img)
+  let fileData = new FileReader();
+  // fileData.readAsDataURL(img)
+  // fileData.readAsText(img);
+  console.log(img.data)
 
   return (
     <div

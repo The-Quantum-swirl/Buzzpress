@@ -74,7 +74,7 @@ const getThumbUrl = async (imageName) => {
 
     const res = await httpService.get(baseURL() + `uploads/${imageName}`)
     console.log(res);
-    return res.data;
+    return res;
 }
 const getProfileUrl = (imageName) => {
     return imageName;
