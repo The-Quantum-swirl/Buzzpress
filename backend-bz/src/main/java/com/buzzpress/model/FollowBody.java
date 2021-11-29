@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FollowBody {
+	
     private String follower;
     private String toFollow;
     private String toUnFollow;

@@ -26,4 +26,11 @@ public class ExceptionsController {
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.NOT_FOUND);
     }
     
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ResponseMessage> handleRuntimeException(HttpServletRequest request, Exception ex) {
+        ResponseMessage rm = new ResponseMessage();
+        rm.setMessage(ex.getMessage());
+        rm.setStatusCode(404);
+        return new ResponseEntity<ResponseMessage>(rm, HttpStatus.NOT_FOUND);
+    }
 }

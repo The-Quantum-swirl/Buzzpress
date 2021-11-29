@@ -13,7 +13,7 @@ import com.buzzpress.model.FollowBody;
 import com.buzzpress.model.ResponseMessage;
 import com.buzzpress.security.CurrentUser;
 import com.buzzpress.security.UserPrincipal;
-import com.buzzpress.service.IUserService;
+import com.buzzpress.service.impl.IUserServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +37,7 @@ import javassist.NotFoundException;
 public class Controller {
 
     @Autowired
-    IUserService iUserService;
+    IUserServiceImpl iUserServiceImpl;
     @Autowired
     UserStatsRepository userStatsRepository;
 
@@ -45,13 +45,14 @@ public class Controller {
     @PreAuthorize("hasRole('USER')")
     public Users_ getUserDetails(@PathVariable String id) throws NotFoundException {
         System.out.println(id);
-        return iUserService.getUserDetails(id);
+        return iUserServiceImpl.getUserDetails(id);
     }
     
     @GetMapping(value = "/author")
     @PreAuthorize("hasRole('USER')")
-    public Users_ getUserDetails(@CurrentUser UserPrincipal userPrincipal) throws NotFoundException {
-        return iUserService.getUserDetails(userPrincipal.getUserId());
+    public Users_ getUserDetailsByToken(@CurrentUser UserPrincipal userPrincipal) throws NotFoundException {
+        
+    	return iUserServiceImpl.getUserDetails(userPrincipal.getUserId());
     }
     
     @GetMapping(value = "/compareuser/{userId}")
@@ -70,7 +71,7 @@ public class Controller {
         rm.setStatusCode(200);
         UserStats userStats = new UserStats(entity.getUserId());
         userStatsRepository.save(userStats);
-        iUserService.saveUserDetails(entity);
+        iUserServiceImpl.saveUserDetails(entity);
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
     }
 
@@ -87,7 +88,7 @@ public class Controller {
         for (Users_ users_ : entity) {
             UserStats userStats = new UserStats(users_.getUserId());
             userStatsRepository.save(userStats);
-            iUserService.saveUserDetails(users_);
+            iUserServiceImpl.saveUserDetails(users_);
         }
 
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
@@ -96,7 +97,7 @@ public class Controller {
     @GetMapping(value = "/allUsers")
     @PreAuthorize("hasRole('USER')")
     public List<Users_> getAllUserDetails() {
-        return iUserService.showAllUsers();
+        return iUserServiceImpl.showAllUsers();
     }
 
     @PutMapping(value = "/follow")
@@ -110,7 +111,7 @@ public class Controller {
         String follower = followBody.getFollower();
         String toFollow = followBody.getToFollow();
 
-        iUserService.FollowUser(follower, toFollow);
+        iUserServiceImpl.FollowUser(follower, toFollow);
 
         ResponseMessage rm = new ResponseMessage("Success", 200);
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
@@ -127,7 +128,7 @@ public class Controller {
         String follower = followBody.getFollower();  	
         String toUnFollow = followBody.getToUnFollow();
         
-        iUserService.UnFollowUser(follower, toUnFollow);
+        iUserServiceImpl.UnFollowUser(follower, toUnFollow);
         ResponseMessage rm = new ResponseMessage("Success", 200);
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
     }
@@ -135,7 +136,7 @@ public class Controller {
     @DeleteMapping(value = "deleteUser/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseMessage> DeleteUser(@RequestParam String id) throws NotFoundException {
-        iUserService.deleteUser(id);
+        iUserServiceImpl.deleteUser(id);
         ResponseMessage rm = new ResponseMessage("Success", 200);
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
     }
@@ -143,7 +144,7 @@ public class Controller {
     @DeleteMapping(value = "deleteAllUsers")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseMessage> DeleteAllUsers() {
-        iUserService.deleteAllUsers();
+        iUserServiceImpl.deleteAllUsers();
         ResponseMessage rm = new ResponseMessage("Success", 200);
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);
     }
@@ -151,7 +152,7 @@ public class Controller {
     @PostMapping(value = "/postuserphoto/{profilePhotoUrl}")
     @PreAuthorize("hasRole('USER')")
     public void SetUserProfilePhoto(@PathVariable String profilePhotoUrl, @CurrentUser UserPrincipal userPrincipal) {
-        iUserService.postUserPhoto(profilePhotoUrl, userPrincipal.getUserId());
+        iUserServiceImpl.postUserPhoto(profilePhotoUrl, userPrincipal.getUserId());
     }
 
 }

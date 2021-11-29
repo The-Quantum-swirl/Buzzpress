@@ -10,8 +10,8 @@ import com.buzzpress.security.CurrentUser;
 import com.buzzpress.security.UserPrincipal;
 import com.buzzpress.service.IArticleMetaSevice;
 import com.buzzpress.service.IArticleService;
-import com.buzzpress.service.IUserService;
 import com.buzzpress.service.IUserStatsService;
+import com.buzzpress.service.impl.IUserServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,7 @@ import javassist.NotFoundException;
 @RestController
 public class ArticleController {
     @Autowired
-    IUserService iUserService;
+    IUserServiceImpl iUserService;
     @Autowired
     IArticleService iArticleService;
     @Autowired
