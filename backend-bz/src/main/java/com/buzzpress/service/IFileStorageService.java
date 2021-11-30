@@ -1,5 +1,6 @@
 package com.buzzpress.service;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
@@ -19,4 +20,5 @@ public interface IFileStorageService {
     public void DeleteAll();
 
     public Stream<Path> loadAllImages();
+    public String newImageFile(String filename) throws IOException;
 }
