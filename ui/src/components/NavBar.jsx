@@ -20,7 +20,7 @@ export default function NavBar() {
 
   const menu = (
     <Menu>
-      <Menu.Item onClick={(e) => history.push("/profile/")}>
+      <Menu.Item onClick={(e) => history.push("/profile/you")}>
         Your Profile
       </Menu.Item>
       <Menu.Item onClick={(e) => history.push("/create")}>
@@ -52,7 +52,7 @@ export default function NavBar() {
           <Text style={{color:'white'}}>1minthoughts</Text>
         </Menu.Item>
         <Menu.Item
-          className='ant-dropdown-link'
+          // className='ant-dropdown-link'
           key={2}
           style={{
             marginRight: "0%",

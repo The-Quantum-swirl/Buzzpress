@@ -1,5 +1,4 @@
 import axios from "axios";
-import { accessToken } from "./ServicePath";
 
 axios.interceptors.response.use(null, (error) => {
     const expectedError =

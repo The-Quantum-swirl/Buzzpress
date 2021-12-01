@@ -4,10 +4,8 @@ import NavBar from '../../components/NavBar';
 import BuzzCard from '../../components/home/BuzzCard';
 import { Avatar, Col, Row, Space, Typography, Divider, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { profileUrl, backendUrl,articleUrl } from '../../components/common/Path';
 import { DateToMonthYearFormat, thumbUrl } from '../../components/Date';
 import api from "../../service/ServiceCall";
-import { authorId } from '../../constants/UserData';
 import { ButtonGroup } from '@mui/material';
 import BuzzAvatar from '../../components/BuzzAvatar';
 const { Text, Link, Title } = Typography;
@@ -26,15 +24,17 @@ export default function Profile(){
   });
 
   useEffect(() => {
-
+    console.log(userId);
+    userId==='you'? 
+    ( setDisable(true) ) : (
     api.sameUser(userId).then((res) => {
       res? setDisable(true): setDisable(false)
-    })
+    }) )
 
-    api.getUser(userId).then((res) => {
+    api.getUser( (userId==='you'? undefined: userId) ).then((res) => {
       console.log(res)
       setPersonalData({
-        name:res.userName,
+        name:res.name,
         joinedDate:res.userJoinDate!==null ? DateToMonthYearFormat(res.userJoinDate) : "1 Jan,1999",
         followers: res.followers!==null ? res.followers.length: 0,
         following: res.following!==null ? res.following.length: 0,
@@ -42,21 +42,24 @@ export default function Profile(){
       })
     })
 
-    api.getArticleCardsByAuthorId(userId).then((res) => {
+    api.getArticleCardsByAuthorId((userId==='you'? undefined: userId)).then((res) => {
       console.log(res);
       var arr = res.map((dt) => {
         return {
-          authorname: dt.authorName, authorLink: profileUrl + dt.authorId,
+          authorname: dt.authorName, 
+          authorLink: api.getProfileUrl(dt.authorId),
 
-          title: dt.title, summary: dt.summary,
+          title: dt.title, 
+          summary: dt.summary,
 
           publishDate: dt.publishDate, readTime: dt.readTime + " min",
           likes: dt.likes, tag: dt.tag ,
           views: dt.views,
-          link: articleUrl + dt.articleId,
-          imageLink: api.getThumbUrl(dt.thumbUrl),
+          link: api.getArticleUrl(dt.articleId),
+          imageLink: dt.thumbUrl,
         }
       })
+      
       setDisplayData(arr)
       console.log(displayData)
     })

@@ -3,7 +3,6 @@ import { Button, Typography } from "antd";
 import { RiseOutlined } from "@ant-design/icons";
 import { ButtonGroup } from "@mui/material";
 import { Link } from 'react-router-dom';
-import { authorId } from "../../constants/UserData";
 import api from "../../service/ServiceCall";
 import { useEffect, useState } from "react";
 const { Text, Title } = Typography;

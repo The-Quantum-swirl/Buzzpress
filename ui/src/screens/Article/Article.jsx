@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import FinalPreview from "../Write/FinalPreview";
-import { profileUrl } from "../../components/common/Path";
 import { DateToMonthYearFormat } from "../../components/Date";
 import { Button, Col, Row, Skeleton } from "antd";
 import { Typography } from "antd";
@@ -15,7 +14,6 @@ import {
 } from "@ant-design/icons";
 import api from "../../service/ServiceCall";
 import { Response } from "../../service/Response";
-import { authorId } from "../../constants/UserData";
 
 const { Text, Title } = Typography;
 
@@ -73,7 +71,7 @@ export default function Article() {
           authorName: res.authorName || temp,
           publishDate: res.publishDate,
           readTime: res.readTime,
-          authorLink: profileUrl + res.authorId,
+          authorLink: api.getProfileUrl(res.authorId),
           userId: tempUserId,
           title: res.title,
           summary: res.summary,
