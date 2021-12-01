@@ -29,7 +29,6 @@ import lombok.ToString;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @EqualsAndHashCode
 @ToString
@@ -71,6 +70,10 @@ public class Users_ implements Serializable {
         this.followers = new HashSet<String>();
         this.following = new HashSet<String>();
 
+    }
+
+    public Users_(){
+        this.userJoinDate = LocalDate.now();
     }
 
 }
