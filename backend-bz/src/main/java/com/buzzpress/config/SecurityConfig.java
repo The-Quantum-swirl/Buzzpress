@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authenticationEntryPoint(new RestAuthenticationEntryPoint())
             .and().authorizeRequests()
             .antMatchers("/", "/error", "/favicon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg", "/**/*.jpg",
-                        "/**/*.html", "/**/*.css", "/**/*.js", "/uploads/*.jpg")
+                        "/**/*.html", "/**/*.css", "/**/*.js", "/uploads/*.jpg","/images/**","/swagger-ui/**")
             .permitAll().antMatchers("/auth/**", "/oauth2/**").permitAll().anyRequest().authenticated().and()
             .oauth2Login().authorizationEndpoint().baseUri("/oauth2/authorize")
             .authorizationRequestRepository(cookieAuthorizationRequestRepository()).and().redirectionEndpoint()
@@ -65,5 +65,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Add our custom Token based authentication filter
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        
     }
 }

@@ -72,7 +72,7 @@ const hasLiked = async (articleId) => {
 const getThumbUrl = async (imageName) => {
     if (await imageName === undefined)    return undefined;
 
-    const res = await httpService.get(baseURL() + `uploadsnew/${imageName}`)
+    const res = await httpService.get(baseURL() + `images/${imageName}`)
     console.log(res);
     return res;
 }

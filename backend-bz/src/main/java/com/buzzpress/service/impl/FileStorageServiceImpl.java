@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class FileStorageServiceImpl implements IFileStorageService {
-    private final Path root = Paths.get("uploads");
+    private final Path root = Paths.get("src/main/resources/images");
 
     @Override
     public void init() {
