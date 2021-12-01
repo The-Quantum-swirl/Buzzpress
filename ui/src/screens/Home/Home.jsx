@@ -4,9 +4,7 @@ import { Typography, Space, Divider } from "antd";
 import BuzzCard from "../../components/home/BuzzCard";
 import RadialChart from "../../components/home/RadialChart.js";
 import { InstagramOutlined, TwitterOutlined } from "@ant-design/icons";
-import { profileUrl, articleUrl, backendUrl } from "../../components/common/Path.js";
 import { useEffect, useState } from "react";
-import { authorId } from "../../constants/UserData";
 import api from "../../service/ServiceCall";
 import BuzzPerformer from "../../components/home/BuzzPerformer";
 import { LoginModal } from "../../components/LoginModal";
@@ -40,7 +38,7 @@ export default function Home(props) {
           views: dt.views,
           tag: dt.tag ,
 
-          link: articleUrl + dt.articleId,
+          link: api.getArticleUrl(dt.articleId),
           imageLink:  dt.thumbUrl,
         }
       })

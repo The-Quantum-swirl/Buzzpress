@@ -1,5 +1,4 @@
 import { baseURL} from "./ServicePath";
-import { authorId } from "../constants/UserData";
 import httpService from './Httpservice';
 
 const getAllUsers = async () => {
@@ -70,7 +69,7 @@ const hasLiked = async (articleId) => {
     return await httpService.get(baseURL() + `hasLikedArticle/${articleId}`)
 }
 const getThumbUrl = async (imageName) => {
-    if (await imageName === undefined)    return undefined;
+    if (await imageName === '')    return {data:''};
 
     const res = await httpService.get(baseURL() + `uploadsnew/${imageName}`)
     // console.log(res);
@@ -79,7 +78,10 @@ const getThumbUrl = async (imageName) => {
 const getProfileUrl = (profileId) => {
     return `/profile/${profileId}`;
 }
-const getAuthorName = (authorId) => "Anonymous";
+
+const getArticleUrl = (articleId) => {
+    return `/article/${articleId}`;
+}
 
 const getArticleCards = async () =>{
     const res = await httpService.get(baseURL() + `articleMeta`);
@@ -116,7 +118,7 @@ export default {
     getProfileUrl,
     getArticle,
     getPerformers,
-    getAuthorName,
+    getArticleUrl,
     sameUser,
     hasLiked,
 

@@ -13,7 +13,6 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { convertDate, DateToMonthYearFormat } from "../Date";
 import api from "../../service/ServiceCall";
-import { authorId } from "../../constants/UserData";
 import { Response } from "../../service/Response";
 import BuzzAvatar from "../BuzzAvatar";
 import BlankImage from "./BlankImage";

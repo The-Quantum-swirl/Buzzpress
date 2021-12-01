@@ -8,7 +8,7 @@ export default function BuzzAvatar(props) {
   const [profilePicture, setProfilePicture] = useState(false);
 
   useEffect(() => {
-    api.getUser(userId).then((res) => {
+    api.getUser( (userId==='you'?undefined:userId) ).then((res) => {
       //   console.log(res)
       if (res.profilePhotoUrl !== null) {
         setProfilePicture(res.profilePhotoUrl);

@@ -1,4 +1,3 @@
-import { backendUrl } from "../../components/common/Path";
 import Preview from "./Preview";
 import api from "../../service/ServiceCall";
 

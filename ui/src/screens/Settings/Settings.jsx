@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import axios from "axios";
-import { backendUrl } from "../../components/common/Path";
 import { Button, Col, Divider, Form, Input, PageHeader, Row, Space, Switch, Tabs, Typography } from "antd";
 import { useState } from "react";
 import NavBar from "../../components/NavBar";
 import MessageCard from "../../components/settings/MessageCard";
 import { convertDate, DateToMonthYearFormat } from "../../components/Date";
-import { authorId } from "../../constants/UserData";
 import UploadButton from "../../components/UploadButton";
 import api from "../../service/ServiceCall";
 const { TabPane } = Tabs;
@@ -41,7 +39,7 @@ export default function UserDetails() {
 
   useEffect(() => {
 
-    axios.get(backendUrl + "/userStats").then((res) =>{
+    api.getUserStats(undefined).then((res) =>{
       console.log(res.data);
       setStats({
         ArticlePublished: res.data.articleAuthored,
@@ -50,10 +48,10 @@ export default function UserDetails() {
     })
 
     // loading data for article meta
-    axios.get(backendUrl + "/user").then((res) => {
+    api.getUser().then((res) => {
       console.log(res.data);
       setAuthorDetails({
-        PersonalData: {firstName: res.data.userName},
+        PersonalData: {firstName: res.data.name},
         ArticlePublished: stats.ArticlePublished,
       })
       setEditableName(res.data.userName);

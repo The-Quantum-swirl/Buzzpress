@@ -6,7 +6,6 @@ import { TextField } from "@mui/material";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import UploadButton from "../../components/UploadButton";
-import { authorId } from "../../constants/UserData";
 import api from "../../service/ServiceCall";
 
 const { Option } = Select;
@@ -128,8 +127,8 @@ export default function Create(props) {
 	  content: content,
     contentType : contentType,
 	  readTime: esimatedTime,
-    authorName: api.getAuthorName(authorId),
-    authorLink: api.getProfileUrl(authorId),
+    authorName: 'Your name',
+    authorLink: api.getProfileUrl('you'),
     tag: selectedTags,
   }
   props.data(data);

@@ -3,15 +3,13 @@ import { useState } from "react";
 import { Button } from "antd";
 import Create from "./Create";
 import Preview from "./Preview";
-import { profileUrl } from "../../components/common/Path";
 import { convertDate } from "../../components/Date";
 import api from "../../service/ServiceCall";
 import { Response } from "../../service/Response";
-import { authorId } from "../../constants/UserData";
 
 export default function Write() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [data, setData] = useState({ readTime: "1 min", authorLink: profileUrl, title: "", summary: "",});
+  const [data, setData] = useState({ readTime: "1 min", authorLink: api.getProfileUrl('you'), title: "", summary: "",});
   var statusCode = 200, previewData = {};
 
   const outcome = (res1, res2) => {
