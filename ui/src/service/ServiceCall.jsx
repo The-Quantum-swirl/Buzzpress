@@ -73,11 +73,11 @@ const getThumbUrl = async (imageName) => {
     if (await imageName === undefined)    return undefined;
 
     const res = await httpService.get(baseURL() + `uploadsnew/${imageName}`)
-    console.log(res);
+    // console.log(res);
     return res;
 }
-const getProfileUrl = (imageName) => {
-    return imageName;
+const getProfileUrl = (profileId) => {
+    return `/profile/${profileId}`;
 }
 const getAuthorName = (authorId) => "Anonymous";
 

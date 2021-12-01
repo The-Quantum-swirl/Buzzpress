@@ -16,6 +16,7 @@ import api from "../../service/ServiceCall";
 import { authorId } from "../../constants/UserData";
 import { Response } from "../../service/Response";
 import BuzzAvatar from "../BuzzAvatar";
+import BlankImage from "./BlankImage";
 
 const { Text, Title } = Typography;
 
@@ -45,10 +46,6 @@ export default function BuzzCard(props) {
   const likes = props.data.likes;
   const views = props.data.views;
   const userId = props.data.authorId;
-  let fileData = new FileReader();
-  // fileData.readAsDataURL(img)
-  // fileData.readAsText(img);
-  console.log(img.data)
 
   return (
     <div
@@ -158,6 +155,7 @@ export default function BuzzCard(props) {
               top: "19%",
             }}
           >
+            {img? 
             <img
               id="image"
               alt="unable to load"
@@ -165,6 +163,10 @@ export default function BuzzCard(props) {
               style={{ height: "100%", width: "100%" }}
               src={img}
             />
+            :
+            <BlankImage />
+            }
+            
           </div>
           {/* image end */}
         </Col>

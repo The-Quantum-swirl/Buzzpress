@@ -68,6 +68,7 @@ public class ImageController {
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<String> getImage1(@PathVariable String filename) throws RuntimeException, IOException {
         String image = fileStorageService.newImageFile(filename);
+//        return ResponseEntity.ok().body(image) ;
         return ResponseEntity.ok().body(image);
     }
 

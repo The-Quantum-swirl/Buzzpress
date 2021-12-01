@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LazyLoad from "react-lazyload";
 import Topics from "../../components/home/Topics";
 import { Response } from "../../service/Response";
 import { convertDate, DateToMonthYearFormat } from "../../components/Date";
 import { Row, Col, Typography } from "antd";
 import { Avatar, Space, Button } from "antd";
-import { UserOutlined, FireFilled, FireOutlined, ReadOutlined } from "@ant-design/icons";
+import { UserOutlined, FireFilled, FireOutlined, ReadOutlined, ApiFilled } from "@ant-design/icons";
 import BuzzAvatar from "../../components/BuzzAvatar";
+import api from "../../service/ServiceCall";
 const { Title, contentgraph, Text } = Typography;
 
 const checkURL = (url) => {
@@ -39,7 +40,7 @@ export default function Preview(props) {
   const content = props.data.content;
   const contentType = props.data.contentType;
   const imageList = props.data.imagelist || [];
-
+  let index = -1; 
   var temp = "";
 
   const mapData = (type, val) => {
@@ -56,18 +57,27 @@ export default function Preview(props) {
         </Title>
       );
     else if (type === "code") return <Text code> {val}</Text>;
-    else if (type === "image") {
-      const foundImage = imageList.find((img) => (
-        img.name === val || (checkURL(img) && img.indexOf(val) !== -1) ) );
-      temp = foundImage;
-      if (typeof foundImage === "object") {
-        temp = URL.createObjectURL(foundImage);
-      }
+    else if ( type === "image") {
+      console.log('image if else', imageList);
+
+      // const foundImage = await((index<imageList.length)? imageList[index]: '');
+
+      
+      // imageList.find((img) => (
+      //   img.name === val || (checkURL(img) && img.indexOf(val) !== -1) ) );
+      // temp = foundImage;
+      // if (typeof foundImage === "object") {
+      //   temp = URL.createObjectURL(foundImage);
+      // }
+      // console.log(temp)
+      index+=1;
+      console.log(imageList);
+
       return (
         <div style={{ maxHeight: "400px", maxWidth: "100%" }}>
         <LazyLoad once>
           <img
-            src={temp}
+            src={typeof imageList[index] === "object"? URL.createObjectURL(imageList[index]):imageList[index]}
             alt="unable to load"
             loading="lazy"
             style={{

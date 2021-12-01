@@ -19,7 +19,7 @@ export default function BuzzAvatar(props) {
   if (props.type === undefined || props.type === "medium") {
     return (
       <Avatar
-        src={profilePicture === false ? "" : api.getProfileUrl(profilePicture)}
+        src={profilePicture === false ? "" : profilePicture}
         style={{
           width: "40px",
           height: "40px",
@@ -31,7 +31,7 @@ export default function BuzzAvatar(props) {
   } else if (props.type === "large") {
     return (
       <Avatar
-        src={profilePicture === false ? "" : api.getProfileUrl(profilePicture)}
+        src={profilePicture === false ? "" : profilePicture}
         style={{
           width: "150px",
           height: "150px",
@@ -43,7 +43,7 @@ export default function BuzzAvatar(props) {
   } else {
     return (
       <Avatar
-        src={profilePicture === false ? "" : api.getProfileUrl(profilePicture)}
+        src={profilePicture === false ? "" : profilePicture}
         style={{
           width: "34px",
           height: "34px",
