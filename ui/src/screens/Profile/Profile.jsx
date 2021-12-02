@@ -31,7 +31,8 @@ export default function Profile(){
       res? setDisable(true): setDisable(false)
     }) )
 
-    api.getUser( (userId==='you'? undefined: userId) ).then((res) => {
+    api.getUser( (userId==='you'? undefined: userId) )
+    .then((res) => {
       console.log(res)
       setPersonalData({
         name:res.name,

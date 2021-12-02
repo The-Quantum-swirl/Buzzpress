@@ -7,8 +7,9 @@ const getAllUsers = async () => {
 };
 
 const getUser = async (id) => {
-    const res = (id === undefined ? await httpService.get(baseURL() + 'author') 
-    : await httpService.get(baseURL() + `user/${id}`) );
+    let path = id === undefined? 'author':`user/${id}`;
+    const res = await httpService.get(baseURL() + path);
+    console.log(res)
     return res.data;
 };
 const getUserStats = async () =>{

@@ -20,16 +20,16 @@ export default function NavBar() {
 
   const menu = (
     <Menu>
-      <Menu.Item onClick={(e) => history.push("/profile/you")}>
+      <Menu.Item key={'profile'} onClick={(e) => history.push("/profile/you")}>
         Your Profile
       </Menu.Item>
-      <Menu.Item onClick={(e) => history.push("/create")}>
+      <Menu.Item key={'write'} onClick={(e) => history.push("/create")}>
         Write Your Story
       </Menu.Item>
-      <Menu.Item onClick={(e) => history.push("/settings")}>
+      <Menu.Item key={'settings'} onClick={(e) => history.push("/settings")}>
         Settings
       </Menu.Item>
-      <Menu.Item onClick={(e) => logout()}>
+      <Menu.Item key={'logout'} onClick={(e) => logout()}>
         Logout
       </Menu.Item>
     </Menu>

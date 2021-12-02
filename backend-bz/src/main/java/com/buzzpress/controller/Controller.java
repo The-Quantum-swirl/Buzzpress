@@ -9,6 +9,7 @@ import com.buzzpress.beans.UserStats;
 import com.buzzpress.beans.Users_;
 import com.buzzpress.dao.UserStatsRepository;
 import com.buzzpress.exception.DuplicateUserException;
+import com.buzzpress.exception.UserNotFoundException;
 import com.buzzpress.model.FollowBody;
 import com.buzzpress.model.ResponseMessage;
 import com.buzzpress.security.CurrentUser;
@@ -43,15 +44,15 @@ public class Controller {
 
     @GetMapping(value = "/user/{id}")
     @PreAuthorize("hasRole('USER')")
-    public Users_ getUserDetails(@PathVariable String id) throws NotFoundException {
-        System.out.println(id);
+    public Users_ getUserDetails(@PathVariable String id) throws NotFoundException, UserNotFoundException {
+        
         return iUserServiceImpl.getUserDetails(id);
     }
     
     @GetMapping(value = "/author")
     @PreAuthorize("hasRole('USER')")
-    public Users_ getUserDetailsByToken(@CurrentUser UserPrincipal userPrincipal) throws NotFoundException {
-        
+    public Users_ getUserDetailsByToken(@CurrentUser UserPrincipal userPrincipal) throws NotFoundException, UserNotFoundException {
+    	
     	return iUserServiceImpl.getUserDetails(userPrincipal.getUserId());
     }
     
@@ -119,7 +120,7 @@ public class Controller {
 
     @PutMapping(value = "/unFollow")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<ResponseMessage> UnFollowuser(@RequestBody FollowBody followBody, @CurrentUser UserPrincipal userPrincipal) {
+    public ResponseEntity<ResponseMessage> UnFollowuser(@RequestBody FollowBody followBody, @CurrentUser UserPrincipal userPrincipal) throws UserNotFoundException {
     	followBody.setFollower(userPrincipal.getUserId());
          
      	System.out.println("<-- Print follow body -->");
@@ -135,7 +136,7 @@ public class Controller {
 
     @DeleteMapping(value = "deleteUser/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ResponseMessage> DeleteUser(@RequestParam String id) throws NotFoundException {
+    public ResponseEntity<ResponseMessage> DeleteUser(@RequestParam String id) throws NotFoundException, UserNotFoundException {
         iUserServiceImpl.deleteUser(id);
         ResponseMessage rm = new ResponseMessage("Success", 200);
         return new ResponseEntity<ResponseMessage>(rm, HttpStatus.OK);

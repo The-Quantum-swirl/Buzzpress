@@ -13,14 +13,11 @@ export default function FinalPreview(props) {
             imglist.push( api.getThumbUrl(element) )
         }
     })
-    console.log(imglist);
     props.data.imagelist = imglist;
     // preparing data ends
     
     return(
-        
         <Preview data={props.data} />
-        
     );
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.buzzpress.beans.Article;
+import com.buzzpress.exception.UserNotFoundException;
 import com.buzzpress.model.ResponseMessage;
 import com.buzzpress.security.CurrentUser;
 import com.buzzpress.security.UserPrincipal;
@@ -41,11 +42,11 @@ public class ArticleController {
     @PostMapping(value = "/saveArticle")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<ResponseMessage> saveArticle(@RequestBody Article entity, @CurrentUser UserPrincipal userPrincipal)
-            throws NotFoundException {
+            throws NotFoundException, UserNotFoundException {
         
         entity.setAuthorId(userPrincipal.getUserId());
-        
-        iArticleMetaSevice.saveMetaData(entity, iUserService.getUsernameFromUserId(entity.getAuthorId()));
+        String name = iUserService.getUsernameFromUserId(entity.getAuthorId());
+        iArticleMetaSevice.saveMetaData(entity, name);
         iArticleService.saveArticle(entity);
         iUserStatsService.incrementAuthored(entity.getAuthorId());
         

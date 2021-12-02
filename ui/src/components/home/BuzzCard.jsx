@@ -48,8 +48,8 @@ export default function BuzzCard(props) {
     <div
       style={{
         marginTop: "10px",
-        backgroundColor: "rgba(0,0,0,0.02)",
-        backdropFilter: 'blur("12px")',
+        // backgroundColor: "rgba(0,0,0,0.02)",
+        // backdropFilter: 'blur("12px")',
         padding: "8px 4px 4px 4px",
         borderRadius: "20px 20px",
         height:'100%',
