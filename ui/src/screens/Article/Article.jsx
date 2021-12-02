@@ -57,7 +57,8 @@ export default function Article() {
     
     // logic for like
     api.hasLiked(articleId).then((res) => {
-      if (res) {
+      console.log(res);
+      if (res.data) {
         setOnFire(true);
         templikes -= 1;
       }

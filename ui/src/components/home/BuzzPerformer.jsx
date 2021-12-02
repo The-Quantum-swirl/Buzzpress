@@ -56,7 +56,7 @@ export default function BuzzPerformer(props) {
                 display:'inline-flex' , alignItems:'center'
             }}
             >
-            <Text>{userName}</Text>
+            <Text>{userName.split(' ')[0] }</Text>
             </span>
         </div>
         </Link>

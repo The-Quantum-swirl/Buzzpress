@@ -68,11 +68,11 @@ const sameUser = async (userId) => {
 const hasLiked = async (articleId) => {
     return await httpService.get(baseURL() + `hasLikedArticle/${articleId}`)
 }
-const getThumbUrl = async (imageName) => {
-    if (await imageName === '')    return {data:''};
+const getThumbUrl = (imageName) => {
+    if (imageName === '')    return {data:''};
 
-    const res = await httpService.get(baseURL() + `images/${imageName}`)
-    console.log(res);
+    const res = baseURL() + `images/${imageName}`;
+    // console.log(res);
     // const res = await httpService.get(baseURL() + `uploadsnew/${imageName}`)
     // console.log(res);
     return res;

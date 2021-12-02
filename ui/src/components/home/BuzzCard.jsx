@@ -23,10 +23,8 @@ export default function BuzzCard(props) {
   const [img, setImg] = useState(false);
 
   useEffect(() => {
-    api.getThumbUrl(props.data.imageLink).then((res) => {
-      setImg(res.data);
-      // return res
-    });
+    const res = api.getThumbUrl(props.data.imageLink)
+    setImg(res);
   }, [])
 
   if (props === undefined || props.data === undefined) {

@@ -39,22 +39,22 @@ export default function UserDetails() {
 
   useEffect(() => {
 
-    api.getUserStats(undefined).then((res) =>{
-      console.log(res.data);
+    api.getUserStats().then((res) =>{
+      console.log(res);
       setStats({
-        ArticlePublished: res.data.articleAuthored,
-        ArticlesRead: res.data.articleRead
+        ArticlePublished: res.articleAuthored,
+        ArticlesRead: res.articleRead,
+        ArticleTarget: res.articleTargetRead,
       })
     })
 
     // loading data for article meta
     api.getUser().then((res) => {
-      console.log(res.data);
+      console.log(res);
       setAuthorDetails({
-        PersonalData: {firstName: res.data.name},
-        ArticlePublished: stats.ArticlePublished,
+        PersonalData: {firstName: res.name},
       })
-      setEditableName(res.data.userName);
+      setEditableName(res.name);
 
     });
 
@@ -101,7 +101,7 @@ export default function UserDetails() {
           <Col className="gutter-row" span={16}>
             <MessageCard
               rmPersonalData={authorDetails.PersonalData}
-              ArticlePublished={authorDetails.ArticlePublished}
+              ArticlePublished={stats.ArticlePublished}
             />
           </Col>
         </Row>

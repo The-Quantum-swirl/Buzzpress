@@ -5,13 +5,12 @@ export default function FinalPreview(props) {
     // preparing data for image list before previewing it
     var content = props.data.content;
     var contentType = props.data.contentType;
-    var imglist=[];
+    var imglist= [];
 
-    content.map( async(element, index) => {
+    content.map( (element, index) => {
         if (contentType[index] === 'image'){
             // content[index] is image name
-            // imglist.push(backendUrl+'/uploadsnew/'+content[index]);
-            imglist.push( await api.getThumbUrl(element).then((res) => {return res.data;}) )
+            imglist.push( api.getThumbUrl(element) )
         }
     })
     console.log(imglist);
@@ -19,7 +18,9 @@ export default function FinalPreview(props) {
     // preparing data ends
     
     return(
+        
         <Preview data={props.data} />
+        
     );
 
 }

@@ -20,6 +20,12 @@ const checkURL = (url) => {
 
 export default function Preview(props) {
   console.log(props.data);
+
+  useEffect(() => {
+    console.log('setting')
+    console.log(props.data.imagelist[0])
+  }, [props.data.imagelist])
+
   if (
     props.data === undefined ||
     props.data.title === undefined ||
@@ -39,7 +45,7 @@ export default function Preview(props) {
   const summary = props.data.summary || "Empty Recap";
   const content = props.data.content;
   const contentType = props.data.contentType;
-  const imageList = props.data.imagelist || [];
+  let imageList = props.data.imagelist;
   let index = -1; 
   var temp = "";
 
@@ -59,7 +65,9 @@ export default function Preview(props) {
     else if (type === "code") return <Text code> {val}</Text>;
     else if ( type === "image") {
       console.log('image if else', imageList);
+      // setTimeout(() => {
 
+      // },1000)
       // const foundImage = await((index<imageList.length)? imageList[index]: '');
 
       
@@ -77,7 +85,7 @@ export default function Preview(props) {
         <div style={{ maxHeight: "400px", maxWidth: "100%" }}>
         <LazyLoad once>
           <img
-            src={typeof imageList[index] === "object"? URL.createObjectURL(imageList[index]):imageList[index]}
+            src={imageList[index]}
             alt="unable to load"
             loading="lazy"
             style={{
