@@ -13,23 +13,19 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { convertDate, DateToMonthYearFormat } from "../Date";
 import api from "../../service/ServiceCall";
-import { authorId } from "../../constants/UserData";
 import { Response } from "../../service/Response";
 import BuzzAvatar from "../BuzzAvatar";
+import BlankImage from "./BlankImage";
 
 const { Text, Title } = Typography;
 
 export default function BuzzCard(props) {
-  const [onFire, setOnFire] = useState(false);
-  const [profilePicture, setProfilePicture] = useState(false);
+  const [img, setImg] = useState(false);
 
   useEffect(() => {
-    api.getUser(authorId()).then((res) => {
-      if (res.profilePhotoUrl !== null) {
-        setProfilePicture(res.profilePhotoUrl);
-      }
-    });
-  }, []);
+    const res = api.getThumbUrl(props.data.imageLink)
+    setImg(res);
+  }, [])
 
   if (props === undefined || props.data === undefined) {
     return <Response statusCode={404} />;
@@ -43,20 +39,17 @@ export default function BuzzCard(props) {
   const tag = props.data.tag;
   const authorLink = props.data.authorLink;
   const articleLink = props.data.link;
-  const imageLink = props.data.imageLink;
+  
   const likes = props.data.likes;
   const views = props.data.views;
   const userId = props.data.authorId;
 
-  function handleFire() {
-    setOnFire(!onFire);
-  }
   return (
     <div
       style={{
         marginTop: "10px",
-        backgroundColor: "rgba(0,0,0,0.02)",
-        backdropFilter: 'blur("12px")',
+        // backgroundColor: "rgba(0,0,0,0.02)",
+        // backdropFilter: 'blur("12px")',
         padding: "8px 4px 4px 4px",
         borderRadius: "20px 20px",
         height:'100%',
@@ -159,13 +152,18 @@ export default function BuzzCard(props) {
               top: "19%",
             }}
           >
+            {img? 
             <img
               id="image"
               alt="unable to load"
               className="imghover"
               style={{ height: "100%", width: "100%" }}
-              src={imageLink}
+              src={img}
             />
+            :
+            <BlankImage />
+            }
+            
           </div>
           {/* image end */}
         </Col>

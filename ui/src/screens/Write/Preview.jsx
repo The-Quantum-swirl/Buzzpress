@@ -1,17 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LazyLoad from "react-lazyload";
 import Topics from "../../components/home/Topics";
 import { Response } from "../../service/Response";
 import { convertDate, DateToMonthYearFormat } from "../../components/Date";
 import { Row, Col, Typography } from "antd";
 import { Avatar, Space, Button } from "antd";
-import { UserOutlined, FireFilled, FireOutlined, ReadOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  FireFilled,
+  FireOutlined,
+  ReadOutlined,
+  ApiFilled,
+} from "@ant-design/icons";
 import BuzzAvatar from "../../components/BuzzAvatar";
+import api from "../../service/ServiceCall";
 const { Title, contentgraph, Text } = Typography;
 
 const checkURL = (url) => {
-  if (typeof url === "string"){
-    url=url.toLowerCase();
+  if (typeof url === "string") {
+    url = url.toLowerCase();
     return url.match(/\.(apng|jpeg|jpg|jfif|pjpeg|pjp|gif|png|svg)$/) != null;
   }
   return false;
@@ -24,11 +31,13 @@ export default function Preview(props) {
     props.data.title === undefined ||
     props.data.summary === undefined
   ) {
-    return <Response statusCode={404} /> ;
+    return <Response statusCode={404} />;
   }
 
   const authorName = props.data.authorName;
-  const publishDate = DateToMonthYearFormat(props.data.publishDate ? props.data.publishDate:convertDate(new Date()));
+  const publishDate = DateToMonthYearFormat(
+    props.data.publishDate ? props.data.publishDate : convertDate(new Date())
+  );
   const readTime = props.data.readTime;
   const tag = props.data.tag;
   const authorLink = props.data.authorLink;
@@ -38,9 +47,8 @@ export default function Preview(props) {
   const summary = props.data.summary || "Empty Recap";
   const content = props.data.content;
   const contentType = props.data.contentType;
-  const imageList = props.data.imagelist || [];
-
-  var temp = "";
+  let imageList = props.data.imagelist;
+  let index = -1;
 
   const mapData = (type, val) => {
     if (type === "head")
@@ -57,29 +65,28 @@ export default function Preview(props) {
       );
     else if (type === "code") return <Text code> {val}</Text>;
     else if (type === "image") {
-      const foundImage = imageList.find((img) => (
-        img.name === val || (checkURL(img) && img.indexOf(val) !== -1) ) );
-      temp = foundImage;
-      if (typeof foundImage === "object") {
-        temp = URL.createObjectURL(foundImage);
-      }
+      index += 1;
       return (
         <div style={{ maxHeight: "400px", maxWidth: "100%" }}>
-        <LazyLoad once>
-          <img
-            src={temp}
-            alt="unable to load"
-            loading="lazy"
-            style={{
-              height: "100%",
-              maxHeight: "400px",
-              width: "auto",
-              display: "block",
-              margin: "auto",
-              maxWidth: "100%",
-            }}
-          />
-        </LazyLoad>
+          <LazyLoad once>
+            <img
+              src={
+                typeof imageList[index] === "object"
+                  ? URL.createObjectURL(imageList[index])
+                  : imageList[index]
+              }
+              alt="unable to load"
+              loading="lazy"
+              style={{
+                height: "100%",
+                maxHeight: "400px",
+                width: "auto",
+                display: "block",
+                margin: "auto",
+                maxWidth: "100%",
+              }}
+            />
+          </LazyLoad>
         </div>
       );
     } else return <Text>{val}</Text>;
@@ -104,14 +111,16 @@ export default function Preview(props) {
                 style={{
                   backgroundColor: "rgba(0, 0, 0, 0.03)",
                   padding: "0px 22px 0px 0",
-                  display:'inline-flex' , alignItems:'center'
+                  display: "inline-flex",
+                  alignItems: "center",
                 }}
               >
                 <Text style={{ fontWeight: "500" }}>{authorName}</Text>
                 <Text style={{ marginLeft: "10px" }}>
                   {publishDate}
                   <Text style={{ marginLeft: "10px" }}>
-                  <ReadOutlined style={{color:'#757575'}} />{" "+readTime + " min"}
+                    <ReadOutlined style={{ color: "#757575" }} />
+                    {" " + readTime + " min"}
                   </Text>
                 </Text>
               </span>
@@ -120,7 +129,6 @@ export default function Preview(props) {
 
           <Title
             level={1}
-            // ellipsis={{ rows: 2 }}
             style={{
               marginTop: "15px",
               marginBottom: "5px",
@@ -132,7 +140,6 @@ export default function Preview(props) {
           </Title>
           <Title
             level={3}
-            // ellipsis={{ rows: 2 }}
             style={{ textAlign: "center", fontWeight: "450" }}
           >
             {summary}

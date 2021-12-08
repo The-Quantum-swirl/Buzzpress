@@ -25,12 +25,12 @@ public class ArticleMeta {
     private String authorName;
     private String title;
     private String summary;
-    private Long authorId;
+    private String authorId;
     private Long views;
     private Integer readTime;
     private Integer likes;
     private String tags;
-    private HashSet<Long> likerUserId;
+    private HashSet<String> likerUserId;
     private LocalDate publishDate;
     private String ThumbUrl;
 
@@ -46,7 +46,7 @@ public class ArticleMeta {
         this.publishDate = LocalDate.now();
         this.views = Long.parseLong("1");
         this.likes = 0;
-        this.likerUserId = new HashSet<Long>();
+        this.likerUserId = new HashSet<String>();
     }
 
 }

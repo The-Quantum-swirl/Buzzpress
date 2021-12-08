@@ -14,3 +14,19 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 951185255388-294hcugserjf1qjm5qo3rcmsdkg7nl4e.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - email
+              - profile
+app:
+  tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+  tokenExpirationMsec: 864000000
+  authorizedRedirectUris:
+    - http://localhost:3000/oauth2/redirect

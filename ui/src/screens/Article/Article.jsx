@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import FinalPreview from "../Write/FinalPreview";
-import { profileUrl } from "../../components/common/Path";
 import { DateToMonthYearFormat } from "../../components/Date";
 import { Button, Col, Row, Skeleton } from "antd";
 import { Typography } from "antd";
@@ -15,7 +14,6 @@ import {
 } from "@ant-design/icons";
 import api from "../../service/ServiceCall";
 import { Response } from "../../service/Response";
-import { authorId } from "../../constants/UserData";
 
 const { Text, Title } = Typography;
 
@@ -29,8 +27,8 @@ export default function Article() {
 
   const handleFire = () => {
     console.log("on click state " + !onFire);
-    if (!onFire) { api.postLike(articleId, authorId()); } 
-    else { api.postUnlike(articleId, authorId());}
+    if (!onFire) { api.postLike(articleId); } 
+    else { api.postUnlike(articleId);}
     setOnFire(!onFire);
   };
   const convertNum = (num) => {
@@ -49,13 +47,25 @@ export default function Article() {
         tempUserId =res.authorId;
         setViews(res.views);
         // setting likes logic don't change
-        if (res.likerUserId.includes(authorId())) {
-          setOnFire(true);
-          templikes -= 1;
-        }
-        setLikes(templikes);
+        // if (res.likerUserId.includes(authorId())) {
+        //   setOnFire(true);
+        //   templikes -= 1;
+        // }
+        // setLikes(templikes);
       } else setExist(false);
-    });
+    })
+    .catch((err) => { console.log(err.response.status);})
+    
+    // logic for like
+    api.hasLiked(articleId).then((res) => {
+      console.log(res);
+      if (res.data) {
+        setOnFire(true);
+        templikes -= 1;
+      }
+      setLikes(templikes);
+    })
+    .catch((err) => { console.log(err.response.status);})
 
     api.getArticle(articleId).then((res) => {
       console.log(res);
@@ -64,7 +74,7 @@ export default function Article() {
           authorName: res.authorName || temp,
           publishDate: res.publishDate,
           readTime: res.readTime,
-          authorLink: profileUrl + res.authorId,
+          authorLink: api.getProfileUrl(res.authorId),
           userId: tempUserId,
           title: res.title,
           summary: res.summary,
@@ -76,10 +86,11 @@ export default function Article() {
           tag: res.tag.split("\n") || [""],
         });
       } else setExist(false);
-    });
+    })
+    .catch((err) => { console.log(err.response.status);})
 
     // api post for read 1 more article
-    api.postReadCountIncrement(authorId())
+    api.postReadCountIncrement()
     
   }, []);
   // bottom bar

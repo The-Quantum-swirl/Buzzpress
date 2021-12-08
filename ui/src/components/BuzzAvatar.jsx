@@ -1,26 +1,28 @@
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import { authorId } from "../constants/UserData";
 import api from "../service/ServiceCall";
 
 export default function BuzzAvatar(props) {
-  const userId = props.userId || authorId();
+  const userId = props.userId;
   const [profilePicture, setProfilePicture] = useState(false);
 
   useEffect(() => {
-    api.getUser(userId).then((res) => {
-      //   console.log(res)
+    api.getUser( (userId==='you'?undefined:userId) )
+    .then((res) => {
+        console.log(res)
       if (res.profilePhotoUrl !== null) {
         setProfilePicture(res.profilePhotoUrl);
       }
-    });
+    })
+    .catch((res) => {console.log(res)})
+    
   }, []);
 
   if (props.type === undefined || props.type === "medium") {
     return (
       <Avatar
-        src={profilePicture === false ? "" : api.getThumbUrl(profilePicture)}
+        src={profilePicture === false ? "" : profilePicture}
         style={{
           width: "40px",
           height: "40px",
@@ -32,7 +34,7 @@ export default function BuzzAvatar(props) {
   } else if (props.type === "large") {
     return (
       <Avatar
-        src={profilePicture === false ? "" : api.getThumbUrl(profilePicture)}
+        src={profilePicture === false ? "" : profilePicture}
         style={{
           width: "150px",
           height: "150px",
@@ -44,7 +46,7 @@ export default function BuzzAvatar(props) {
   } else {
     return (
       <Avatar
-        src={profilePicture === false ? "" : api.getThumbUrl(profilePicture)}
+        src={profilePicture === false ? "" : profilePicture}
         style={{
           width: "34px",
           height: "34px",

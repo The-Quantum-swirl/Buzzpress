@@ -4,10 +4,8 @@ import NavBar from '../../components/NavBar';
 import BuzzCard from '../../components/home/BuzzCard';
 import { Avatar, Col, Row, Space, Typography, Divider, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { profileUrl, backendUrl,articleUrl } from '../../components/common/Path';
 import { DateToMonthYearFormat, thumbUrl } from '../../components/Date';
 import api from "../../service/ServiceCall";
-import { authorId } from '../../constants/UserData';
 import { ButtonGroup } from '@mui/material';
 import BuzzAvatar from '../../components/BuzzAvatar';
 const { Text, Link, Title } = Typography;
@@ -15,8 +13,7 @@ const { Text, Link, Title } = Typography;
 export default function Profile(){
 
   let {userId} = useParams();
-  userId = parseInt(userId)
-  
+  const [disable, setDisable] = useState(false);
   const [displayData, setDisplayData] = useState([]);
   // personal Data 
   const [personalData, setPersonalData] = useState({
@@ -27,51 +24,62 @@ export default function Profile(){
   });
 
   useEffect(() => {
+    console.log(userId);
+    userId==='you'? 
+    ( setDisable(true) ) : (
+    api.sameUser(userId)
+    .then((res) => {
+      res? setDisable(true): setDisable(false)
+    })
+    .catch((err) => { console.log(err.response.status);})
+    )
 
-    api.getUser(userId).then((res) => {
+    api.getUser( (userId==='you'? undefined: userId) )
+    .then((res) => {
       console.log(res)
       setPersonalData({
-        name:res.userName,
+        name:res.name,
         joinedDate:res.userJoinDate!==null ? DateToMonthYearFormat(res.userJoinDate) : "1 Jan,1999",
         followers: res.followers!==null ? res.followers.length: 0,
         following: res.following!==null ? res.following.length: 0,
         profilePicture: res.profilePhotoUrl!==null ? res.profilePhotoUrl: false,
       })
     })
+    .catch((err) => { console.log(err.response.status);})
 
-    api.getArticleCardsByAuthorId(userId).then((res) => {
+    api.getArticleCardsByAuthorId((userId==='you'? undefined: userId)).then((res) => {
       console.log(res);
       var arr = res.map((dt) => {
         return {
-          authorname: dt.authorName, authorLink: profileUrl + dt.authorId,
+          authorname: dt.authorName, 
+          authorLink: api.getProfileUrl(dt.authorId),
 
-          title: dt.title, summary: dt.summary,
+          title: dt.title, 
+          summary: dt.summary,
 
           publishDate: dt.publishDate, readTime: dt.readTime + " min",
           likes: dt.likes, tag: dt.tag ,
           views: dt.views,
-          link: articleUrl + dt.articleId,
-          imageLink: api.getThumbUrl(dt.thumbUrl),
+          link: api.getArticleUrl(dt.articleId),
+          imageLink: dt.thumbUrl,
         }
       })
+      
       setDisplayData(arr)
       console.log(displayData)
     })
+    .catch((err) => { console.log(err.response.status);})
 
   },[])    
   const handleFollow = (e) => {
     console.log("followed")
-    // if (authorId() !== userId){
-      console.log(authorId(),userId)
-      api.postFollow(authorId(),userId);
-    // }
+    console.log(userId)
+    api.postFollow(userId);
   }
   const handleUnFollow = (e) => {
     console.log("Unfollowed")
-    // if (authorId() !== userId){
-      console.log(authorId(),userId)
-      api.postUnFollow(authorId(),userId);
-    // }
+    console.log(userId)
+    api.postUnFollow(userId);
   }
     return(
         <>
@@ -101,8 +109,8 @@ export default function Profile(){
                 <Text type="secondary" style={{fontWeight:'400'}}>{"Joined "+personalData.joinedDate} </Text>
                 
                   <ButtonGroup>
-                  <Button size="middle" disabled={authorId()===userId} type="primary" onClick={(e) => handleFollow(e)}>Follow</Button>
-                  <Button size="middle" disabled={authorId()===userId} type="default" onClick={(e) => handleUnFollow(e)}>UnFollow</Button>
+                  <Button size="middle" disabled={disable} type="primary" onClick={(e) => handleFollow(e)}>Follow</Button>
+                  <Button size="middle" disabled={disable} type="default" onClick={(e) => handleUnFollow(e)}>UnFollow</Button>
                   </ButtonGroup>
                 
                 {/* user info end */}

@@ -3,16 +3,13 @@ import { useState } from "react";
 import { Button } from "antd";
 import Create from "./Create";
 import Preview from "./Preview";
-import { profileUrl } from "../../components/common/Path";
 import { convertDate } from "../../components/Date";
 import api from "../../service/ServiceCall";
 import { Response } from "../../service/Response";
-import { authorId } from "../../constants/UserData";
 
 export default function Write() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [data, setData] = useState({ readTime: "1 min", authorLink: profileUrl, title: "", summary: "",});
-  const userId = authorId();
+  const [data, setData] = useState({ readTime: "1 min", authorLink: api.getProfileUrl('you'), title: "", summary: "",});
   var statusCode = 200, previewData = {};
 
   const outcome = (res1, res2) => {
@@ -28,7 +25,6 @@ export default function Write() {
 
     // making raw data payload for posting
     var payload = {
-      authorId: userId,
       title: data.title,
       summary: data.summary,
       publishDate: convertDate(new Date()),
@@ -39,7 +35,7 @@ export default function Write() {
       tag: data.tag.join("\n"),
     };
     // getting raw data response status in code 200,404,500 etc
-    rawDataResponse = api.postArticle(userId, payload);
+    rawDataResponse = api.postArticle(payload);
 
     // uploading image in batch start
     let imgArr = data.imagelist;
@@ -97,6 +93,7 @@ export default function Write() {
 
     return (
       <Button
+        type="default"
         shape="round"
         size="large"
         onClick={handlePrevious}
@@ -117,6 +114,7 @@ export default function Write() {
 
     return (
       <Button
+        type="primary"
         shape="round"
         size="large"
         style={{ float: "right" }}

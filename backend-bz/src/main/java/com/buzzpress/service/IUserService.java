@@ -4,30 +4,31 @@ import java.util.List;
 
 import com.buzzpress.beans.Users_;
 import com.buzzpress.exception.DuplicateUserException;
+import com.buzzpress.exception.UserNotFoundException;
 
 import javassist.NotFoundException;
 
 public interface IUserService {
 
-    public Users_ getUserDetails(Long userId) throws NotFoundException;
+    public Users_ getUserDetails(String userId) throws UserNotFoundException;
 
-    public String getUsernameFromUserId(Long userId) throws NotFoundException;
+    public String getUsernameFromUserId(String userId) throws UserNotFoundException;
 
     public void saveUserDetails(Users_ details) throws DuplicateUserException;
 
-    public List<Long> getFollowers(long userId) throws NotFoundException;
+    public List<String> getFollowers(String userId) throws NotFoundException, UserNotFoundException;
 
-    public List<Long> getFollowing(long userId) throws NotFoundException;
+    public List<String> getFollowing(String userId) throws NotFoundException, UserNotFoundException;
 
     public List<Users_> showAllUsers();
 
-    public void FollowUser(Long follower, Long toFollow) throws NotFoundException;
+    public void FollowUser(String follower, String toFollow) throws NotFoundException;
 
-    public void UnFollowUser(Long follower, Long toUnFollow);
+    public void UnFollowUser(String follower, String toUnFollow) throws UserNotFoundException;
 
-    public void postUserPhoto(String profilePhotoUrl, Long authorId);
+    public void postUserPhoto(String profilePhotoUrl, String authorId);
 
-    public void deleteUser(Long id) throws NotFoundException;
+    public void deleteUser(String id) throws NotFoundException, UserNotFoundException;
 
     public void deleteAllUsers();
 }

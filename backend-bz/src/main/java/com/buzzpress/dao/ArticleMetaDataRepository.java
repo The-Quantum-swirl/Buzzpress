@@ -16,7 +16,7 @@ public interface ArticleMetaDataRepository extends JpaRepository<ArticleMeta, Lo
 
     public List<ArticleMeta> findAllByArticleId(Long ArticleId);
 
-    public List<ArticleMeta> findByAuthorId(Long authorId);
+    public List<ArticleMeta> findByAuthorId(String authorId);
 
     @Query(value = "SELECT * FROM article_meta,article.author_name INNER JOIN article ON article_meta.article_id=article.article_id", nativeQuery = true)
     List<Object[]> listAllArticleMeta();

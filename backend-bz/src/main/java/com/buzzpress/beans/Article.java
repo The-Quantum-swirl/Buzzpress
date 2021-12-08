@@ -29,7 +29,7 @@ public class Article {
 	@JsonIgnore
 	@ManyToOne
 	private Users_ users_;
-	private Long authorId;
+	private String authorId;
 	private String title;
 	private String summary;
 	private String publishDate;

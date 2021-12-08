@@ -1,9 +1,8 @@
 import { Layout, Menu, Dropdown, Button, Typography, Switch } from "antd";
 import { useHistory } from "react-router-dom";
-import Logout from "./logout";
-import { authorId } from "../constants/UserData";
 import { useEffect, useState } from "react";
 import BuzzAvatar from "./BuzzAvatar";
+import { accessToken } from "../service/ServicePath";
 const { Header } = Layout;
 const { Text } = Typography;
 
@@ -15,19 +14,22 @@ export default function NavBar() {
     if (theme==="dark") setTheme("light");
     else setTheme("dark");
   }
+  const logout = () => {
+    localStorage.removeItem(accessToken());
+  }
 
   const menu = (
     <Menu>
-      <Menu.Item onClick={(e) => history.push("/profile/"+authorId())}>
+      <Menu.Item key={'profile'} onClick={(e) => history.push("/profile/you")}>
         Your Profile
       </Menu.Item>
-      <Menu.Item onClick={(e) => history.push("/create")}>
+      <Menu.Item key={'write'} onClick={(e) => history.push("/create")}>
         Write Your Story
       </Menu.Item>
-      <Menu.Item onClick={(e) => history.push("/settings")}>
+      <Menu.Item key={'settings'} onClick={(e) => history.push("/settings")}>
         Settings
       </Menu.Item>
-      <Menu.Item onClick={(e) => <Logout />}>
+      <Menu.Item key={'logout'} onClick={(e) => logout()}>
         Logout
       </Menu.Item>
     </Menu>
@@ -50,7 +52,7 @@ export default function NavBar() {
           <Text style={{color:'white'}}>1minthoughts</Text>
         </Menu.Item>
         <Menu.Item
-          className='ant-dropdown-link'
+          // className='ant-dropdown-link'
           key={2}
           style={{
             marginRight: "0%",

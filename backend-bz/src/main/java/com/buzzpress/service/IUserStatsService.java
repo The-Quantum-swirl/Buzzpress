@@ -6,13 +6,13 @@ import com.buzzpress.beans.UserStats;
 import com.buzzpress.model.TopUsers;
 
 public interface IUserStatsService {
-    public UserStats getUserStats(long id);
+    public UserStats getUserStats(String id);
 
     public List<UserStats> findAllStats();
 
-    public void incrementAuthored(Long userID);
+    public void incrementAuthored(String userId);
 
     public List<TopUsers> getTopUsers();
 
-	public void updateStats(Long userId);
+    public void updateStats(String userId);
 }

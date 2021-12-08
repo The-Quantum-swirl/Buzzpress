@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import axios from "axios";
-import { backendUrl } from "../../components/common/Path";
 import { Button, Col, Divider, Form, Input, PageHeader, Row, Space, Switch, Tabs, Typography } from "antd";
 import { useState } from "react";
 import NavBar from "../../components/NavBar";
 import MessageCard from "../../components/settings/MessageCard";
 import { convertDate, DateToMonthYearFormat } from "../../components/Date";
-import { authorId } from "../../constants/UserData";
 import UploadButton from "../../components/UploadButton";
 import api from "../../service/ServiceCall";
 const { TabPane } = Tabs;
@@ -36,29 +34,31 @@ export default function UserDetails() {
     });
     fd.delete("file");
     console.log("posting photo");
-    api.postProfilePhoto(imageData.name,authorId())
+    api.postProfilePhoto(imageData.name)
   }
 
   useEffect(() => {
 
-    axios.get(backendUrl + "/userStats/"+authorId()).then((res) =>{
-      console.log(res.data);
+    api.getUserStats().then((res) =>{
+      console.log(res);
       setStats({
-        ArticlePublished: res.data.articleAuthored,
-        ArticlesRead: res.data.articleRead
+        ArticlePublished: res.articleAuthored,
+        ArticlesRead: res.articleRead,
+        ArticleTarget: res.articleTargetRead,
       })
     })
+    .catch((err) => { console.log(err.response.status);})
 
     // loading data for article meta
-    axios.get(backendUrl + "/user/"+authorId()).then((res) => {
-      console.log(res.data);
+    api.getUser().then((res) => {
+      console.log(res);
       setAuthorDetails({
-        PersonalData: {firstName: res.data.userName},
-        ArticlePublished: stats.ArticlePublished,
+        PersonalData: {firstName: res.name},
       })
-      setEditableName(res.data.userName);
+      setEditableName(res.name);
 
-    });
+    })
+    .catch((err) => { console.log(err.response.status);})
 
   }, []);
   const handleDetailsChange = (event) => {
@@ -103,7 +103,7 @@ export default function UserDetails() {
           <Col className="gutter-row" span={16}>
             <MessageCard
               rmPersonalData={authorDetails.PersonalData}
-              ArticlePublished={authorDetails.ArticlePublished}
+              ArticlePublished={stats.ArticlePublished}
             />
           </Col>
         </Row>

@@ -1,29 +1,31 @@
 import NavBar from "../../components/NavBar";
+import { Redirect } from 'react-router-dom'
 import { Layout, Row, Col, Tabs } from "antd";
 import { Typography, Space, Divider } from "antd";
 import BuzzCard from "../../components/home/BuzzCard";
 import RadialChart from "../../components/home/RadialChart.js";
 import { InstagramOutlined, TwitterOutlined } from "@ant-design/icons";
-import { profileUrl, articleUrl, backendUrl } from "../../components/common/Path.js";
 import { useEffect, useState } from "react";
-import { authorId } from "../../constants/UserData";
 import api from "../../service/ServiceCall";
 import BuzzPerformer from "../../components/home/BuzzPerformer";
+import { LoginModal } from "../../components/LoginModal";
 
 const { TabPane } = Tabs;
 const { Text, Link } = Typography;
 const { Footer } = Layout;
 
-export default function Home() {
+export default function Home(props) {
   const [graphData, setGraphData] = useState({ target: 10, read: 0 });
   const [displayData, setDisplayData] = useState([]);
   const [performer, setPerformer] = useState([]);
+  const [tokenExpired, setTokenExpired] = useState(false);
 
   useEffect(() => {
     // loading data for article meta
     api.getArticleCards().then((res) => {
       console.log(res);
       var arr = res.map((dt) => {
+        
         return {
           authorname: dt.authorName, 
           authorLink: api.getProfileUrl(dt.authorId),
@@ -38,16 +40,17 @@ export default function Home() {
           views: dt.views,
           tag: dt.tag ,
 
-          link: articleUrl + dt.articleId,
-          imageLink: api.getThumbUrl(dt.thumbUrl),
+          link: api.getArticleUrl(dt.articleId),
+          imageLink:  dt.thumbUrl,
         }
       })
       setDisplayData(arr)
       console.log(displayData)
     })
+    .catch((err) => { console.log(err);})
 
     // loading data for performance graph
-    api.getUserStats(authorId()).then((res)=> {
+    api.getUserStats().then((res)=> {
       console.log(res);
       setGraphData({
         target: res.articleTargetRead, 
@@ -55,6 +58,15 @@ export default function Home() {
         authored: res.articleAuthored,
       });
     })
+    .catch((err) => { 
+      if (err.response.status === 401){
+        api.resetToken();
+        setTokenExpired(true);
+        <Redirect to={{ pathname: "/home", }} />;
+        // <LoginModal visible={true} />
+      }
+      
+      console.log(err.response.status);})
 
     // load the top performing users
     api.getPerformers().then((res)=> {
@@ -65,6 +77,7 @@ export default function Home() {
         }))
       }
     })
+    .catch((err) => { console.log(err.response.status);})
 
   }, []);
 
@@ -87,6 +100,10 @@ export default function Home() {
             size={8}
             style={{ width: "100%", paddingTop: "25px" }}
           >
+            {/* login modal */}
+            {tokenExpired}
+            <LoginModal tokenExpired={tokenExpired} />
+
             <Text type="secondary" style={{ padding: "25px" }}>
               Recommended For You
             </Text>
