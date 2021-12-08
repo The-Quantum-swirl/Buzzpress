@@ -47,6 +47,7 @@ export default function UserDetails() {
         ArticleTarget: res.articleTargetRead,
       })
     })
+    .catch((err) => { console.log(err.response.status);})
 
     // loading data for article meta
     api.getUser().then((res) => {
@@ -56,7 +57,8 @@ export default function UserDetails() {
       })
       setEditableName(res.name);
 
-    });
+    })
+    .catch((err) => { console.log(err.response.status);})
 
   }, []);
   const handleDetailsChange = (event) => {

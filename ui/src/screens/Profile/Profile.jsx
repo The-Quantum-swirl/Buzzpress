@@ -27,9 +27,12 @@ export default function Profile(){
     console.log(userId);
     userId==='you'? 
     ( setDisable(true) ) : (
-    api.sameUser(userId).then((res) => {
+    api.sameUser(userId)
+    .then((res) => {
       res? setDisable(true): setDisable(false)
-    }) )
+    })
+    .catch((err) => { console.log(err.response.status);})
+    )
 
     api.getUser( (userId==='you'? undefined: userId) )
     .then((res) => {
@@ -42,6 +45,7 @@ export default function Profile(){
         profilePicture: res.profilePhotoUrl!==null ? res.profilePhotoUrl: false,
       })
     })
+    .catch((err) => { console.log(err.response.status);})
 
     api.getArticleCardsByAuthorId((userId==='you'? undefined: userId)).then((res) => {
       console.log(res);
@@ -64,6 +68,7 @@ export default function Profile(){
       setDisplayData(arr)
       console.log(displayData)
     })
+    .catch((err) => { console.log(err.response.status);})
 
   },[])    
   const handleFollow = (e) => {

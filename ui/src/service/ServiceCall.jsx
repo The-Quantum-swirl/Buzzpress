@@ -1,16 +1,23 @@
-import { baseURL} from "./ServicePath";
+import { accessToken, baseURL} from "./ServicePath";
 import httpService from './Httpservice';
+
+const resetToken = () => {
+    localStorage.removeItem(accessToken());
+    console.log('token removed');
+}
 
 const getAllUsers = async () => {
     const res = await httpService.get(baseURL() + "allUsers");
     return res.data;
 };
 
-const getUser = async (id) => {
+const getUser = async(id) => {
     let path = id === undefined? 'author':`user/${id}`;
-    const res = await httpService.get(baseURL() + path);
-    console.log(res)
+    const res = await httpService.get(baseURL() + path)
     return res.data;
+    // httpService.get(baseURL() + path).then((res) => {
+    //     return res.data;
+    // }).catch((err) => { console.log(err);})
 };
 const getUserStats = async () =>{
     const res = await httpService.get(baseURL() + `userStats`);
@@ -133,5 +140,7 @@ export default {
     postUnlike,
     postReadCountIncrement,
     postProfilePhoto,
+
+    resetToken,
 }
 

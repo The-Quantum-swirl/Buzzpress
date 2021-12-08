@@ -93,6 +93,7 @@ export default function Write() {
 
     return (
       <Button
+        type="default"
         shape="round"
         size="large"
         onClick={handlePrevious}
@@ -113,6 +114,7 @@ export default function Write() {
 
     return (
       <Button
+        type="primary"
         shape="round"
         size="large"
         style={{ float: "right" }}

@@ -53,7 +53,8 @@ export default function Article() {
         // }
         // setLikes(templikes);
       } else setExist(false);
-    });
+    })
+    .catch((err) => { console.log(err.response.status);})
     
     // logic for like
     api.hasLiked(articleId).then((res) => {
@@ -64,6 +65,7 @@ export default function Article() {
       }
       setLikes(templikes);
     })
+    .catch((err) => { console.log(err.response.status);})
 
     api.getArticle(articleId).then((res) => {
       console.log(res);
@@ -84,7 +86,8 @@ export default function Article() {
           tag: res.tag.split("\n") || [""],
         });
       } else setExist(false);
-    });
+    })
+    .catch((err) => { console.log(err.response.status);})
 
     // api post for read 1 more article
     api.postReadCountIncrement()

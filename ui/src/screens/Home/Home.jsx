@@ -1,4 +1,5 @@
 import NavBar from "../../components/NavBar";
+import { Redirect } from 'react-router-dom'
 import { Layout, Row, Col, Tabs } from "antd";
 import { Typography, Space, Divider } from "antd";
 import BuzzCard from "../../components/home/BuzzCard";
@@ -17,6 +18,7 @@ export default function Home(props) {
   const [graphData, setGraphData] = useState({ target: 10, read: 0 });
   const [displayData, setDisplayData] = useState([]);
   const [performer, setPerformer] = useState([]);
+  const [tokenExpired, setTokenExpired] = useState(false);
 
   useEffect(() => {
     // loading data for article meta
@@ -45,6 +47,7 @@ export default function Home(props) {
       setDisplayData(arr)
       console.log(displayData)
     })
+    .catch((err) => { console.log(err);})
 
     // loading data for performance graph
     api.getUserStats().then((res)=> {
@@ -55,6 +58,15 @@ export default function Home(props) {
         authored: res.articleAuthored,
       });
     })
+    .catch((err) => { 
+      if (err.response.status === 401){
+        api.resetToken();
+        setTokenExpired(true);
+        <Redirect to={{ pathname: "/home", }} />;
+        // <LoginModal visible={true} />
+      }
+      
+      console.log(err.response.status);})
 
     // load the top performing users
     api.getPerformers().then((res)=> {
@@ -65,6 +77,7 @@ export default function Home(props) {
         }))
       }
     })
+    .catch((err) => { console.log(err.response.status);})
 
   }, []);
 
@@ -87,7 +100,10 @@ export default function Home(props) {
             size={8}
             style={{ width: "100%", paddingTop: "25px" }}
           >
-            <LoginModal />
+            {/* login modal */}
+            {tokenExpired}
+            <LoginModal tokenExpired={tokenExpired} />
+
             <Text type="secondary" style={{ padding: "25px" }}>
               Recommended For You
             </Text>

@@ -10,11 +10,13 @@ export default function BuzzAvatar(props) {
   useEffect(() => {
     api.getUser( (userId==='you'?undefined:userId) )
     .then((res) => {
-      //   console.log(res)
+        console.log(res)
       if (res.profilePhotoUrl !== null) {
         setProfilePicture(res.profilePhotoUrl);
       }
-    });
+    })
+    .catch((res) => {console.log(res)})
+    
   }, []);
 
   if (props.type === undefined || props.type === "medium") {
