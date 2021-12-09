@@ -33,7 +33,7 @@ export default function NavBar() {
   return (
     <>
       <Menu theme={'dark'} mode="horizontal" 
-        style={{padding:'6px 40px 6px 40px',
+        style={{padding:'8px 40px 8px 40px',
         boxShadow: '0 4px 18px 0 rgb(0 0 0 / 10%)'
         }}>
         <Menu.Item
@@ -44,7 +44,7 @@ export default function NavBar() {
           }}
           onClick={(e) => history.push("/home")}
         >
-        <img src={logo} style={{height:'50px'}} />
+        <img src={logo} style={{height:'44px'}} alt="1minthoughts" />
           {/* <Text style={{color:'white'}}>1minthoughts</Text> */}
         </Menu.Item>
         <Menu.Item

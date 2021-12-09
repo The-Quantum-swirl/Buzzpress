@@ -7,9 +7,11 @@ import { useEffect, useState } from "react";
 import api from "../../service/ServiceCall";
 import BuzzPerformer from "../../components/home/BuzzPerformer";
 import { LoginModal } from "../../components/LoginModal";
+import ReactGA from 'react-ga';
 
 const { Text } = Typography;
 
+ReactGA.initialize('UA-214937125-1');
 export default function Home(props) {
   const [graphData, setGraphData] = useState({ target: 10, read: 0 });
   const [displayData, setDisplayData] = useState([]);
@@ -17,6 +19,8 @@ export default function Home(props) {
   const [tokenExpired, setTokenExpired] = useState(false);
 
   useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+
     // loading data for article meta
     api.getArticleCards().then((res) => {
       console.log(res);

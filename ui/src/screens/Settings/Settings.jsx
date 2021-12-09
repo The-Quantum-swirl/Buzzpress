@@ -6,9 +6,12 @@ import MessageCard from "../../components/settings/MessageCard";
 import { convertDate, DateToMonthYearFormat } from "../../components/Date";
 import UploadButton from "../../components/UploadButton";
 import api from "../../service/ServiceCall";
+import ReactGA from 'react-ga';
+
 const { TabPane } = Tabs;
 const { Paragraph } = Typography;
 
+ReactGA.initialize('UA-214937125-1');
 export default function UserDetails() {
   const [authorDetails, setAuthorDetails] = useState({
     PersonalData: { firstName: "Anonymous" },
@@ -37,6 +40,8 @@ export default function UserDetails() {
   }
 
   useEffect(() => {
+    
+    ReactGA.pageview(window.location.pathname + window.location.search);
 
     api.getUserStats().then((res) =>{
       console.log(res);

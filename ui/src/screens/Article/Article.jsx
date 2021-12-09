@@ -13,8 +13,11 @@ import {
 } from "@ant-design/icons";
 import api from "../../service/ServiceCall";
 import { Response } from "../../service/Response";
+import ReactGA from 'react-ga';
 
 const { Text, Title } = Typography;
+
+ReactGA.initialize('UA-214937125-1');
 
 export default function Article() {
   let { articleId } = useParams();
@@ -37,6 +40,8 @@ export default function Article() {
   }
 
   useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+
     var temp = "Anonymous", templikes = 1, tempUserId = undefined;
     api.getArticleMetaById(articleId).then((res) => {
       console.log(res);

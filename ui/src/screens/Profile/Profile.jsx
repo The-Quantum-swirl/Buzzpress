@@ -7,7 +7,11 @@ import { DateToMonthYearFormat} from '../../components/Date';
 import api from "../../service/ServiceCall";
 import { ButtonGroup } from '@mui/material';
 import BuzzAvatar from '../../components/BuzzAvatar';
+import ReactGA from 'react-ga';
+
 const { Text, Title } = Typography;
+
+ReactGA.initialize('UA-214937125-1');
 
 export default function Profile(){
 
@@ -23,6 +27,8 @@ export default function Profile(){
   });
 
   useEffect(() => {
+    
+    ReactGA.pageview(window.location.pathname + window.location.search);
     console.log(userId);
     userId==='you'? 
     ( setDisable(true) ) : (
