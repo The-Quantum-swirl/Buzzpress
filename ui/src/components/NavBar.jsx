@@ -2,6 +2,7 @@ import { Menu, Dropdown, Button, Typography} from "antd";
 import { useHistory } from "react-router-dom";
 import BuzzAvatar from "./BuzzAvatar";
 import { accessToken } from "../service/ServicePath";
+import logo from "../assets/logo.png";
 
 const { Text } = Typography;
 
@@ -32,18 +33,19 @@ export default function NavBar() {
   return (
     <>
       <Menu theme={'dark'} mode="horizontal" 
-        style={{padding:'9px 50px 9px 50px',
+        style={{padding:'6px 40px 6px 40px',
         boxShadow: '0 4px 18px 0 rgb(0 0 0 / 10%)'
         }}>
         <Menu.Item
           key={1}
           style={{
-            fontSize: "30px",
+            // fontSize: "30px",
             backgroundColor: "inherit",
           }}
           onClick={(e) => history.push("/home")}
         >
-          <Text style={{color:'white'}}>1minthoughts</Text>
+        <img src={logo} style={{height:'50px'}} />
+          {/* <Text style={{color:'white'}}>1minthoughts</Text> */}
         </Menu.Item>
         <Menu.Item
           // className='ant-dropdown-link'
