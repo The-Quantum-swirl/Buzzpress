@@ -2,13 +2,12 @@ import {useParams} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import NavBar from '../../components/NavBar';
 import BuzzCard from '../../components/home/BuzzCard';
-import { Avatar, Col, Row, Space, Typography, Divider, Button } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import { DateToMonthYearFormat, thumbUrl } from '../../components/Date';
+import { Col, Row, Space, Typography, Divider, Button } from 'antd';
+import { DateToMonthYearFormat} from '../../components/Date';
 import api from "../../service/ServiceCall";
 import { ButtonGroup } from '@mui/material';
 import BuzzAvatar from '../../components/BuzzAvatar';
-const { Text, Link, Title } = Typography;
+const { Text, Title } = Typography;
 
 export default function Profile(){
 
@@ -17,9 +16,9 @@ export default function Profile(){
   const [displayData, setDisplayData] = useState([]);
   // personal Data 
   const [personalData, setPersonalData] = useState({
-    name:'Derek Obrien',
-    joinedDate:DateToMonthYearFormat('2020-06-14'),
-    followers:3000,
+    name:'Anonymous',
+    joinedDate:DateToMonthYearFormat('2021-12-08'),
+    followers:1,
     profilePicture:false,
   });
 
@@ -64,13 +63,11 @@ export default function Profile(){
           imageLink: dt.thumbUrl,
         }
       })
-      
       setDisplayData(arr)
-      console.log(displayData)
     })
-    .catch((err) => { console.log(err.response.status);})
+    .catch((err) => { })
 
-  },[])    
+  },[userId])    
   const handleFollow = (e) => {
     console.log("followed")
     console.log(userId)
@@ -128,12 +125,10 @@ export default function Profile(){
           <Col xs={0} sm={4} md={8} lg={6} xl={7}>
             <Space direction="vertical" id="profile-right-hide">
               {/* <Text>right</Text> */}
-
             </Space>
           </Col>
 
         </Row>
-            
         </>
     );
 }

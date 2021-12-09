@@ -7,7 +7,6 @@ import { Button, Col, Row, Skeleton } from "antd";
 import { Typography } from "antd";
 import {
   ReadOutlined,
-  UserOutlined,
   FireFilled,
   FireOutlined,
   EyeFilled,
@@ -46,13 +45,7 @@ export default function Article() {
         temp = res.authorName;
         tempUserId =res.authorId;
         setViews(res.views);
-        // setting likes logic don't change
-        // if (res.likerUserId.includes(authorId())) {
-        //   setOnFire(true);
-        //   templikes -= 1;
-        // }
-        // setLikes(templikes);
-      } else setExist(false);
+      }else setExist(false);
     })
     .catch((err) => { console.log(err.response.status);})
     
@@ -92,7 +85,7 @@ export default function Article() {
     // api post for read 1 more article
     api.postReadCountIncrement()
     
-  }, []);
+  }, [articleId]);
   // bottom bar
   const bottomBar = () => {
     return (

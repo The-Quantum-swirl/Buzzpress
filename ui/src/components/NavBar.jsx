@@ -1,19 +1,13 @@
-import { Layout, Menu, Dropdown, Button, Typography, Switch } from "antd";
+import { Menu, Dropdown, Button, Typography} from "antd";
 import { useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
 import BuzzAvatar from "./BuzzAvatar";
 import { accessToken } from "../service/ServicePath";
-const { Header } = Layout;
+
 const { Text } = Typography;
 
 export default function NavBar() {
   let history = useHistory();
-  const [theme, setTheme] = useState("dark");
-  function onChange(checked) {
-    console.log(`switch to ${checked}`);
-    if (theme==="dark") setTheme("light");
-    else setTheme("dark");
-  }
+
   const logout = () => {
     localStorage.removeItem(accessToken());
   }
@@ -37,7 +31,7 @@ export default function NavBar() {
 
   return (
     <>
-      <Menu theme={theme} mode="horizontal" 
+      <Menu theme={'dark'} mode="horizontal" 
         style={{padding:'9px 50px 9px 50px',
         boxShadow: '0 4px 18px 0 rgb(0 0 0 / 10%)'
         }}>
@@ -73,7 +67,7 @@ export default function NavBar() {
                 borderRadius: "50%",
               }}
             >
-              <BuzzAvatar />
+              <BuzzAvatar userId={'you'} />
             </Button>
         </Dropdown>
           

@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-import axios from "axios";
-import { Button, Col, Divider, Form, Input, PageHeader, Row, Space, Switch, Tabs, Typography } from "antd";
+import { Button, Col, Divider, Form, Input, PageHeader, Row, Space, Tabs, Typography } from "antd";
 import { useState } from "react";
 import NavBar from "../../components/NavBar";
 import MessageCard from "../../components/settings/MessageCard";
@@ -79,13 +78,6 @@ export default function UserDetails() {
     console.log("Failed:", errorInfo);
   };
 
-
-  //   old password get from db
-  const oldPasswordFromDB = "";
-  const stylecard = {
-    boxShadow: "0 1px 10px 0 rgb(30, 79, 131, 0.5)",
-    border: "rgb(122, 168, 218) 1x solid"
-  }
   return (
     <div>
       <NavBar />

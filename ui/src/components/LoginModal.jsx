@@ -3,26 +3,22 @@ import { Modal, Button, Typography } from "antd";
 import googleLogo from "../assets/google-logo.png";
 import { accessToken, googleAuthURL } from "../service/ServicePath";
 import service from "../service/Httpservice";
-import api from "../service/ServiceCall";
 
 const { Text } = Typography;
 export const LoginModal = (props) => {
   const [visible, setVisible] = useState(true);
   const [confirmLoading, setConfirmLoading] = useState(false);
   useEffect(() => {
-    console.log(visible);
-    console.log(props);
-    console.log(props.tokenExpired);
-    if ( !props.tokenExpired && localStorage.getItem(accessToken()) !== null) {
+    // if token is expired after its time setting modal visibility true
+    if (props.tokenExpired) setVisible(true);
+
+    if ( localStorage.getItem(accessToken()) !== null) {
+      // removing login modal
       setVisible(false);
       // setting jwt token in default headers of axios
       service.setJwt(localStorage.getItem(accessToken()));
-      // api.setUser()
-    }else{
-      console.log('token is not there');
-      console.log("props "+props)
     }
-  }, []);
+  }, [props.tokenExpired]);
 
   const handleOk = () => {
     setConfirmLoading(true);
@@ -50,7 +46,7 @@ export const LoginModal = (props) => {
           style={{ height: "45px", marginLeft: "30%" }}
           href={googleAuthURL()}
         >
-          <img src={googleLogo} style={{ width: "40px" }} />
+          <img src={googleLogo} alt="Google" style={{ width: "40px" }} />
           <Text>Log in with Google</Text>
         </Button>
       </Modal>

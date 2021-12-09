@@ -1,17 +1,10 @@
-import { Row, Col, Space, Button } from "antd";
-import { Typography, Avatar } from "antd";
-import {
-  UserOutlined,
-  FireFilled,
-  ReadOutlined,
-  FireOutlined,
-  RiseOutlined,
-  EyeFilled,
-} from "@ant-design/icons";
+import { Row, Col } from "antd";
+import { Typography } from "antd";
+import { ReadOutlined, FireOutlined, EyeFilled } from "@ant-design/icons";
 import "../css/home.css";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { convertDate, DateToMonthYearFormat } from "../Date";
+import { DateToMonthYearFormat } from "../Date";
 import api from "../../service/ServiceCall";
 import { Response } from "../../service/Response";
 import BuzzAvatar from "../BuzzAvatar";
@@ -23,9 +16,9 @@ export default function BuzzCard(props) {
   const [img, setImg] = useState(false);
 
   useEffect(() => {
-    const res = api.getThumbUrl(props.data.imageLink)
+    const res = api.getThumbUrl(props.data.imageLink);
     setImg(res);
-  }, [])
+  }, [props?.data?.imageLink]);
 
   if (props === undefined || props.data === undefined) {
     return <Response statusCode={404} />;
@@ -36,10 +29,9 @@ export default function BuzzCard(props) {
   const summary = props.data.summary;
   const publishDate = DateToMonthYearFormat(props.data.publishDate);
   const readTime = props.data.readTime;
-  const tag = props.data.tag;
   const authorLink = props.data.authorLink;
   const articleLink = props.data.link;
-  
+
   const likes = props.data.likes;
   const views = props.data.views;
   const userId = props.data.authorId;
@@ -52,8 +44,8 @@ export default function BuzzCard(props) {
         // backdropFilter: 'blur("12px")',
         padding: "8px 4px 4px 4px",
         borderRadius: "20px 20px",
-        height:'100%',
-        width:'100%'
+        height: "100%",
+        width: "100%",
       }}
     >
       <Row>
@@ -152,27 +144,22 @@ export default function BuzzCard(props) {
               top: "19%",
             }}
           >
-            {img? 
-            <img
-              id="image"
-              alt="unable to load"
-              className="imghover"
-              style={{ height: "100%", width: "100%" }}
-              src={img}
-            />
-            :
-            <BlankImage />
-            }
-            
+            {img ? (
+              <img
+                id="image"
+                alt="unable to load"
+                className="imghover"
+                style={{ height: "100%", width: "100%" }}
+                src={img}
+              />
+            ) : (
+              <BlankImage />
+            )}
           </div>
           {/* image end */}
         </Col>
         <Col span={1}></Col>
       </Row>
-
-      {/* <Space wrap={true}>
-        {tag.filter((item, idx) => idx < 4).map((topic) => <Topics data={topic} />)}
-      </Space> */}
     </div>
   );
 }

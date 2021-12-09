@@ -1,18 +1,14 @@
 import NavBar from "../../components/NavBar";
-import { Redirect } from 'react-router-dom'
-import { Layout, Row, Col, Tabs } from "antd";
+import { Row, Col} from "antd";
 import { Typography, Space, Divider } from "antd";
 import BuzzCard from "../../components/home/BuzzCard";
 import RadialChart from "../../components/home/RadialChart.js";
-import { InstagramOutlined, TwitterOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import api from "../../service/ServiceCall";
 import BuzzPerformer from "../../components/home/BuzzPerformer";
 import { LoginModal } from "../../components/LoginModal";
 
-const { TabPane } = Tabs;
-const { Text, Link } = Typography;
-const { Footer } = Layout;
+const { Text } = Typography;
 
 export default function Home(props) {
   const [graphData, setGraphData] = useState({ target: 10, read: 0 });
@@ -45,9 +41,8 @@ export default function Home(props) {
         }
       })
       setDisplayData(arr)
-      console.log(displayData)
     })
-    .catch((err) => { console.log(err);})
+    .catch((err) => {})
 
     // loading data for performance graph
     api.getUserStats().then((res)=> {
@@ -59,15 +54,13 @@ export default function Home(props) {
       });
     })
     .catch((err) => { 
-      if (err.response.status === 401){
+      if (err?.response?.status === 401){
+        // removing token if get 401 (unauthorized) error
         api.resetToken();
+        // setting token expired to be passed to login modal for displaying
         setTokenExpired(true);
-        <Redirect to={{ pathname: "/home", }} />;
-        // <LoginModal visible={true} />
       }
-      
-      console.log(err.response.status);})
-
+    })
     // load the top performing users
     api.getPerformers().then((res)=> {
       console.log(res);
@@ -77,7 +70,7 @@ export default function Home(props) {
         }))
       }
     })
-    .catch((err) => { console.log(err.response.status);})
+    .catch((err) => {})
 
   }, []);
 

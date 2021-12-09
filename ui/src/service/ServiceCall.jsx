@@ -3,7 +3,11 @@ import httpService from './Httpservice';
 
 const resetToken = () => {
     localStorage.removeItem(accessToken());
+    localStorage.removeItem('you');
     console.log('token removed');
+}
+const setUser = (userData) => {
+    localStorage.setItem('you', JSON.stringify(userData));
 }
 
 const getAllUsers = async () => {
@@ -13,11 +17,18 @@ const getAllUsers = async () => {
 
 const getUser = async(id) => {
     let path = id === undefined? 'author':`user/${id}`;
+    // caching and returning data
+    if (path === 'author' && localStorage.getItem('you')!==null){
+        console.log('returning cashed data')
+        return JSON.parse(localStorage.getItem('you'));
+    }
+    console.log('not returned cashed data');
+
     const res = await httpService.get(baseURL() + path)
+    // cashing user data
+    if (res?.data !==undefined) setUser(res.data);
+
     return res.data;
-    // httpService.get(baseURL() + path).then((res) => {
-    //     return res.data;
-    // }).catch((err) => { console.log(err);})
 };
 const getUserStats = async () =>{
     const res = await httpService.get(baseURL() + `userStats`);
@@ -78,11 +89,8 @@ const hasLiked = async (articleId) => {
 }
 const getThumbUrl = (imageName) => {
     if (imageName === '')    return {data:''};
-
+    
     const res = baseURL() + `images/${imageName}`;
-    // console.log(res);
-    // const res = await httpService.get(baseURL() + `uploadsnew/${imageName}`)
-    // console.log(res);
     return res;
 }
 const getProfileUrl = (profileId) => {
