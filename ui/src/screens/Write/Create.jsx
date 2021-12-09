@@ -115,8 +115,10 @@ export default function Create(props) {
     console.log("selected tags : " + selectedTags);
   }
 
-  const tags = ["Technology", "Startup", "Business", "Innovation",
-    "Science", "Space", "Medicine", "React", "JavaScript", "SpringBoot"
+  const tags = [
+    "Business", "BlockChain", "Technology", "Innovation", "Startup", "Bitcoin",
+    "Science", "Space", "Medicine", "React", "JavaScript", "SpringBoot", "Crypto",
+    "Rocket", "Nature", "Health"
   ];
 
   const data = {
@@ -168,7 +170,7 @@ export default function Create(props) {
           {/* Recap ends */}
 
           <Select
-            mode="multiple"
+            mode="tags"
             placeholder="Select tags"
             onChange={handleTags}
             optionLabelProp="label"
