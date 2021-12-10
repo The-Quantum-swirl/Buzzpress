@@ -43,7 +43,7 @@ public class UserStatServiceImpl implements IUserStatsService {
     public UserStats getUserStats(String id) throws BadRequestException {
     	// if entry does not exist in db make a default one
     	if (userStatsRepository.findByUserId(id) == null) {
-    		System.out.println("not found user with id: "+id);
+    		// System.out.println("not found user with id: "+id);
     		return setNewRecord(id);
     	}
     	

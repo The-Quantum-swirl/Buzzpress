@@ -62,7 +62,7 @@ public class IArticleMetaServiceImpl implements IArticleMetaSevice {
             likers = new HashSet<String>();
 
         if (operation == "+") {
-            System.out.println("Plus");
+            // System.out.println("Plus");
             // already like exists here for this user
             if (likers.contains(userId))
                 return;
@@ -72,7 +72,7 @@ public class IArticleMetaServiceImpl implements IArticleMetaSevice {
             articleMetaDataRepository.incrementLike(id);
 
         } else if (operation == "-") {
-            System.out.println("minus");
+            // System.out.println("minus");
             // can't remove like if liker doesnot already exists
             if (likers.contains(userId) == false)
                 return;

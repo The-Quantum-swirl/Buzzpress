@@ -48,7 +48,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     private OAuth2User processOAuth2User(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
-        System.out.print(oAuth2User);
+        // System.out.print(oAuth2User);
         OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(
                 oAuth2UserRequest.getClientRegistration().getRegistrationId(), oAuth2User.getAttributes());
         if (StringUtils.isEmpty(oAuth2UserInfo.getUserEmail())) {
@@ -85,7 +85,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         // fallback for adding data to the userStats table till the join mapping is
         // clear
         Optional<Users_> user_fromDb = UserDataRepository.findByUserEmail(user.getUserEmail());
-        System.out.println(user_fromDb.get());
+        // System.out.println(user_fromDb.get());
         UserStats userStats = new UserStats(user_fromDb.get().getUserId());
         userStatsRepository.save(userStats);
         return response;

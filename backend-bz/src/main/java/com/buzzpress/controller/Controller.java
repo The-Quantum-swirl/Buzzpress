@@ -65,7 +65,7 @@ public class Controller {
     @PostMapping(value = "/saveuser")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<ResponseMessage> postMethodName(@RequestBody Users_ entity) throws DuplicateUserException {
-        System.out.println(entity);
+        // System.out.println(entity);
         ResponseMessage rm = new ResponseMessage();
 
         rm.setMessage("Data Added");
@@ -80,7 +80,7 @@ public class Controller {
     @PostMapping(value = "/saveusers")
     public ResponseEntity<ResponseMessage> postMethodName(@RequestBody List<Users_> entity)
             throws DuplicateUserException {
-        System.out.println(entity);
+        // System.out.println(entity);
         ResponseMessage rm = new ResponseMessage();
         rm.setMessage("Data Added");
         rm.setStatusCode(200);
@@ -106,8 +106,8 @@ public class Controller {
     public ResponseEntity<ResponseMessage> Followuser(@RequestBody FollowBody followBody, @CurrentUser UserPrincipal userPrincipal) throws NotFoundException {
         followBody.setFollower(userPrincipal.getUserId());
         
-    	System.out.println("<-- Print follow body -->");
-        System.out.println(followBody);
+    	// System.out.println("<-- Print follow body -->");
+        // System.out.println(followBody);
         
         String follower = followBody.getFollower();
         String toFollow = followBody.getToFollow();
@@ -123,8 +123,8 @@ public class Controller {
     public ResponseEntity<ResponseMessage> UnFollowuser(@RequestBody FollowBody followBody, @CurrentUser UserPrincipal userPrincipal) throws UserNotFoundException {
     	followBody.setFollower(userPrincipal.getUserId());
          
-     	System.out.println("<-- Print follow body -->");
-        System.out.println(followBody);
+     	// System.out.println("<-- Print follow body -->");
+        // System.out.println(followBody);
          
         String follower = followBody.getFollower();  	
         String toUnFollow = followBody.getToUnFollow();

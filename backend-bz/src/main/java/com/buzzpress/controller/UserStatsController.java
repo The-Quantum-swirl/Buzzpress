@@ -43,7 +43,7 @@ public class UserStatsController {
     @PreAuthorize("hasRole('USER')")
     public UserStats getUserStats(@CurrentUser UserPrincipal userPrincipal) {
     	String id = userPrincipal.getUserId();
-    	System.out.println(iUserStatsService.getUserStats(id));
+    	// System.out.println(iUserStatsService.getUserStats(id));
         // updating user stats for the day
         iUserStatsService.updateStats(id);
 
