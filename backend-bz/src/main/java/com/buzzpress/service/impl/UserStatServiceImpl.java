@@ -76,17 +76,17 @@ public class UserStatServiceImpl implements IUserStatsService {
 
     @Override
     public List<TopUsers> getTopUsers() {
-        List<TopUsers> top = new ArrayList<TopUsers>();
-        List<ArticleMeta> meta = articleMetaDataRepository.findTop10DistinctAuthorIdByOrderByViewsDesc();
+        // List<TopUsers> top = new ArrayList<TopUsers>();
+        List<TopUsers> meta = articleMetaDataRepository.top10();
 
-        meta.forEach(s -> {
-            TopUsers topuser = new TopUsers();
-            topuser.setAuthorID(s.getAuthorId());
-            topuser.setName(s.getAuthorName());
-            topuser.setPoints(s.getViews() * 10);
-            top.add(topuser);
-        });
-        return top;
+        // meta.forEach(s -> {
+        //     TopUsers topuser = new TopUsers();
+        //     topuser.setAuthorID(s.getAuthorId());
+        //     topuser.setName(s.getAuthorName());
+        //     topuser.setPoints(s.getViews() * 10);
+        //     top.add(topuser);
+        // });
+        return meta;
     }
 
 }

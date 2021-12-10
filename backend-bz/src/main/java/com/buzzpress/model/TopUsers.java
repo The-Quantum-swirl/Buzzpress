@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class TopUsers {
     private String name;
     private Long points;
-    private String authorID;
+    private String authorId;
 }
