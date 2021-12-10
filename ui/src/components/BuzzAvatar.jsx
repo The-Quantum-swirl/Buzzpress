@@ -7,15 +7,20 @@ export default function BuzzAvatar(props) {
   const [profilePicture, setProfilePicture] = useState(false);
 
   useEffect(() => {
-    api.getUser( (props.userId==='you'?undefined:props.userId) )
-    .then((res) => {
-        console.log(res)
-      if (res.profilePhotoUrl !== null) {
-        setProfilePicture(res.profilePhotoUrl);
-      }
+    props.userId === 'you' || props.userId === undefined?
+    (
+    api.getSelf().then((res) => {
+      // console.log(res)
+      if (res.imageUrl !== null) {setProfilePicture(res.imageUrl);}
     })
     .catch((res) => {})
-    
+    ):(
+    api.getUser(props.userId).then((res) => {
+      // console.log(res)
+      if (res.imageUrl !== null) {setProfilePicture(res.imageUrl);}
+    })
+    .catch((res) => {})
+    )
   }, [props.userId]);
 
   if (props.type === undefined || props.type === "medium") {

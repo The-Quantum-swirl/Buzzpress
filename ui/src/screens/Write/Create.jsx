@@ -122,6 +122,7 @@ export default function Create(props) {
   ];
 
   const data = {
+    userId: 'you',
 	  title: title,
 	  summary: summary,
     imagelist: imageList,
@@ -129,7 +130,7 @@ export default function Create(props) {
 	  content: content,
     contentType : contentType,
 	  readTime: esimatedTime,
-    authorName: 'Your name',
+    authorName: localStorage.getItem('you')!==null ? JSON.parse(localStorage.getItem('you'))?.name:'Your name',
     authorLink: api.getProfileUrl('you'),
     tag: selectedTags,
   }
