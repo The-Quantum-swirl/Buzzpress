@@ -1,16 +1,21 @@
-import { Menu, Dropdown, Button, Typography} from "antd";
+import { Menu, Dropdown, Button} from "antd";
 import { useHistory } from "react-router-dom";
 import BuzzAvatar from "./BuzzAvatar";
 import { accessToken } from "../service/ServicePath";
+import httpService from "../service/Httpservice";
 import logo from "../assets/logo.png";
-
-const { Text } = Typography;
 
 export default function NavBar() {
   let history = useHistory();
 
   const logout = () => {
+    // removing acess token
     localStorage.removeItem(accessToken());
+    // removing cashed use details
+    localStorage.removeItem('you');
+    httpService.deleteJwt();
+
+    history.push("/home");
   }
 
   const menu = (
@@ -45,7 +50,6 @@ export default function NavBar() {
           onClick={(e) => history.push("/home")}
         >
         <img src={logo} style={{height:'44px'}} alt="1minthoughts" />
-          {/* <Text style={{color:'white'}}>1minthoughts</Text> */}
         </Menu.Item>
         <Menu.Item
           // className='ant-dropdown-link'

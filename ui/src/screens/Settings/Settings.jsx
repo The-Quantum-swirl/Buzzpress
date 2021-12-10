@@ -54,7 +54,7 @@ export default function UserDetails() {
     .catch((err) => { console.log(err.response.status);})
 
     // loading data for article meta
-    api.getUser().then((res) => {
+    api.getSelf().then((res) => {
       console.log(res);
       setAuthorDetails({
         PersonalData: {firstName: res.name},

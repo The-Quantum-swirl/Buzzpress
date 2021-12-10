@@ -41,9 +41,10 @@ export const LoginModal = (props) => {
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
+        width={350}
       >
         <Button
-          style={{ height: "45px", marginLeft: "30%" }}
+          style={{ height: "45px", marginLeft: "20%" }}
           href={googleAuthURL()}
         >
           <img src={googleLogo} alt="Google" style={{ width: "40px" }} />
