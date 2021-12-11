@@ -28,7 +28,7 @@ public class IUserServiceImpl implements IUserService {
         Users_ userObj = userDataRepository.findByUserId(userId);
         if (userObj == null) throw new UserNotFoundException("No user found with id: "+ userId);
         
-        System.out.println(userObj.getName());
+        // System.out.println(userObj.getName());
         return userObj;
     }
 
@@ -52,7 +52,7 @@ public class IUserServiceImpl implements IUserService {
         Users_ user = userDataRepository.findByUserId(userId);
         if (user == null) throw new UserNotFoundException("No user found with user id: "+ userId);
         
-        System.out.println(user);
+        // System.out.println(user);
         return user.getName();
 
     }
@@ -87,7 +87,7 @@ public class IUserServiceImpl implements IUserService {
         if (UserFollowing == null)
             throw new NotFoundException("not found follower");
         UserBeingFollowed = userDataRepository.findByUserId(toFollow);
-        System.out.println(UserBeingFollowed);
+        // System.out.println(UserBeingFollowed);
         if (UserBeingFollowed == null)
             throw new NotFoundException("not found toFollow");
         HashSet<String> followers = UserBeingFollowed.getFollowers();

@@ -1,8 +1,6 @@
-import {useState} from "react";
-import ReactApexChart from "react-apexcharts";
-import { RadialBarChart, RadialBar, Legend } from "recharts";
-import { Space, Typography } from "antd";
-const {Text, Title} = Typography;
+import { RadialBarChart, RadialBar } from "recharts";
+import {Typography } from "antd";
+const {Text} = Typography;
 
 export default function RadialChart(props) {
   // articles target set by user

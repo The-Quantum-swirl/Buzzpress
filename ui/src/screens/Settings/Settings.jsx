@@ -1,15 +1,17 @@
 import { useEffect } from "react";
-import axios from "axios";
-import { Button, Col, Divider, Form, Input, PageHeader, Row, Space, Switch, Tabs, Typography } from "antd";
+import { Button, Col, Divider, Form, Input, PageHeader, Row, Space, Tabs, Typography } from "antd";
 import { useState } from "react";
 import NavBar from "../../components/NavBar";
 import MessageCard from "../../components/settings/MessageCard";
 import { convertDate, DateToMonthYearFormat } from "../../components/Date";
 import UploadButton from "../../components/UploadButton";
 import api from "../../service/ServiceCall";
+import ReactGA from 'react-ga';
+
 const { TabPane } = Tabs;
 const { Paragraph } = Typography;
 
+ReactGA.initialize('UA-214937125-1');
 export default function UserDetails() {
   const [authorDetails, setAuthorDetails] = useState({
     PersonalData: { firstName: "Anonymous" },
@@ -38,6 +40,8 @@ export default function UserDetails() {
   }
 
   useEffect(() => {
+    
+    ReactGA.pageview(window.location.pathname + window.location.search);
 
     api.getUserStats().then((res) =>{
       console.log(res);
@@ -50,7 +54,7 @@ export default function UserDetails() {
     .catch((err) => { console.log(err.response.status);})
 
     // loading data for article meta
-    api.getUser().then((res) => {
+    api.getSelf().then((res) => {
       console.log(res);
       setAuthorDetails({
         PersonalData: {firstName: res.name},
@@ -79,13 +83,6 @@ export default function UserDetails() {
     console.log("Failed:", errorInfo);
   };
 
-
-  //   old password get from db
-  const oldPasswordFromDB = "";
-  const stylecard = {
-    boxShadow: "0 1px 10px 0 rgb(30, 79, 131, 0.5)",
-    border: "rgb(122, 168, 218) 1x solid"
-  }
   return (
     <div>
       <NavBar />

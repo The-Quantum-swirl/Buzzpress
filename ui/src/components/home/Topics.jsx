@@ -1,5 +1,5 @@
 import { Typography} from 'antd';
-const { Text, Title } = Typography;
+const { Title } = Typography;
 
 export default function Topics(props){
     const tag = props.data || '';

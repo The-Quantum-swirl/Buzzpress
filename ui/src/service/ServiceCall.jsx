@@ -3,7 +3,11 @@ import httpService from './Httpservice';
 
 const resetToken = () => {
     localStorage.removeItem(accessToken());
+    localStorage.removeItem('you');
     console.log('token removed');
+}
+const setUser = (userData) => {
+    localStorage.setItem('you', JSON.stringify(userData));
 }
 
 const getAllUsers = async () => {
@@ -12,13 +16,24 @@ const getAllUsers = async () => {
 };
 
 const getUser = async(id) => {
-    let path = id === undefined? 'author':`user/${id}`;
-    const res = await httpService.get(baseURL() + path)
+    const res = await httpService.get(baseURL() + `user/${id}`)
     return res.data;
-    // httpService.get(baseURL() + path).then((res) => {
-    //     return res.data;
-    // }).catch((err) => { console.log(err);})
 };
+
+const getSelf = async() =>{
+    // caching and returning data
+    if (localStorage.getItem('you')!==null){
+        console.log('returning cashed data')
+        return JSON.parse(localStorage.getItem('you'));
+    }
+    console.log('Retrieving new data and cashing');
+
+    const res = await httpService.get(baseURL() + 'author')
+    // cashing user data
+    if (res?.data !==undefined) setUser(res.data);
+
+    return res.data;
+}
 const getUserStats = async () =>{
     const res = await httpService.get(baseURL() + `userStats`);
     return res.data;
@@ -77,12 +92,9 @@ const hasLiked = async (articleId) => {
     return await httpService.get(baseURL() + `hasLikedArticle/${articleId}`)
 }
 const getThumbUrl = (imageName) => {
-    if (imageName === '')    return {data:''};
-
+    if (imageName === '')    return undefined;
+    
     const res = baseURL() + `images/${imageName}`;
-    // console.log(res);
-    // const res = await httpService.get(baseURL() + `uploadsnew/${imageName}`)
-    // console.log(res);
     return res;
 }
 const getProfileUrl = (profileId) => {
@@ -120,6 +132,7 @@ const getPerformers = async () =>{
 export default {
     getAllUsers,
     getUser,
+    getSelf,
     getUserStats,
     getArticleCards,
     getArticleMetaById,

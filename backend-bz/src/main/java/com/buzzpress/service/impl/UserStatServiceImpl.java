@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import com.buzzpress.beans.ArticleMeta;
 import com.buzzpress.beans.UserStats;
 import com.buzzpress.dao.ArticleMetaDataRepository;
 import com.buzzpress.dao.UserDataRepository;
@@ -29,7 +28,7 @@ public class UserStatServiceImpl implements IUserStatsService {
     ArticleMetaDataRepository articleMetaDataRepository;
     @Autowired
     IArticleMetaSevice iArticleMetaSevice;
-    
+
     public UserStats setNewRecord(String userId) {
     	// default values for user stats
     	// stats id = 0, userid, read = 0, authored = 0, target = 0,
@@ -43,7 +42,7 @@ public class UserStatServiceImpl implements IUserStatsService {
     public UserStats getUserStats(String id) throws BadRequestException {
     	// if entry does not exist in db make a default one
     	if (userStatsRepository.findByUserId(id) == null) {
-    		System.out.println("not found user with id: "+id);
+    		// System.out.println("not found user with id: "+id);
     		return setNewRecord(id);
     	}
     	
@@ -76,17 +75,16 @@ public class UserStatServiceImpl implements IUserStatsService {
 
     @Override
     public List<TopUsers> getTopUsers() {
-        List<TopUsers> top = new ArrayList<TopUsers>();
-        List<ArticleMeta> meta = articleMetaDataRepository.findTop10ByOrderByViewsDesc();
-
-        meta.forEach(s -> {
+         List<TopUsers> top = new ArrayList<TopUsers>();
+        List<Object> meta =  articleMetaDataRepository.top10();
+        for (int i=0; i<meta.size();i++){
+            Object[] obj= (Object[]) meta.get(i);
             TopUsers topuser = new TopUsers();
-            topuser.setAuthorID(s.getAuthorId());
-            topuser.setName(s.getAuthorName());
-            topuser.setPoints(s.getViews() * 10);
+            topuser.setAuthorId(String.valueOf(obj[2]));
+            topuser.setAuthorName(String.valueOf(obj[0]));
+            topuser.setPoints(Long.parseLong(String.valueOf(obj[1]))*10);
             top.add(topuser);
-        });
+        }
         return top;
     }
-
 }
