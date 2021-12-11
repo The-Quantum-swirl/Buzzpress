@@ -1,5 +1,4 @@
-import React from 'react'
-import api from './../../service/ServiceCall';
+
 export default function AdminDashboard() {
     // useEffect(() => {
     //     const allUsers = api.getAllUsers();

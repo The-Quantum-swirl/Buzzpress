@@ -36,5 +36,9 @@ public interface ArticleMetaDataRepository extends JpaRepository<ArticleMeta, Lo
     @Query(value = "update article_meta SET views=views+1 where article_id=:id", nativeQuery = true)
     public void view(@Param("id") long id);
 
-    public List<ArticleMeta> findTop10ByOrderByViewsDesc();
+    
+    @Query(value = "select author_name,sum(views),author_id from article_meta group by article_meta.author_id,author_name order by sum(views) Desc LIMIT 10", nativeQuery = true)
+    public List<Object> top10();
+
+    // public List<ArticleMeta> findTop10DistinctAuthorIdByOrderByViewsDescGroupByAuthorId();
 }

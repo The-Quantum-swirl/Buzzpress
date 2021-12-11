@@ -1,21 +1,21 @@
-import { Layout, Menu, Dropdown, Button, Typography, Switch } from "antd";
+import { Menu, Dropdown, Button} from "antd";
 import { useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
 import BuzzAvatar from "./BuzzAvatar";
 import { accessToken } from "../service/ServicePath";
-const { Header } = Layout;
-const { Text } = Typography;
+import httpService from "../service/Httpservice";
+import logo from "../assets/logo.png";
 
 export default function NavBar() {
   let history = useHistory();
-  const [theme, setTheme] = useState("dark");
-  function onChange(checked) {
-    console.log(`switch to ${checked}`);
-    if (theme==="dark") setTheme("light");
-    else setTheme("dark");
-  }
+
   const logout = () => {
+    // removing acess token
     localStorage.removeItem(accessToken());
+    // removing cashed use details
+    localStorage.removeItem('you');
+    httpService.deleteJwt();
+
+    history.push("/home");
   }
 
   const menu = (
@@ -37,19 +37,19 @@ export default function NavBar() {
 
   return (
     <>
-      <Menu theme={theme} mode="horizontal" 
-        style={{padding:'9px 50px 9px 50px',
+      <Menu theme={'dark'} mode="horizontal" 
+        style={{padding:'8px 40px 8px 40px',
         boxShadow: '0 4px 18px 0 rgb(0 0 0 / 10%)'
         }}>
         <Menu.Item
           key={1}
           style={{
-            fontSize: "30px",
+            // fontSize: "30px",
             backgroundColor: "inherit",
           }}
           onClick={(e) => history.push("/home")}
         >
-          <Text style={{color:'white'}}>1minthoughts</Text>
+        <img src={logo} style={{height:'44px'}} alt="1minthoughts" />
         </Menu.Item>
         <Menu.Item
           // className='ant-dropdown-link'
@@ -73,7 +73,7 @@ export default function NavBar() {
                 borderRadius: "50%",
               }}
             >
-              <BuzzAvatar />
+              <BuzzAvatar userId={'you'} />
             </Button>
         </Dropdown>
           

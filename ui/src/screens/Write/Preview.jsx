@@ -1,28 +1,12 @@
-import { useEffect, useState } from "react";
 import LazyLoad from "react-lazyload";
 import Topics from "../../components/home/Topics";
 import { Response } from "../../service/Response";
 import { convertDate, DateToMonthYearFormat } from "../../components/Date";
 import { Row, Col, Typography } from "antd";
-import { Avatar, Space, Button } from "antd";
-import {
-  UserOutlined,
-  FireFilled,
-  FireOutlined,
-  ReadOutlined,
-  ApiFilled,
-} from "@ant-design/icons";
+import { Space } from "antd";
+import { ReadOutlined} from "@ant-design/icons";
 import BuzzAvatar from "../../components/BuzzAvatar";
-import api from "../../service/ServiceCall";
-const { Title, contentgraph, Text } = Typography;
-
-const checkURL = (url) => {
-  if (typeof url === "string") {
-    url = url.toLowerCase();
-    return url.match(/\.(apng|jpeg|jpg|jfif|pjpeg|pjp|gif|png|svg)$/) != null;
-  }
-  return false;
-};
+const { Title, Text } = Typography;
 
 export default function Preview(props) {
   console.log(props.data);

@@ -4,11 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class TopUsers {
-    private String name;
-    private Long points;
-    private String authorID;
+    public String authorName;
+    public Long points;
+    public String authorId;
 }

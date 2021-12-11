@@ -4,25 +4,29 @@ import { useEffect, useState } from "react";
 import api from "../service/ServiceCall";
 
 export default function BuzzAvatar(props) {
-  const userId = props.userId;
   const [profilePicture, setProfilePicture] = useState(false);
 
   useEffect(() => {
-    api.getUser( (userId==='you'?undefined:userId) )
-    .then((res) => {
-        console.log(res)
-      if (res.profilePhotoUrl !== null) {
-        setProfilePicture(res.profilePhotoUrl);
-      }
+    props.userId === 'you' || props.userId === undefined?
+    (
+    api.getSelf().then((res) => {
+      // console.log(res)
+      if (res.imageUrl !== null) {setProfilePicture(res.imageUrl);}
     })
-    .catch((res) => {console.log(res)})
-    
-  }, []);
+    .catch((res) => {})
+    ):(
+    api.getUser(props.userId).then((res) => {
+      // console.log(res)
+      if (res.imageUrl !== null) {setProfilePicture(res.imageUrl);}
+    })
+    .catch((res) => {})
+    )
+  }, [props.userId]);
 
   if (props.type === undefined || props.type === "medium") {
     return (
       <Avatar
-        src={profilePicture === false ? "" : profilePicture}
+        src={profilePicture}
         style={{
           width: "40px",
           height: "40px",
@@ -34,7 +38,7 @@ export default function BuzzAvatar(props) {
   } else if (props.type === "large") {
     return (
       <Avatar
-        src={profilePicture === false ? "" : profilePicture}
+        src={profilePicture}
         style={{
           width: "150px",
           height: "150px",
@@ -46,7 +50,7 @@ export default function BuzzAvatar(props) {
   } else {
     return (
       <Avatar
-        src={profilePicture === false ? "" : profilePicture}
+        src={profilePicture}
         style={{
           width: "34px",
           height: "34px",

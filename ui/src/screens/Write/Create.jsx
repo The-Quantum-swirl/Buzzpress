@@ -115,11 +115,14 @@ export default function Create(props) {
     console.log("selected tags : " + selectedTags);
   }
 
-  const tags = ["Technology", "Startup", "Business", "Innovation",
-    "Science", "Space", "Medicine", "React", "JavaScript", "SpringBoot"
+  const tags = [
+    "Business", "BlockChain", "Technology", "Innovation", "Startup", "Bitcoin",
+    "Science", "Space", "Medicine", "React", "JavaScript", "SpringBoot", "Crypto",
+    "Rocket", "Nature", "Health"
   ];
 
   const data = {
+    userId: 'you',
 	  title: title,
 	  summary: summary,
     imagelist: imageList,
@@ -127,7 +130,7 @@ export default function Create(props) {
 	  content: content,
     contentType : contentType,
 	  readTime: esimatedTime,
-    authorName: 'Your name',
+    authorName: localStorage.getItem('you')!==null ? JSON.parse(localStorage.getItem('you'))?.name:'Your name',
     authorLink: api.getProfileUrl('you'),
     tag: selectedTags,
   }
@@ -168,7 +171,7 @@ export default function Create(props) {
           {/* Recap ends */}
 
           <Select
-            mode="multiple"
+            mode="tags"
             placeholder="Select tags"
             onChange={handleTags}
             optionLabelProp="label"

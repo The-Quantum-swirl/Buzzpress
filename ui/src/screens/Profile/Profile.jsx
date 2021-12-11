@@ -2,13 +2,16 @@ import {useParams} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import NavBar from '../../components/NavBar';
 import BuzzCard from '../../components/home/BuzzCard';
-import { Avatar, Col, Row, Space, Typography, Divider, Button } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import { DateToMonthYearFormat, thumbUrl } from '../../components/Date';
+import { Col, Row, Space, Typography, Divider, Button, Empty } from 'antd';
+import { DateToMonthYearFormat} from '../../components/Date';
 import api from "../../service/ServiceCall";
 import { ButtonGroup } from '@mui/material';
 import BuzzAvatar from '../../components/BuzzAvatar';
-const { Text, Link, Title } = Typography;
+import ReactGA from 'react-ga';
+
+const { Text, Title } = Typography;
+
+ReactGA.initialize('UA-214937125-1');
 
 export default function Profile(){
 
@@ -17,13 +20,15 @@ export default function Profile(){
   const [displayData, setDisplayData] = useState([]);
   // personal Data 
   const [personalData, setPersonalData] = useState({
-    name:'Derek Obrien',
-    joinedDate:DateToMonthYearFormat('2020-06-14'),
-    followers:3000,
+    name:'Anonymous',
+    joinedDate:DateToMonthYearFormat('2021-12-08'),
+    followers:1,
     profilePicture:false,
   });
 
   useEffect(() => {
+    
+    ReactGA.pageview(window.location.pathname + window.location.search);
     console.log(userId);
     userId==='you'? 
     ( setDisable(true) ) : (
@@ -34,7 +39,20 @@ export default function Profile(){
     .catch((err) => { console.log(err.response.status);})
     )
 
-    api.getUser( (userId==='you'? undefined: userId) )
+    userId === 'you' ? (
+    api.getSelf().then((res) => {
+      console.log(res)
+      setPersonalData({
+        name:res.name,
+        joinedDate:res.userJoinDate!==null ? DateToMonthYearFormat(res.userJoinDate) : "10 Dec,2021",
+        followers: res.followers!==null ? res.followers.length: 0,
+        following: res.following!==null ? res.following.length: 0,
+        profilePicture: res.imageUrl!==null ? res.imageUrl: false,
+      })
+    })
+    .catch((res) => {})
+    ):(
+    api.getUser(userId)
     .then((res) => {
       console.log(res)
       setPersonalData({
@@ -42,10 +60,11 @@ export default function Profile(){
         joinedDate:res.userJoinDate!==null ? DateToMonthYearFormat(res.userJoinDate) : "1 Jan,1999",
         followers: res.followers!==null ? res.followers.length: 0,
         following: res.following!==null ? res.following.length: 0,
-        profilePicture: res.profilePhotoUrl!==null ? res.profilePhotoUrl: false,
+        profilePicture: res.imageUrl!==null ? res.imageUrl: false,
       })
     })
-    .catch((err) => { console.log(err.response.status);})
+    .catch((err) => {})
+    )
 
     api.getArticleCardsByAuthorId((userId==='you'? undefined: userId)).then((res) => {
       console.log(res);
@@ -64,13 +83,11 @@ export default function Profile(){
           imageLink: dt.thumbUrl,
         }
       })
-      
       setDisplayData(arr)
-      console.log(displayData)
     })
-    .catch((err) => { console.log(err.response.status);})
+    .catch((err) => { })
 
-  },[])    
+  },[userId])    
   const handleFollow = (e) => {
     console.log("followed")
     console.log(userId)
@@ -120,20 +137,19 @@ export default function Profile(){
           <Space direction="vertical" size={8} style={{width:'100%'}}>
             <Text type="secondary" style={{padding:'20px'}}>Your Timeline</Text>
             <Divider style={{ margin: "0 0 0 15px", width: "90%", minWidth:'90%'}} />
-            {displayData.map((dataObject) => {
-            return <BuzzCard data={dataObject} />;
-            })}
+            {displayData.length === 0? <Empty />: 
+              displayData.map((dataObject) => { return <BuzzCard data={dataObject} />;})
+            }
+            
           </Space>
           </Col>
           <Col xs={0} sm={4} md={8} lg={6} xl={7}>
             <Space direction="vertical" id="profile-right-hide">
               {/* <Text>right</Text> */}
-
             </Space>
           </Col>
 
         </Row>
-            
         </>
     );
 }

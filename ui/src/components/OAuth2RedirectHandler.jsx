@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import { accessToken } from '../service/ServicePath';
+import {useHistory} from "react-router-dom";
 
 function OAuth2RedirectHandler(props) {
+    let history = useHistory();
     const getUrlParameter = (name) => {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
         var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -12,23 +13,13 @@ function OAuth2RedirectHandler(props) {
     };
 
     const token = getUrlParameter('token');
-    const error = getUrlParameter('error');
 
     if (token) {
-
         localStorage.setItem(accessToken(), token);
-        // console.log(props.location);
-        return <Redirect to={{
-            pathname: "/home",
-            state: { from: props.location }
-        }} />;
     }
-    else {
-        return <Redirect to={{
-            pathname: "/home",
-            state: { from: props.location }
-        }} />
-    }
+    history.go(-2);
+    // return <Redirect to={{pathname: "/home", state: { from: props.location } }} />;
+    
 
 }
 

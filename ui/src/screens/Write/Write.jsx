@@ -1,16 +1,24 @@
 import NavBar from "../../components/NavBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "antd";
 import Create from "./Create";
 import Preview from "./Preview";
 import { convertDate } from "../../components/Date";
 import api from "../../service/ServiceCall";
 import { Response } from "../../service/Response";
+import ReactGA from 'react-ga';
 
+
+ReactGA.initialize('UA-214937125-1');
 export default function Write() {
   const [currentStep, setCurrentStep] = useState(0);
   const [data, setData] = useState({ readTime: "1 min", authorLink: api.getProfileUrl('you'), title: "", summary: "",});
   var statusCode = 200, previewData = {};
+
+  useEffect(()=>{
+    
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  },[])
 
   const outcome = (res1, res2) => {
     if (res1 !== 200) statusCode = res1;
