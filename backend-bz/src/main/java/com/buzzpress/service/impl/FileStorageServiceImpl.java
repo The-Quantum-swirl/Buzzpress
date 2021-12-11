@@ -2,7 +2,6 @@ package com.buzzpress.service.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -13,7 +12,6 @@ import java.util.stream.Stream;
 
 import com.buzzpress.service.IFileStorageService;
 
-import org.slf4j.Logger;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;

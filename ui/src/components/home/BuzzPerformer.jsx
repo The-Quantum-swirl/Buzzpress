@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 const { Text } = Typography;
 
 export default function BuzzPerformer(props) {
-  const userName = props.name;
-  const userId = props.authorID;
+  const userName = props.authorName;
+  const userId = props.authorId;
   const authorLink = api.getProfileUrl(userId);
   const [disable, setDisable] = useState(false);
 
