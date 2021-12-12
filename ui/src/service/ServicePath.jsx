@@ -12,6 +12,13 @@ const frontendURL = () => {
   } 
   else return process.env.REACT_APP_FRONTEND_URL_PROD;
 };
+
+const fURL = () => {
+    if ( process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test" ) {
+        return '';
+    } 
+    else return process.env.REACT_APP_FRONTEND_URL_PROD;
+}
 const accessToken = () => process.env.REACT_APP_ACCESS_TOKEN;
 
 const googleAuthURL = () => {
@@ -35,4 +42,4 @@ const googleAuthURL = () => {
     );
   }
 };
-export { baseURL, frontendURL, accessToken, googleAuthURL };
+export { baseURL, frontendURL, fURL, accessToken, googleAuthURL };
