@@ -47,69 +47,66 @@ export default function Article() {
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
 
-    var temp = "Anonymous",
-      templikes = 1,
-      tempUserId = undefined;
-    api
-      .getArticleMetaById(articleId)
-      .then((res) => {
-        console.log(res);
-        if (res !== undefined) {
-          templikes = res.likes;
-          temp = res.authorName;
-          tempUserId = res.authorId;
-          setViews(res.views);
-        } else setExist(false);
-      })
-      .catch((err) => {
-        console.log(err.response.status);
-      });
+    var temp = "Anonymous", templikes = 20, tempUserId = undefined;
+    api.getArticleMetaById(articleId)
+    .then((res) => {
+      console.log(res);
+      if (res === undefined)  setExist(false);
 
-    // logic for like
-    api
-      .hasLiked(articleId)
+      templikes = res.likes;
+
+      // logic for like
+      api.hasLiked(articleId)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
+        // check if current user has liked the article
         if (res.data) {
           setOnFire(true);
           templikes -= 1;
         }
         setLikes(templikes);
       })
-      .catch((err) => {
-        console.log(err.response.status);
-      });
+      .catch((err) => { console.log(err.response.status); });
 
-    api
-      .getArticle(articleId)
-      .then((res) => {
-        console.log(res);
-        if (res !== undefined) {
-          setLoadedData({
-            authorName: res.authorName || temp,
-            publishDate: res.publishDate,
-            readTime: res.readTime,
-            authorLink: api.getProfileUrl(res.authorId),
-            userId: tempUserId,
-            title: res.title,
-            summary: res.summary,
+      temp = res.authorName;
+      tempUserId = res.authorId;
+      setViews(res.views);
+    })
+    .catch((err) => {
+      console.log(err.response.status);
+    });
 
-            content: res.description.split("\n") || [""],
-            contentType: res.textType.split("\n") || ["head"],
-            imagelist: [""],
+    
 
-            tag: res.tag.split("\n") || [""],
-          });
-        } else setExist(false);
-      })
-      .catch((err) => {
-        if (err?.response?.status === 401) {
-          // removing token if get 401 (unauthorized) error
-          api.resetToken();
-          // setting token expired to be passed to login modal for displaying
-          setTokenExpired(true);
-        }
-      });
+    api.getArticle(articleId)
+    .then((res) => {
+      console.log(res);
+      if (res !== undefined) {
+        setLoadedData({
+          authorName: res.authorName || temp,
+          publishDate: res.publishDate,
+          readTime: res.readTime,
+          authorLink: api.getProfileUrl(res.authorId),
+          userId: tempUserId,
+          title: res.title,
+          summary: res.summary,
+
+          content: res.description.split("\n") || [""],
+          contentType: res.textType.split("\n") || ["head"],
+          imagelist: [""],
+
+          tag: res.tag.split("\n") || [""],
+        });
+      } else setExist(false);
+    })
+    .catch((err) => {
+      if (err?.response?.status === 401) {
+        // removing token if get 401 (unauthorized) error
+        api.resetToken();
+        // setting token expired to be passed to login modal for displaying
+        setTokenExpired(true);
+      }
+    });
     // api post for read 1 more article
     api.postReadCountIncrement();
   }, [articleId]);

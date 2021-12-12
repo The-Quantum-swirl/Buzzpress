@@ -44,20 +44,20 @@ export default function Write() {
     };
     // getting raw data response status in code 200,404,500 etc
     rawDataResponse = api.postArticle(payload);
-
+    imgDataResponse = 200;
     // uploading image in batch start
-    let imgArr = data.imagelist;
-    let formData = new FormData();
+    // let imgArr = data.imagelist;
+    // let formData = new FormData();
 
-    // looping for individual image upload
-    imgArr.forEach((element) => {
-      // formdata append and delete
-      formData.append("file", element);
-      imgDataResponse = api.postImage(formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      formData.delete("file");
-    });
+    // // looping for individual image upload
+    // imgArr.forEach((element) => {
+    //   // formdata append and delete
+    //   formData.append("file", element);
+    //   imgDataResponse = api.postImage(formData, {
+    //     headers: { "Content-Type": "multipart/form-data" },
+    //   });
+    //   formData.delete("file");
+    // });
     // uploading of image end
 
     outcome(imgDataResponse, rawDataResponse);

@@ -9,8 +9,8 @@ export default function FinalPreview(props) {
 
     content.map( (element, index) => {
         if (contentType[index] === 'image'){
-            // content[index] is image name
-            imglist.push( api.getThumbUrl(element) )
+            // content[index] is image name or link (unsplash)
+            imglist.push(element)
         }
     })
     props.data.imagelist = imglist;

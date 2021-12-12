@@ -7,6 +7,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import UploadButton from "../../components/UploadButton";
 import api from "../../service/ServiceCall";
+import SearchUp from "../../components/SearchUp";
 
 const { Option } = Select;
 
@@ -43,6 +44,26 @@ export default function Create(props) {
     // word counting merging content array in string 
     wordCount(updatedcontent.join(' '));
   };
+
+  function handleImageSearch (url, position) {
+    //max image list = [image1, image2] limit
+    if ((imageList.length? imageList.length:0)+1 > maxLengthOfImageList){
+      message.error("Max no of images reached");
+      message.warning("Please delete it using bin icon");
+    }
+    else{
+      let updatedcontent = [...content], updatedImageList = [...imageList];
+      // image position stored in content using image list length
+      updatedcontent[position] = url;
+      if (firstImage === ""){ setFirstImage(JSON.parse(url).url); } 
+      // pusing image in seprate array imagelist 
+      updatedImageList.push(url);
+  
+      setContent(updatedcontent);
+      setImageList(updatedImageList);
+      // console.log(imageData);
+    }
+  }
 
   // this will manage change in images upon selecion
   function handleImage (imageData, position) {
@@ -208,7 +229,10 @@ export default function Create(props) {
                   <Col span={17}>
                     {/* Changeable field upload/ textfield starts */}
                     {contentType[index] === "image" ? (
-                      <UploadButton imageData={(e) => handleImage(e, index)} />
+                      <>
+                      {/* <UploadButton imageData={(e) => handleImage(e, index)} /> */}
+                      <SearchUp imageUrl={(e) => handleImageSearch(e, index)} />
+                      </>
                     ) : (
                       <TextField
                         id="standard-textarea"

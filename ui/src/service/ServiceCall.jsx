@@ -81,7 +81,7 @@ const postUnlike = (articleId) =>{
 
 const postReadCountIncrement = () =>{
     httpService.put( baseURL() + `readCount`)
-    .then((res) => { console.log(res); })
+    .then((res) => { console.log(res.status); })
     .catch((err) => {console.log(err)});
 }
 // get Urls
@@ -91,12 +91,7 @@ const sameUser = async (userId) => {
 const hasLiked = async (articleId) => {
     return await httpService.get(baseURL() + `hasLikedArticle/${articleId}`)
 }
-const getThumbUrl = (imageName) => {
-    if (imageName === '')    return undefined;
-    
-    const res = baseURL() + `images/${imageName}`;
-    return res;
-}
+
 const getProfileUrl = (profileId) => {
     return `/profile/${profileId}`;
 }
@@ -137,7 +132,6 @@ export default {
     getArticleCards,
     getArticleMetaById,
     getArticleCardsByAuthorId,
-    getThumbUrl,
     getProfileUrl,
     getArticle,
     getPerformers,

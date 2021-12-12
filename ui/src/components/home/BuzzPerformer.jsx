@@ -7,6 +7,12 @@ import api from "../../service/ServiceCall";
 import { useEffect, useState } from "react";
 const { Text } = Typography;
 
+const convertNum = (num) => {
+  if (num >= 1000000) return parseInt(num / 1000000) + "M+";
+  else if (num >= 1000) return parseInt(num / 1000) + "k+";
+  else return num;
+};
+
 export default function BuzzPerformer(props) {
   const userName = props.authorName;
   const userId = props.authorId;
@@ -81,7 +87,7 @@ export default function BuzzPerformer(props) {
 
       <RiseOutlined style={{ color: "#01579b", marginLeft: "12px" }} />
       {/* <EyeFilled style={{color:'#757575'}} /> */}
-      <Text>{" " + props.points + " "}</Text>
+      <Text>{" " + convertNum(props.points) + " "}</Text>
     </div>
   );
 }
