@@ -50,14 +50,18 @@ export default function Preview(props) {
     else if (type === "code") return <Text code> {val}</Text>;
     else if (type === "image") {
       index += 1;
+      // console.log(imageList[index])
+      let unsplashlink = "https://unsplash.com/";
       return (
+      <>
         <div style={{ maxHeight: "400px", maxWidth: "100%" }}>
           <LazyLoad once>
             <img
               src={
                 typeof imageList[index] === "object"
-                  ? URL.createObjectURL(imageList[index])
-                  : imageList[index]
+                  ? URL.createObjectURL(imageList[index]) : (
+                  imageList[index]? JSON.parse(imageList[index]).url : ""
+                  )
               }
               alt="unable to load"
               loading="lazy"
@@ -72,6 +76,25 @@ export default function Preview(props) {
             />
           </LazyLoad>
         </div>
+        <div>
+        {imageList[index]?
+          <div style={{ padding:'8px 2% 8px 15%'}}>
+            <Text strong italic>
+              {"Photo by "}
+              <a href={`${JSON.parse(imageList[index]).profileUrl}?utm_source=image-search&utm_medium=referral`}>
+                {JSON.parse(imageList[index]).name}
+              </a>
+              {" on "}
+              <a href={`${unsplashlink}?utm_source=image-search&utm_medium=referral`}>
+                Unsplash
+              </a>
+            </Text>
+          </div>
+          :
+          <></>
+        }
+        </div>
+      </>
       );
     } else return <Text>{val}</Text>;
   };

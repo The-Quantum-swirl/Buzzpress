@@ -31,6 +31,7 @@
     "react-scripts": "4.0.3",
     "recharts": "^2.1.5",
     "typescript": "^4.4.4",
+    "unsplash-js": "^7.0.15",
     "web-vitals": "^2.1.2"
   },
   "scripts": {
