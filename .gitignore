@@ -11,3 +11,9 @@ ui/package-lock.json
 
 backend-bz/images/
 backend-bz/src/main/resources/images/
+*.class
+/target
+.settings
+.idea
+uploads/**
+
