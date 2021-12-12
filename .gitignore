@@ -17,3 +17,7 @@ backend-bz/src/main/resources/images/
 .idea
 uploads/**
 
+.classpath
+.factorypath
+.project
+HELP.md
