@@ -56,7 +56,7 @@ public class Controller {
     @GetMapping(value = "/compareuser/{userId}")
     @PreAuthorize("hasRole('USER')")
     public boolean compareUser(@CurrentUser UserPrincipal userPrincipal, @PathVariable String userId) throws NotFoundException {
-    	return (userPrincipal.getUserId() == userId);
+    	return (userId.compareTo( userPrincipal.getUserId() ) == 0);
     }
 
     @PostMapping(value = "/saveuser")
