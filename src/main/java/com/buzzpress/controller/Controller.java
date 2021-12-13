@@ -106,7 +106,7 @@ public class Controller {
     	// System.out.println("<-- Print follow body -->");
         // System.out.println(followBody);
         
-        String follower = followBody.getFollower();
+        String follower = userPrincipal.getUserId();
         String toFollow = followBody.getToFollow();
 
         iUserServiceImpl.FollowUser(follower, toFollow);
@@ -123,7 +123,7 @@ public class Controller {
      	// System.out.println("<-- Print follow body -->");
         // System.out.println(followBody);
          
-        String follower = followBody.getFollower();  	
+        String follower = userPrincipal.getUserId();  	
         String toUnFollow = followBody.getToUnFollow();
         
         iUserServiceImpl.UnFollowUser(follower, toUnFollow);
