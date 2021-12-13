@@ -17,6 +17,7 @@ export default function Profile(){
 
   let {userId} = useParams();
   const [disable, setDisable] = useState(false);
+  const [follow, setFollow] = useState(true);
   const [displayData, setDisplayData] = useState([]);
   // personal Data 
   const [personalData, setPersonalData] = useState({
@@ -34,7 +35,8 @@ export default function Profile(){
     ( setDisable(true) ) : (
     api.sameUser(userId)
     .then((res) => {
-      res? setDisable(true): setDisable(false)
+      // console.log(res);
+      setDisable(res.data)
     })
     .catch((err) => { console.log(err.response.status);})
     )
@@ -61,7 +63,10 @@ export default function Profile(){
         followers: res.followers!==null ? res.followers.length: 0,
         following: res.following!==null ? res.following.length: 0,
         profilePicture: res.imageUrl!==null ? res.imageUrl: false,
-      })
+      });
+      console.log(JSON.parse(localStorage.getItem('you')).userId)
+      console.log(res.followers.includes( JSON.parse(localStorage.getItem('you')).userId))
+      setFollow(! res?.followers?.includes( JSON.parse(localStorage.getItem('you'))?.userId) )
     })
     .catch((err) => {})
     )
@@ -72,12 +77,15 @@ export default function Profile(){
         return {
           authorname: dt.authorName, 
           authorLink: api.getProfileUrl(dt.authorId),
+          authorId: dt.authorId,
 
           title: dt.title, 
           summary: dt.summary,
 
-          publishDate: dt.publishDate, readTime: dt.readTime + " min",
-          likes: dt.likes, tag: dt.tag ,
+          publishDate: dt.publishDate, 
+          readTime: dt.readTime + " min",
+          likes: dt.likes, 
+          tag: dt.tag ,
           views: dt.views,
           link: api.getArticleUrl(dt.articleId),
           imageLink: dt.thumbUrl,
@@ -91,11 +99,13 @@ export default function Profile(){
   const handleFollow = (e) => {
     console.log("followed")
     console.log(userId)
+    setFollow(false);
     api.postFollow(userId);
   }
   const handleUnFollow = (e) => {
     console.log("Unfollowed")
     console.log(userId)
+    setFollow(true);
     api.postUnFollow(userId);
   }
     return(
@@ -126,7 +136,9 @@ export default function Profile(){
                 <Text type="secondary" style={{fontWeight:'400'}}>{"Joined "+personalData.joinedDate} </Text>
                 
                   <ButtonGroup>
-                  <Button size="middle" disabled={disable} type="primary" onClick={(e) => handleFollow(e)}>Follow</Button>
+                  <Button size="middle" disabled={disable} type={follow?'primary':'default'} onClick={(e) => handleFollow(e)}>
+                    {follow? 'Follow': 'Following'}
+                  </Button>
                   <Button size="middle" disabled={disable} type="default" onClick={(e) => handleUnFollow(e)}>UnFollow</Button>
                   </ButtonGroup>
                 

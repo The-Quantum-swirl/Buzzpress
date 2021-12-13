@@ -17,7 +17,7 @@ const fURL = () => {
     if ( process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test" ) {
         return '';
     } 
-    else return process.env.REACT_APP_FRONTEND_URL_PROD;
+    else return '';
 }
 const accessToken = () => process.env.REACT_APP_ACCESS_TOKEN;
 

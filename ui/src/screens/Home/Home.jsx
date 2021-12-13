@@ -58,12 +58,12 @@ export default function Home(props) {
       });
     })
     .catch((err) => { 
-      if (err?.response?.status === 401){
-        // removing token if get 401 (unauthorized) error
-        api.resetToken();
-        // setting token expired to be passed to login modal for displaying
-        setTokenExpired(true);
-      }
+      // if (err?.response?.status === 401){
+      //   // removing token if get 401 (unauthorized) error
+      //   api.resetToken();
+      //   // setting token expired to be passed to login modal for displaying
+      //   setTokenExpired(true);
+      // }
     })
     // load the top performing users
     api.getPerformers().then((res)=> {

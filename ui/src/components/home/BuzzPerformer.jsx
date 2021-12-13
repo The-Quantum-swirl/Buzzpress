@@ -18,18 +18,30 @@ export default function BuzzPerformer(props) {
   const userId = props.authorId;
   const authorLink = api.getProfileUrl(userId);
   const [disable, setDisable] = useState(false);
+  const [follow, setFollow] = useState(true);
 
   useEffect(() => {
     api.sameUser(userId).then((res) => {
-      res ? setDisable(true) : setDisable(false);
+      // console.log(res);
+      res?.data ? setDisable(true) : setDisable(false);
     });
+
+    api.getUser(userId)
+    .then((res) => {
+      console.log(res)
+      setFollow(! res?.followers?.includes( JSON.parse(localStorage.getItem('you'))?.userId))
+    })
+    .catch((err) => {})
+    
   }, [userId]);
 
 
   const handleFollow = (e) => {
+    setFollow(false);
     api.postFollow(userId);
   };
   const handleUnFollow = (e) => {
+    setFollow(true);
     api.postUnFollow(userId);
   };
   return (
@@ -67,13 +79,8 @@ export default function BuzzPerformer(props) {
       </Link>
       <br />
       <ButtonGroup>
-        <Button
-          size="small"
-          disabled={disable}
-          type="primary"
-          onClick={(e) => handleFollow(e)}
-        >
-          Follow
+        <Button size="small" disabled={disable} type={follow?'primary':'default'} onClick={(e) => handleFollow(e)}>
+          {follow? 'Follow': 'Following'}
         </Button>
         <Button
           size="small"
