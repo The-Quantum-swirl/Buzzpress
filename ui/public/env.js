@@ -15,6 +15,7 @@ window.env = {
   "HOME": "C:\\Users\\himan",
   "HOMEDRIVE": "C:",
   "HOMEPATH": "\\Users\\himan",
+  "HTTPS": "true",
   "INIT_CWD": "C:\\Users\\himan\\Documents\\GitHub\\Buzzpress\\ui",
   "IntelliJ IDEA": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2021.2.3\\bin;",
   "IntelliJ IDEA Community Edition": "C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2019.3\\bin;",
@@ -46,7 +47,7 @@ window.env = {
   "OneDrive": "C:\\Users\\himan\\OneDrive",
   "OneDriveConsumer": "C:\\Users\\himan\\OneDrive",
   "OS": "Windows_NT",
-  "Path": "C:\\Users\\himan\\Documents\\GitHub\\Buzzpress\\ui\\node_modules\\.bin;C:\\Users\\himan\\Documents\\GitHub\\Buzzpress\\node_modules\\.bin;C:\\Users\\himan\\Documents\\GitHub\\node_modules\\.bin;C:\\Users\\himan\\Documents\\node_modules\\.bin;C:\\Users\\himan\\node_modules\\.bin;C:\\Users\\node_modules\\.bin;C:\\node_modules\\.bin;C:\\Users\\himan\\AppData\\Roaming\\npm\\node_modules\\npm\\node_modules\\@npmcli\\run-script\\lib\\node-gyp-bin;C:\\Program Files\\Common Files\\Oracle\\Java\\javapath;C:\\Python38\\Scripts\\;C:\\Python38\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\ProgramData\\chocolatey\\bin;C:\\MinGW\\bin;C:\\Program Files\\nodejs\\;C:\\Program Files\\Git\\cmd;%MAVEN_HOME%\\bin;C:\\Users\\himan\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\himan\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\himan\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2019.3\\bin;C:\\Users\\himan\\AppData\\Local\\GitHubDesktop\\bin;C:\\Users\\himan\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\himan\\AppData\\Local\\atom\\bin;C:\\Users\\himan\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\himan\\AppData\\Roaming\\npm;C:\\Users\\himan\\Documents\\flutter\\bin;C:\\Users\\himan\\AppData\\Local\\Android\\Sdk\\platform-tools;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2021.2.3\\bin;C:\\Program Files\\Heroku\\bin;C:\\Program Files\\Java\\jdk-11.0.12\\bin",
+  "Path": "C:\\Users\\himan\\Documents\\GitHub\\Buzzpress\\ui\\node_modules\\.bin;C:\\Users\\himan\\Documents\\GitHub\\Buzzpress\\node_modules\\.bin;C:\\Users\\himan\\Documents\\GitHub\\node_modules\\.bin;C:\\Users\\himan\\Documents\\node_modules\\.bin;C:\\Users\\himan\\node_modules\\.bin;C:\\Users\\node_modules\\.bin;C:\\node_modules\\.bin;C:\\Users\\himan\\AppData\\Roaming\\npm\\node_modules\\npm\\node_modules\\@npmcli\\run-script\\lib\\node-gyp-bin;C:\\Program Files\\Common Files\\Oracle\\Java\\javapath;C:\\Python38\\Scripts\\;C:\\Python38\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\ProgramData\\chocolatey\\bin;C:\\MinGW\\bin;C:\\Program Files\\nodejs\\;C:\\Program Files\\Git\\cmd;%MAVEN_HOME%\\bin;C:\\Users\\himan\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\himan\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\himan\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2019.3\\bin;C:\\Users\\himan\\AppData\\Local\\GitHubDesktop\\bin;C:\\Users\\himan\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\himan\\AppData\\Local\\atom\\bin;C:\\Users\\himan\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\himan\\AppData\\Roaming\\npm;C:\\Users\\himan\\Documents\\flutter\\bin;C:\\Users\\himan\\AppData\\Local\\Android\\Sdk\\platform-tools;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2021.2.3\\bin;C:\\Program Files\\Heroku\\bin;C:\\Program Files\\Java\\jdk-11.0.12\\bin;C:\\Program Files\\OpenSSL-Win64\\bin;C:\\Users\\himan\\homebrew\\bin",
   "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL",
   "PROCESSOR_ARCHITECTURE": "AMD64",
   "PROCESSOR_IDENTIFIER": "Intel64 Family 6 Model 142 Stepping 11, GenuineIntel",
@@ -63,10 +64,12 @@ window.env = {
   "REACT_APP_ACCESS_TOKEN": "accessToken",
   "REACT_APP_API_BASE_URL": "http://localhost:8080/",
   "REACT_APP_API_BASE_URL_PROD": "https://backend-bz.herokuapp.com/",
-  "REACT_APP_FRONTEND_URL": "http://localhost:3000/",
+  "REACT_APP_FRONTEND_URL": "https://localhost:3000/",
   "REACT_APP_FRONTEND_URL_PROD": "https://1minthoughts.live/",
   "REACT_APP_OAUTH2_REDIRECT_URI": "http://localhost:3000/oauth2/redirect",
   "REACT_APP_OAUTH2_REDIRECT_URI_PROD": "https://1minthoughts.live/oauth2/redirect",
+  "SSL_CRT_FILE": ".cert/cert.pem",
+  "SSL_KEY_FILE": ".cert/key.pem",
   "SystemDrive": "C:",
   "SystemRoot": "C:\\WINDOWS",
   "TEMP": "C:\\Users\\himan\\AppData\\Local\\Temp",
@@ -78,5 +81,5 @@ window.env = {
   "windir": "C:\\WINDOWS",
   "WSLENV": "WT_SESSION::WT_PROFILE_ID",
   "WT_PROFILE_ID": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-  "WT_SESSION": "d1db7054-d2d3-4e21-a611-3f773c3231a4"
+  "WT_SESSION": "95e756f6-6d76-4285-a2ff-2e330b7eba0d"
 };

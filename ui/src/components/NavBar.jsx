@@ -38,13 +38,15 @@ export default function NavBar() {
   return (
     <>
       <Menu theme={'dark'} mode="horizontal" 
-        style={{padding:'8px 40px 8px 40px',
+        style={{
+        padding:'6px',
         boxShadow: '0 4px 18px 0 rgb(0 0 0 / 10%)'
         }}>
         <Menu.Item
           key={1}
           style={{
             // fontSize: "30px",
+            paddingLeft:'5%' ,
             backgroundColor: "inherit",
           }}
           onClick={(e) => history.push("/home")}
@@ -55,7 +57,7 @@ export default function NavBar() {
           // className='ant-dropdown-link'
           key={2}
           style={{
-            marginRight: "0%",
+            marginRight: "4%",
             marginLeft: "auto",
             padding: "0",
             backgroundColor: "inherit",
@@ -64,13 +66,14 @@ export default function NavBar() {
         {/* <Switch defaultChecked onChange={onChange} style={{marginRight:'15px'}} /> */}
         <Dropdown overlay={menu} placement="bottomRight" arrow>
             <Button
+              shape="round"
               style={{
                 backgroundColor: "inherit",
                 border:0,
-                width: "40px",
-                height: "40px",
-                padding: "0",
-                borderRadius: "50%",
+                width: "100%",
+                height: "100%",
+                // padding: "0",
+                // borderRadius: "50%",
               }}
             >
               <BuzzAvatar userId={'you'} />
