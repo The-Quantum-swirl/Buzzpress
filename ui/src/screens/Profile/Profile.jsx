@@ -23,7 +23,8 @@ export default function Profile(){
   const [personalData, setPersonalData] = useState({
     name:'Anonymous',
     joinedDate:DateToMonthYearFormat('2021-12-08'),
-    followers:1,
+    followers:0,
+    following:0,
     profilePicture:false,
   });
 
@@ -64,8 +65,7 @@ export default function Profile(){
         following: res.following!==null ? res.following.length: 0,
         profilePicture: res.imageUrl!==null ? res.imageUrl: false,
       });
-      console.log(JSON.parse(localStorage.getItem('you')).userId)
-      console.log(res.followers.includes( JSON.parse(localStorage.getItem('you')).userId))
+
       setFollow(! res?.followers?.includes( JSON.parse(localStorage.getItem('you'))?.userId) )
     })
     .catch((err) => {})
@@ -123,17 +123,23 @@ export default function Profile(){
             <div style={{padding:'3%' , display:'flex', flexDirection:'row'}}>
               {/* profile picture */}
               <BuzzAvatar type="large" userId={userId} />
-
               {/* profile picture end */}
+
               <div style={{display:'flex', flexDirection:'column',
-              marginRight:'8%', marginLeft:'auto',
+              marginRight:'4%', marginLeft:'auto',
               marginBottom:'2px', marginTop:'auto'
               }}>
                 {/* user info name, joined, followers count */}
-                <Text type="secondary">{"Followers "+ personalData.followers + " Following "+ personalData.following}</Text>
-                <Title level={3} style={{fontWeight:'400', color:"#001529",
-                 lineHeight:'0.7', marginTop:'0.5rem'}}>{personalData.name} </Title>
-                <Text type="secondary" style={{fontWeight:'400'}}>{"Joined "+personalData.joinedDate} </Text>
+                <Text type="secondary" style={{textAlign:'center'}}>
+                  {"Followers "+ personalData.followers + " Following "+ personalData.following}
+                </Text>
+                <Title level={3} style={{fontWeight:'400', color:"#001529", textAlign:'center',
+                 lineHeight:'0.7', marginTop:'0.5rem'}}>
+                  {personalData.name.split(' ')[0]}
+                </Title>
+                <Text type="secondary" style={{fontWeight:'400', textAlign:'center'}}>
+                  {"Joined "+personalData.joinedDate}
+                </Text>
                 
                   <ButtonGroup>
                   <Button size="middle" disabled={disable} type={follow?'primary':'default'} onClick={(e) => handleFollow(e)}>

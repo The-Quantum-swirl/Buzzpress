@@ -11,21 +11,25 @@ export const LoginModal = (props) => {
   useEffect(() => {
     // if token is expired after its time setting modal visibility true
     if (props.tokenExpired) setVisible(true);
+    
+  }, [props.tokenExpired]);
 
+  useEffect(() => {
     if ( localStorage.getItem(accessToken()) !== null) {
       // removing login modal
       setVisible(false);
       // setting jwt token in default headers of axios
       service.setJwt(localStorage.getItem(accessToken()));
     }
-  }, [props.tokenExpired]);
+  },[])
+  
 
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {
       setVisible(false);
       setConfirmLoading(false);
-    }, 2000);
+    }, 500);
   };
 
   const handleCancel = () => {
@@ -46,7 +50,7 @@ export const LoginModal = (props) => {
         <Button
           style={{ height: "45px", marginLeft: "20%" }}
           href={googleAuthURL()}
-        >
+        > 
           <img src={googleLogo} alt="Google" style={{ width: "40px" }} />
           <Text>Log in with Google</Text>
         </Button>

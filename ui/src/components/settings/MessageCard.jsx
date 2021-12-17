@@ -1,22 +1,15 @@
 import React from "react";
-import { Card } from "antd";
+import { Card, Col, Row } from "antd";
 import penIcon from "../../assets/orange pen.svg"
+import { maxWidth } from "@mui/system";
 const MessageCard = (props) => {
     const style1 = {
         padding: "0px",
         borderRadius: "10px",
         backgroundColor: "#001529",
-        display: "flex",
-        justifyContent: "space-between",
+        width:'100%',
         color: "white !important",
     };
-
-    const style2 = {
-        // margin: "6px",
-        alignSelf: "start",
-        flexGrow: "1",
-    };
-
     //   para element
     const style3 = {
         fontSize: "16px",
@@ -34,19 +27,30 @@ const MessageCard = (props) => {
     if (props.rmPersonalData === undefined) return <div>Loading</div>;
 
     return (
-        <Card bodyStyle={style1} bordered={false}>
-            <div style={{ flexGrow: "1" }}>
-                <div style={style2}>
-                    <p style={style3}>
-                        Hi{" "}
-                        {
-                            <span style={{ fontSize: "20px" }}>
-                                {props.rmPersonalData.firstName}
-                            </span>
-                        }
-                        ,{" "}
-                    </p>
-                    <p style={style3}>
+        // <Card bodyStyle={style1} bordered={false}>
+        <Row style={{
+        borderRadius: "10px",
+        backgroundColor: "#001529",
+        width:'100%',
+        color: "white !important",
+        maxWidth:'600px'
+        }}>
+        <Col span={16}>
+            <Row>
+                <Col>
+                <p style={style3}>
+                Hi{" "}
+                <span style={{ fontSize: "20px" }}>
+                    {props.rmPersonalData.firstName}
+                </span>
+                ,{" "}
+                </p>
+                </Col>
+            </Row>
+
+            <Row>
+                <Col>
+                <p style={style3}>
                         You have{" "}
                         {
                             <span
@@ -60,19 +64,20 @@ const MessageCard = (props) => {
                         }{" "}
                         published articles this month.
                     </p>
-                </div>
-            </div>
-            <div>
-
-                <img
-                    src={penIcon}
-                    alt="Pen Img"
-                    width="100px"
-                    color="#fa5500"
-
-                />
-            </div>
-        </Card>
+                </Col>
+            </Row>
+            
+        </Col>
+        <Col span={8}>
+            <img
+                src={penIcon}
+                alt="Pen Img"
+                width="100px"
+                color="#fa5500"
+            />
+        </Col>
+        </Row>
+        // </Card>
     );
 };
 

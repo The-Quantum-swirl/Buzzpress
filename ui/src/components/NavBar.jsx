@@ -64,7 +64,7 @@ export default function NavBar() {
           }}
         >
         {/* <Switch defaultChecked onChange={onChange} style={{marginRight:'15px'}} /> */}
-        <Dropdown overlay={menu} placement="bottomRight" arrow>
+        <Dropdown overlay={menu} placement="bottomRight" arrow trigger={['click']}>
             <Button
               shape="round"
               style={{
@@ -72,9 +72,8 @@ export default function NavBar() {
                 border:0,
                 width: "100%",
                 height: "100%",
-                // padding: "0",
-                // borderRadius: "50%",
               }}
+              onClick={e => e.preventDefault()}
             >
               <BuzzAvatar userId={'you'} />
             </Button>

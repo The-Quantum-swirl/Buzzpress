@@ -51,7 +51,7 @@ export default function UserDetails() {
         ArticleTarget: res.articleTargetRead,
       })
     })
-    .catch((err) => { console.log(err.response.status);})
+    .catch((err) => { })
 
     // loading data for article meta
     api.getSelf().then((res) => {
@@ -62,13 +62,11 @@ export default function UserDetails() {
       setEditableName(res.name);
 
     })
-    .catch((err) => { console.log(err.response.status);})
+    .catch((err) => { })
 
   }, []);
   const handleDetailsChange = (event) => {
     console.log(event.target.name);
-    // change user details
-    // axios.post(backendUrl+)
   }
 
   const onFinish = (values) => {
@@ -96,14 +94,10 @@ export default function UserDetails() {
         style={{ marginLeft: "4%" }}
       >
         <Divider orientation="left">Statistics</Divider>
-        <Row gutter={12}>
-          <Col className="gutter-row" span={16}>
-            <MessageCard
-              rmPersonalData={authorDetails.PersonalData}
-              ArticlePublished={stats.ArticlePublished}
-            />
-          </Col>
-        </Row>
+          <MessageCard
+            rmPersonalData={authorDetails.PersonalData}
+            ArticlePublished={stats.ArticlePublished}
+          />
 
         <Divider />
         <Tabs defaultActiveKey="1">

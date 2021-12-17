@@ -1,4 +1,3 @@
-import { Redirect } from 'react-router-dom'
 import { accessToken } from '../service/ServicePath';
 import {useHistory} from "react-router-dom";
 
@@ -17,10 +16,10 @@ function OAuth2RedirectHandler(props) {
     if (token) {
         localStorage.setItem(accessToken(), token);
     }
-    history.go(-2);
-    // return <Redirect to={{pathname: "/home", state: { from: props.location } }} />;
+    setTimeout(() => {
+        history.go(-2);
+    }, 1000);
     
-
 }
 
 export default OAuth2RedirectHandler;

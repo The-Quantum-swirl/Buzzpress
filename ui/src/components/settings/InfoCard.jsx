@@ -26,9 +26,6 @@ export default function InfoCard(props) {
       >
         <Skeleton loading={loading} avatar active>
           <Meta
-            //   avatar={
-            //     <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-            //   }
             title={title}
             description={description}
           />
