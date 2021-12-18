@@ -15,8 +15,7 @@ export default function NavBar() {
     localStorage.removeItem('you');
     localStorage.clear();
     httpService.deleteJwt();
-
-    history.push("/home");
+    window.location.reload();
   }
 
   const menu = (

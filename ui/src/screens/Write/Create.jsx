@@ -21,7 +21,7 @@ export default function Create(props) {
   const [firstImage, setFirstImage]   = useState("");
   const [esimatedTime, setEstimatedTime] = useState(1);
   const maxLengthOfContent = 20;
-  const maxLengthOfImageList = 3;
+  const maxLengthOfImageList = 5;
   const MAX_COUNT = 255;
 
   const reset = () => {

@@ -8,10 +8,10 @@ import Profile from './screens/Profile/Profile';
 import Article from './screens/Article/Article';
 import Admin from './screens/Admin/AdminDashboard';
 import OAuth2RedirectHandler from './components/OAuth2RedirectHandler';
-import { fURL } from './service/ServicePath';
+
 export default function Routes() {
     return (
-        <BrowserRouter basename={fURL()}>
+        <BrowserRouter>
             <Switch>
                 {/* <ProtectedRoute path="/admin" role="admin" component={Admin} /> */}
                 <Redirect from="/" exact to="/home" />

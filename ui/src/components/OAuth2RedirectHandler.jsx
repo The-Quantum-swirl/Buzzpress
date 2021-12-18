@@ -12,7 +12,9 @@ function OAuth2RedirectHandler(props) {
     };
 
     let token = getUrlParameter('token');
-
+    console.log('last path is');
+    console.log(localStorage.getItem('lastpath'));
+    
     let path = localStorage.getItem('lastpath')!==null? localStorage.getItem('lastpath'): '/home';
 
     if (token) {
