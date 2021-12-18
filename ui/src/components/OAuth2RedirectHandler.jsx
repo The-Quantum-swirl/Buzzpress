@@ -1,8 +1,8 @@
 import { accessToken } from '../service/ServicePath';
-import {useHistory} from "react-router-dom";
+import { Redirect} from "react-router-dom";
+import service from "../service/Httpservice";
 
 function OAuth2RedirectHandler(props) {
-    let history = useHistory();
     const getUrlParameter = (name) => {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
         var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -11,15 +11,17 @@ function OAuth2RedirectHandler(props) {
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     };
 
-    const token = getUrlParameter('token');
+    let token = getUrlParameter('token');
+
+    let path = localStorage.getItem('lastpath')!==null? localStorage.getItem('lastpath'): '/home';
 
     if (token) {
         localStorage.setItem(accessToken(), token);
+        service.setJwt(token);
+        localStorage.removeItem('lastpath');
     }
-    setTimeout(() => {
-        history.go(-2);
-    }, 1000);
     
+    return <Redirect to={path} />;
 }
 
 export default OAuth2RedirectHandler;

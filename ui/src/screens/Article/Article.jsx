@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import FinalPreview from "../Write/FinalPreview";
 import { DateToMonthYearFormat } from "../../components/Date";
@@ -21,6 +21,13 @@ const { Text, Title } = Typography;
 ReactGA.initialize("UA-214937125-1");
 
 export default function Article() {
+  
+  // for redirecting from login don't change
+  let location = useLocation();
+  
+  if ( localStorage.getItem('lastpath')===null )
+    localStorage.setItem('lastpath', location.pathname);
+
   let { articleId } = useParams();
   const [views, setViews] = useState(0);
   const [likes, setLikes] = useState(0);

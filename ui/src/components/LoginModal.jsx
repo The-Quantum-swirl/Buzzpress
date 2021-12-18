@@ -10,19 +10,16 @@ export const LoginModal = (props) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   useEffect(() => {
     // if token is expired after its time setting modal visibility true
-    if (props.tokenExpired) setVisible(true);
-    
-  }, [props.tokenExpired]);
+    if (props.tokenExpired) { setVisible(true);}
 
-  useEffect(() => {
     if ( localStorage.getItem(accessToken()) !== null) {
       // removing login modal
       setVisible(false);
       // setting jwt token in default headers of axios
       service.setJwt(localStorage.getItem(accessToken()));
     }
-  },[])
-  
+    
+  }, [props.tokenExpired]);
 
   const handleOk = () => {
     setConfirmLoading(true);
