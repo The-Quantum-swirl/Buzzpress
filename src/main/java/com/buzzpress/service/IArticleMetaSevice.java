@@ -20,4 +20,6 @@ public interface IArticleMetaSevice {
     public void handleLike(String operation, Long id, String userId) throws NotFoundException;
 
     public void view(Long id);
+
+    public void deleteArticleMetaById(Long articleId) throws NotFoundException;
 }

@@ -46,4 +46,9 @@ public class IArticleServiceImpl implements IArticleService {
         return allArticles;
     }
 
+    @Override
+    public void deleteArticleById(Long articleId) throws NotFoundException {
+        articleDataRepository.deleteById(articleId);
+    }
+
 }

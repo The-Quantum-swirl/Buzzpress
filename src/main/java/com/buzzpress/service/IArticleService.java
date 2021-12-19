@@ -15,5 +15,6 @@ public interface IArticleService {
     public List<Article> fetchArticleByArticleId(Long articleId);
 
     public List<Article> fetchArticleByAuthorId(long authorId) throws NotFoundException;
+    public void deleteArticleById(Long articleId) throws NotFoundException;
 
 }

@@ -89,4 +89,9 @@ public class IArticleMetaServiceImpl implements IArticleMetaSevice {
     public void view(Long id) {
         articleMetaDataRepository.view(id);
     }
+
+    @Override
+    public void deleteArticleMetaById(Long articleId) throws NotFoundException {
+        articleMetaDataRepository.deleteById(articleId);
+    }
 }
