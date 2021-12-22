@@ -28,20 +28,20 @@ public class MetaController {
     ArticleMetaDataRepository articleMetaDataRepository;
 
     @GetMapping(value = "/articleMeta")
-    @PreAuthorize("hasRole('USER')")
+//     @PreAuthorize("hasRole('USER')")
     public List<ArticleMeta> getAllArticlesMeta() {
 
         return iArticleMetaSevice.fetchAllArticleMetadata();
     }
 
     @GetMapping(value = "/articleMetav2")
-    @PreAuthorize("hasRole('USER')")
+//     @PreAuthorize("hasRole('USER')")
     public List<Object[]> getAllArticlesMetav2() {
         return articleMetaDataRepository.listAllArticleMeta();
     }
 
     @GetMapping(value = "/articleMeta/{id}")
-    @PreAuthorize("hasRole('USER')")
+//     @PreAuthorize("hasRole('USER')")
     public List<ArticleMeta> getArticleMetabyId(@PathVariable Long id) {
         return iArticleMetaSevice.fetchArticleMetaByArticleId(id);
     }
@@ -54,7 +54,7 @@ public class MetaController {
     }
     
     @GetMapping(value = "/articleMetaByAuthor/{authorId}")
-    @PreAuthorize("hasRole('USER')")
+//     @PreAuthorize("hasRole('USER')")
     public List<ArticleMeta> getarticle(@PathVariable String authorId) throws NotFoundException {
         return iArticleMetaSevice.fetchArticleMetaByAuthorId(authorId);
     }
