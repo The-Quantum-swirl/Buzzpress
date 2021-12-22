@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/article/{\\w+}", "/articleMeta/{\\w+}", "/topUsers", "/readCount");
+        web.ignoring().antMatchers("/article/{\\d+}", "/articleMeta/{\\d+}", "/topUsers", "/readCount");
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
