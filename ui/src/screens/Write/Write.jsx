@@ -1,6 +1,8 @@
 import NavBar from "../../components/NavBar";
 import { useEffect, useState } from "react";
+import {useLocation} from 'react-router-dom';
 import { Button } from "antd";
+import { LoginModal } from "../../components/LoginModal";
 import Create from "./Create";
 import Preview from "./Preview";
 import { convertDate } from "../../components/Date";
@@ -11,12 +13,23 @@ import ReactGA from 'react-ga';
 
 ReactGA.initialize('UA-214937125-1');
 export default function Write() {
+  
+  // for redirecting from login don't change
+  let location = useLocation();
+  
+  if ( localStorage.getItem('lastpath')===null )
+    localStorage.setItem('lastpath', location.pathname);
+  
   const [currentStep, setCurrentStep] = useState(0);
-  const [data, setData] = useState({ readTime: "1 min", authorLink: api.getProfileUrl('you'), title: "", summary: "",});
+  const [data, setData] = useState({ 
+    readTime: "1 min",
+    authorLink: api.getProfileUrl('you'), 
+    title: "", 
+    summary: "",
+  });
   var statusCode = 200, previewData = {};
 
   useEffect(()=>{
-    
     ReactGA.pageview(window.location.pathname + window.location.search);
   },[])
 
@@ -137,6 +150,7 @@ export default function Write() {
   return (
     <>
       <NavBar />
+      <LoginModal />
       {/* Screen Scenario Create --> Preview --> ResponsePage */}
       {screen[currentStep]}
 

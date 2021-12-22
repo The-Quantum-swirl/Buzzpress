@@ -4,25 +4,18 @@ import { Typography, Space, Divider } from "antd";
 import BuzzCard from "../../components/home/BuzzCard";
 import RadialChart from "../../components/home/RadialChart.js";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import api from "../../service/ServiceCall";
 import BuzzPerformer from "../../components/home/BuzzPerformer";
-import { LoginModal } from "../../components/LoginModal";
 import ReactGA from 'react-ga';
 
 const { Text } = Typography;
 
 ReactGA.initialize('UA-214937125-1');
-export default function Home(props) {
-  // for redirecting from login don't change
-  let location = useLocation();
-  if ( localStorage.getItem('lastpath')===null ) 
-    localStorage.setItem('lastpath', location.pathname);
+export default function Home() {
 
   const [graphData, setGraphData] = useState({ target: 10, read: 0 });
   const [displayData, setDisplayData] = useState([]);
   const [performer, setPerformer] = useState([]);
-  const [tokenExpired, setTokenExpired] = useState(false);
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
@@ -103,8 +96,6 @@ export default function Home(props) {
             size={8}
             style={{ width: "100%", paddingTop: "25px" }}
           >
-            {/* login modal */}
-            <LoginModal tokenExpired={tokenExpired} />
 
             <Text type="secondary" style={{ padding: "25px" }}>
               Recommended For You

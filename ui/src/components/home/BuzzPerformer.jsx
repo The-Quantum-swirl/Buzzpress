@@ -24,14 +24,14 @@ export default function BuzzPerformer(props) {
     api.sameUser(userId).then((res) => {
       // console.log(res);
       res?.data ? setDisable(true) : setDisable(false);
-    });
+    }).catch((err) => { setDisable(true) });
 
     api.getUser(userId)
     .then((res) => {
       console.log(res)
       setFollow(! res?.followers?.includes( JSON.parse(localStorage.getItem('you'))?.userId))
     })
-    .catch((err) => {})
+    .catch((err) => { setDisable(true) })
     
   }, [userId]);
 

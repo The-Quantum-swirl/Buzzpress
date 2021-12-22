@@ -10,7 +10,13 @@ export const LoginModal = (props) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   useEffect(() => {
     // if token is expired after its time setting modal visibility true
-    if (props.tokenExpired) { setVisible(true);}
+    console.log(props);
+    if (props.tokenExpired) { 
+      setVisible(true);
+    }
+    else if (props.tokenExpired === false){
+      setVisible(false);
+    }
 
     if ( localStorage.getItem(accessToken()) !== null) {
       // removing login modal
