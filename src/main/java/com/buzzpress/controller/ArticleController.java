@@ -60,7 +60,7 @@ public class ArticleController {
     }
 
     @GetMapping(value = "/article/{id}")
-    @PreAuthorize("hasRole('USER')")
+//     @PreAuthorize("hasRole('USER')")
     public List<Article> getArticlebyId(@PathVariable Long id) {
         iArticleMetaSevice.view(id);
         return iArticleService.fetchArticleByArticleId(id);
