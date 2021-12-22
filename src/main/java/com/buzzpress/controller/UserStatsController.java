@@ -77,7 +77,7 @@ public class UserStatsController {
     }
 
     @GetMapping(value = "/topUsers")
-    @PreAuthorize("hasRole('USER')")
+//     @PreAuthorize("hasRole('USER')")
     public List<TopUsers> getTopUsers() {
         return iUserStatsService.getTopUsers();
     }
