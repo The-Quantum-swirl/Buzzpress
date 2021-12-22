@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -47,7 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public HttpCookieOAuth2AuthorizationRequestRepository cookieAuthorizationRequestRepository() {
         return new HttpCookieOAuth2AuthorizationRequestRepository();
     }
-
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/article/**", "/articleMeta/**", "/topUsers", "/readCount");
+    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors()
@@ -56,8 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authenticationEntryPoint(new RestAuthenticationEntryPoint())
             .and().authorizeRequests()
             .antMatchers("/", "/error", "/favicon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg", "/**/*.jpg",
-                        "/**/*.html", "/**/*.css", "/**/*.js", "/uploads/*.jpg","/images/**","/swagger-ui/**",
-                        "/article/**")
+                        "/**/*.html", "/**/*.css", "/**/*.js", "/uploads/*.jpg","/images/**","/swagger-ui/**")
             .permitAll().antMatchers("/auth/**", "/oauth2/**").permitAll().anyRequest().authenticated().and()
             .oauth2Login().authorizationEndpoint().baseUri("/oauth2/authorize")
             .authorizationRequestRepository(cookieAuthorizationRequestRepository()).and().redirectionEndpoint()
