@@ -40,7 +40,7 @@ public class Controller {
     UserStatsRepository userStatsRepository;
 
     @GetMapping(value = "/user/{id}")
-    @PreAuthorize("hasRole('USER')")
+//     @PreAuthorize("hasRole('USER')")
     public Users_ getUserDetails(@PathVariable String id) throws NotFoundException, UserNotFoundException {
         
         return iUserServiceImpl.getUserDetails(id);
