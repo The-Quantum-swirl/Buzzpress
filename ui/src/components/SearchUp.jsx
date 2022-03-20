@@ -1,10 +1,9 @@
 import { useState } from "react";
-import nodeFetch from 'node-fetch';
 import { createApi } from 'unsplash-js';
 
 const unsplash = createApi({
   accessKey: process.env.REACT_APP_ACCESS_KEY,
-  fetch: nodeFetch,
+  fetch: fetch,
 });
 
 export default function SearchUp({ imageUrl }) {
