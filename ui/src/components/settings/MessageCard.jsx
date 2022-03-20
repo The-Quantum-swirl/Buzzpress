@@ -1,7 +1,6 @@
+import { Col, Row } from "antd";
 import React from "react";
-import { Card, Col, Row } from "antd";
-import penIcon from "../../assets/orange pen.svg"
-import { maxWidth } from "@mui/system";
+import penIcon from "../../assets/orange pen.svg";
 const MessageCard = (props) => {
     const style1 = {
         padding: "0px",
