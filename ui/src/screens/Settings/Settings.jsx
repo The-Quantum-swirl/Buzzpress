@@ -1,12 +1,11 @@
-import { useEffect } from "react";
-import { Button, Col, Divider, Form, Input, PageHeader, Row, Space, Tabs, Typography } from "antd";
-import { useState } from "react";
+import { Button, Divider, Form, Input, PageHeader, Space, Tabs, Typography } from "antd";
+import { useEffect, useState } from "react";
+import ReactGA from 'react-ga';
+import { convertDate, DateToMonthYearFormat } from "../../components/Date";
 import NavBar from "../../components/NavBar";
 import MessageCard from "../../components/settings/MessageCard";
-import { convertDate, DateToMonthYearFormat } from "../../components/Date";
 import UploadButton from "../../components/UploadButton";
 import api from "../../service/ServiceCall";
-import ReactGA from 'react-ga';
 
 const { TabPane } = Tabs;
 const { Paragraph } = Typography;

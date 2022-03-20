@@ -1,13 +1,11 @@
-import { Row, Col } from "antd";
-import { Typography } from "antd";
-import { ReadOutlined, FireOutlined, EyeFilled } from "@ant-design/icons";
-import "../css/home.css";
-import { useState, useEffect } from "react";
+import { EyeFilled, FireOutlined, ReadOutlined } from "@ant-design/icons";
+import { Col, Row, Typography } from "antd";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { DateToMonthYearFormat } from "../Date";
-import api from "../../service/ServiceCall";
 import { Response } from "../../service/Response";
 import BuzzAvatar from "../BuzzAvatar";
+import "../css/home.css";
+import { DateToMonthYearFormat } from "../Date";
 import BlankImage from "./BlankImage";
 
 const { Text, Title } = Typography;
@@ -16,7 +14,7 @@ export default function BuzzCard(props) {
   const [img, setImg] = useState(false);
 
   useEffect(() => {
-    console.log((props?.data?.imageLink).includes('\http'))
+    console.log((props?.data?.imageLink).includes('http'))
     // setImg(JSON.parse(props.data.imageLink).url)
     // :
     setImg(props.data.imageLink)

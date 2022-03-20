@@ -2,13 +2,6 @@ import { Col, Row } from "antd";
 import React from "react";
 import penIcon from "../../assets/orange pen.svg";
 const MessageCard = (props) => {
-    const style1 = {
-        padding: "0px",
-        borderRadius: "10px",
-        backgroundColor: "#001529",
-        width:'100%',
-        color: "white !important",
-    };
     //   para element
     const style3 = {
         fontSize: "16px",

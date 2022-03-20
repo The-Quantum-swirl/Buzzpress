@@ -1,13 +1,11 @@
-import { useState } from "react";
-import Preview from "./Preview";
-import { Row, Col, Divider, message } from "antd";
-import { Button, Radio, Select } from "antd";
-import { TextField } from "@mui/material";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
-import UploadButton from "../../components/UploadButton";
-import api from "../../service/ServiceCall";
+import { TextField } from "@mui/material";
+import { Button, Col, Divider, message, Radio, Row, Select } from "antd";
+import { useState } from "react";
 import SearchUp from "../../components/SearchUp";
+import api from "../../service/ServiceCall";
+import Preview from "./Preview";
 
 const { Option } = Select;
 
@@ -66,30 +64,30 @@ export default function Create(props) {
   }
 
   // this will manage change in images upon selecion
-  function handleImage (imageData, position) {
-    //max image list = [image1, image2] limit
-    if ((imageList.length? imageList.length:0)+1 > maxLengthOfImageList){
-      message.error("Max no of images reached");
-      message.warning("Please delete it using bin icon");
-    }
-    // max image size (individual)
-    else if (imageData!== undefined && parseInt(imageData.size/1024) >= (2048) ){
-      message.error("Exceeds max size of 2Mb");
-      message.warning("Please delete it using bin icon");
-    }
-    else{
-    let updatedcontent = [...content], updatedImageList = [...imageList];
-    // image position stored in content using image list length
-    updatedcontent[position] = imageData.name;
-    if (firstImage === ""){ setFirstImage(imageData.name); } 
-    // pusing image in seprate array imagelist 
-    updatedImageList.push(imageData);
+  // function handleImage (imageData, position) {
+  //   //max image list = [image1, image2] limit
+  //   if ((imageList.length? imageList.length:0)+1 > maxLengthOfImageList){
+  //     message.error("Max no of images reached");
+  //     message.warning("Please delete it using bin icon");
+  //   }
+  //   // max image size (individual)
+  //   else if (imageData!== undefined && parseInt(imageData.size/1024) >= (2048) ){
+  //     message.error("Exceeds max size of 2Mb");
+  //     message.warning("Please delete it using bin icon");
+  //   }
+  //   else{
+  //   let updatedcontent = [...content], updatedImageList = [...imageList];
+  //   // image position stored in content using image list length
+  //   updatedcontent[position] = imageData.name;
+  //   if (firstImage === ""){ setFirstImage(imageData.name); } 
+  //   // pusing image in seprate array imagelist 
+  //   updatedImageList.push(imageData);
 
-    setContent(updatedcontent);
-    setImageList(updatedImageList);
-    // console.log(imageData);
-    }
-  };
+  //   setContent(updatedcontent);
+  //   setImageList(updatedImageList);
+  //   // console.log(imageData);
+  //   }
+  // };
   
   const addField = (event, pos) => {
     console.log(content.length+1);

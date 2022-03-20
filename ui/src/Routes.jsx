@@ -6,7 +6,7 @@ import UserDetails from './screens/Settings/Settings';
 import Write from './screens/Write/Write';
 import Profile from './screens/Profile/Profile';
 import Article from './screens/Article/Article';
-import Admin from './screens/Admin/AdminDashboard';
+// import Admin from './screens/Admin/AdminDashboard';
 import OAuth2RedirectHandler from './components/OAuth2RedirectHandler';
 
 export default function Routes() {

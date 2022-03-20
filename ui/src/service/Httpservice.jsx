@@ -20,7 +20,7 @@ function deleteJwt() {
     delete axios.defaults.headers.common["Authorization"];
 }
 
-export default {
+const Httpservice = {
     get: axios.get,
     post: axios.post,
     put: axios.put,
@@ -28,3 +28,4 @@ export default {
     setJwt,
     deleteJwt,
 };
+export default Httpservice;

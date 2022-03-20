@@ -25,7 +25,7 @@ export const LoginModal = (props) => {
       service.setJwt(localStorage.getItem(accessToken()));
     }
     
-  }, [props.tokenExpired]);
+  }, [props]);
 
   const handleOk = () => {
     setConfirmLoading(true);
