@@ -14,7 +14,7 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^14.4.3",
-    "antd": "^4.20.7",
+    "antd": "^4.22.4",
     "antd-img-crop": "^4.2.0",
     "apexcharts": "^3.33.2",
     "axios": "^0.26.1",
